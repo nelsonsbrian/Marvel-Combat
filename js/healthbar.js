@@ -15,6 +15,7 @@ function Health(name, health, maxHealth) {
   this.show = function(name, health) {
     // fill(255);
     // rect(200,0,width-400,50);
+    this.pHealthPercent = health / this.pMaxHealth;
     if (name === "IronMan") {
       fill(255,0,0);
       rect(0,0,this.size,50);

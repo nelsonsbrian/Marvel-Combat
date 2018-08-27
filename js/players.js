@@ -9,7 +9,7 @@ function Player(heroNumber) {
   this.heroSelect = function() {
     this.name = this.hero[this.heroNumber][0];
     this.hp = this.hero[this.heroNumber][1];
-    this.hpMax = this.hp;    
+    this.hpMax = this.hp;
     this.x = this.hero[this.heroNumber][2];
     this.y = this.hero[this.heroNumber][3];
     this.speed = this.hero[this.heroNumber][4];
@@ -32,11 +32,26 @@ function Player(heroNumber) {
     ellipse(this.x,this.y, this.radius*2,this.radius*2);
   }
 
+  this.punch = function() {
+    for(i=0;i<players.length;i++) {
+      if (this.name !== players[i].name) {
+        var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 2)
+      }
+      if (collided) {
+        console.log("punch");
+        players[i].hp -= 25;
+      }
+
+
+    }
+
+  }
+
 
   this.move = function() {
     for(i=0;i<players.length;i++) {
       if (this.name !== players[i].name) {
-        var collided = this.collide(players[i].x, players[i].y, players[i].radius)
+        var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
       }
     }
     if (collided) {
@@ -47,8 +62,8 @@ function Player(heroNumber) {
   }
   this.direction = 0;
 
-  this.collide = function(x, y, r) {
-    if (dist(this.x,this.y,x,y) < this.radius + r + 5) {
+  this.collide = function(x, y, r, buffer) {
+    if (dist(this.x,this.y,x,y) < this.radius + r + buffer) {
 
       return true;
       // console.log(this.name + " collide");

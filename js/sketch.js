@@ -52,3 +52,11 @@ function keyReleased() {
     players[0].moveLeftRight(0);
   }
 }
+
+function keyTyped() {
+  if (key === ' ') {
+  }
+  if (key === '1') {
+    players[0].punch();
+  }
+}
