@@ -2,7 +2,7 @@
 
 ####  Arcade style fighting game with Super Heroes August 27, 2018
 
-#### By **Chris McCarthy, Chris Crow, David Zhu, & Brian Nelson**
+#### By **Connor McCarthy, Chris Crow, David Zhu, & Brian Nelson**
 
 ## Description
 
@@ -14,7 +14,7 @@ An arcade style fighting game that uses Marvel super heroes as it's characters.
 | **Create a sprite that moves with key inputs.** |  |  |
 | **Create a 2nd sprite that doesn't move.** |  |  |
 | **Add collision functionality between the 2 sprites.** |  |  |
-| **Add character atributes(hitpoint, defense, etc) and create basic health indicator on screen** |  |  |
+| **Add character attributes(hitpoint, defense, etc) and create basic health indicator on screen** |  |  |
 | **Add sprites for moving.** |  |  |
 | **Create basic attack and sprite.** |  |  |
 | **Add damage to attack** |  |  |
@@ -49,4 +49,4 @@ _Brian Nelson nelsonsbrian@gmail.com_
 
 *{This software is licensed under the MIT license}*
 
-Copyright (c) 2018 **_{Chris McCarthy, Chris Crow, David Zhu, & Brian Nelson*}_**
+Copyright (c) 2018 **_{Connor McCarthy, Chris Crow, David Zhu, & Brian Nelson*}_**
