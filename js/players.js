@@ -3,15 +3,20 @@ function Player(heroNumber) {
   this.startingX = 50;
   this.startingY = 400;
   this.hero = [
-    ["IronMan", 100, this.startingX, this.startingY, 10],
-    ["Dummie", 200, width-50, this.startingY, 10]
+    ["IronMan", 100, this.startingX, this.startingY, 10, 70, 80, 90, 100],
+    ["Dummie", 200, width-50, this.startingY, 10, 50, 90, 90, 50]
   ];
   this.heroSelect = function() {
     this.name = this.hero[this.heroNumber][0];
     this.hp = this.hero[this.heroNumber][1];
+    this.hpMax = this.hp;    
     this.x = this.hero[this.heroNumber][2];
     this.y = this.hero[this.heroNumber][3];
     this.speed = this.hero[this.heroNumber][4];
+    this.attack = this.hero[this.heroNumber][5];
+    this.defense = this.hero[this.heroNumber][6];
+    this.block = this.hero[this.heroNumber][7];
+    this.power = this.hero[this.heroNumber][8];
   }
   this.heroSelect();
   this.direction = 0;
