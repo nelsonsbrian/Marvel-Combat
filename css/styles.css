@@ -1,0 +1,18 @@
+#result {
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+body {
+  margin: auto;
+  width: 50%;
+  border: 3px solid black;
+  padding: 10px;
+}
+
+.playerHealth {
+  font-size: 40px;
+  font-weight: bold;
+}
