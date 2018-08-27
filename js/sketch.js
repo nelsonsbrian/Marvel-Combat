@@ -2,6 +2,12 @@
 var players = [];
 var player;
 
+var google;
+function preload() {
+  // google = loadImage('http://pngimg.com/uploads/ironman/ironman_PNG37.png', console.log("image loaded"), console.log(event));
+  google = loadImage('http://pngimg.com/uploads/ironman/ironman_PNG37.png', console.log("image loaded"), console.log(event));
+}
+
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
@@ -11,6 +17,8 @@ function setup() {
   player = new Player(1);
   players.push(player);
   // gameReset();
+
+  image(google, 0, 0);
 }
 
 
