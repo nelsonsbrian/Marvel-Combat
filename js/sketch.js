@@ -6,9 +6,9 @@ function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
 
-  player = new Player("ironMan", 100, 50, 400, 10);
+  player = new Player(0);
   players.push(player);
-  player = new Player("dummie", 100, width-50, 400, 10);
+  player = new Player(1);
   players.push(player);
   // gameReset();
 }

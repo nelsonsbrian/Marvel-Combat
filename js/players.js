@@ -1,16 +1,27 @@
-function Player(name, hitpoint,x ,y, speed) {
-  this.name = name;
-  this.hp = hitpoint;
-  this.y = y;
-  this.x = x;
-  this.speed = speed;
+function Player(heroNumber) {
+  this.heroNumber = heroNumber;
+  this.startingX = 50;
+  this.startingY = 400;
+  this.hero = [
+    ["IronMan", 100, this.startingX, this.startingY, 10],
+    ["Dummie", 200, width-50, this.startingY, 10]
+  ];
+  this.heroSelect = function() {
+    this.name = this.hero[this.heroNumber][0];
+    this.hp = this.hero[this.heroNumber][1];
+    this.x = this.hero[this.heroNumber][2];
+    this.y = this.hero[this.heroNumber][3];
+    this.speed = this.hero[this.heroNumber][4];
+  }
+  this.heroSelect();
+
   this.direction = 0;
 
 
 
   this.show = function() {
 
-    if(this.name === "ironMan") {
+    if(this.name === "IronMan") {
       fill(255,0,0);
     } else {
       fill(255,255,0);
@@ -21,7 +32,7 @@ function Player(name, hitpoint,x ,y, speed) {
   this.move = function() {
     this.x += this.direction * this.speed;
   }
-  
+
   this.moveLeftRight = function(direction) {
     this.direction = direction;
   }
