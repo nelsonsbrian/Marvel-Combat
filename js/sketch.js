@@ -4,8 +4,15 @@ var player;
 var healthBars = [];
 var healthBar;
 
+var backdrop;
+function preload() {
+  backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
+}
+
 function setup() {
   var canvas = createCanvas(1024, 576);
+  // image(backdrop, 0, 0);
+
   canvas.parent('gameBoard');
 
   player = new Player(0);
@@ -22,7 +29,9 @@ function setup() {
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 function draw() {
-  background(93);
+
+  background(backdrop, 0,0);
+
   healthBars[0].show(players[0].name,players[0].hp);
   healthBars[1].show(players[1].name,players[1].hp);
   healthBars[0].update(players[0].name,players[0].hp);
@@ -32,6 +41,7 @@ function draw() {
     players[1].move();
     players[0].show();
     players[0].move();
+
 
   }
 

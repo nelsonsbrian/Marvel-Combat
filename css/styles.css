@@ -1,18 +1,34 @@
-#result {
-  font-size: 20px;
-}
-
-h1 {
-  text-align: center;
-}
 body {
-  margin: auto;
-  width: 50%;
-  border: 3px solid black;
-  padding: 10px;
+  background-image: url(../img/website/cinematic-background.jpg) ;
+  background-repeat: no-repeat;
+  background-color: black;
+  background-size: cover;
 }
 
-.playerHealth {
-  font-size: 40px;
-  font-weight: bold;
+.title {
+  text-align: center;
+  color: white;
+  background: #111;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 40px 200px;
+  padding: 30px;
+
+}
+
+canvas#defaultCanvas0{
+    color: red;
+
+}
+
+#gameBoard {
+  background: black;
+  border: 40px solid black;
+  text-align: center;
+  /*display: flex;
+  justify-content: center;*/
+}
+
+button#reset {
+  margin-top: 20px;
 }
