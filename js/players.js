@@ -21,13 +21,17 @@ function Player(heroNumber) {
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
-
+  this.damagedColor;
   this.show = function() {
 
-    // if(this.name === "IronMan") {
-    // } else {
-      fill(255,255,0);
+    if (this.damagedColor > 0) {
       fill(255,0,0);
+      this.damagedColor--;
+    } else if (this.isNPC === true) {
+      fill(51,153,255);
+    } else {
+      fill(255,128,0);
+    }
     // }
     ellipse(this.x,this.y, this.radius*2,this.radius*2);
   }
@@ -38,15 +42,16 @@ function Player(heroNumber) {
         var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 2)
       }
       if (collided) {
-        console.log("punch");
-        players[i].hp -= 25;
+        console.log("punch dmg 23");
+        players[i].hp -= 23;
+        players[i].isHit(5);
       }
-
-
     }
-
   }
 
+  this.isHit = function () {
+    this.damagedColor = 5;
+  }
 
   this.move = function() {
     for(i=0;i<players.length;i++) {
