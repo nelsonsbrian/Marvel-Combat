@@ -27,13 +27,23 @@ function draw() {
   healthBars[1].show(players[1].name,players[1].hp);
   healthBars[0].update(players[0].name,players[0].hp);
   healthBars[1].update(players[1].name,players[1].hp);
-  for(i=0; i<players.length; i++) {
-    players[1].show();
-    players[1].move();
-    players[0].show();
-    players[0].move();
+  // for (var i = mobs.length-1; i >= 0; i--) {
+  for (var i = players.length-1; i >= 0; i--) {
+    if (players[i].hp <= 0) {
+      // players.splice(i, 1);
+      // console.log(players[1].name + " is dead")
+
+    } else {
+
+    players[i].show();
+    players[i].move();
+  }
 
   }
+
+}
+
+function gameOver() {
 
 }
 
