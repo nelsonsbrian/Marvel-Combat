@@ -24,6 +24,8 @@ function setup() {
   healthBar = new Health(player.name, player.hp, player.hpMax);
   healthBars.push(healthBar);
   // gameReset();
+
+  image(google, 0, 0);
 }
 
 
