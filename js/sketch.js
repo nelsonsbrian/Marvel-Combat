@@ -4,10 +4,16 @@ var player;
 var healthBars = [];
 var healthBar;
 
+// loads all images into p5
 var backdrop;
+var ironManNeutral;
+var captainAmericaNeutral;
 function preload() {
   backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
+  ironManNeutral = loadImage('https://i.imgur.com/50aemfO.png');
+  captainAmericaNeutral = loadImage('https://i.imgur.com/SIT5hGe.png');
 }
+
 
 function setup() {
   var canvas = createCanvas(1024, 576);
@@ -25,7 +31,6 @@ function setup() {
   healthBars.push(healthBar);
   // gameReset();
 
-  image(google, 0, 0);
 }
 
 
