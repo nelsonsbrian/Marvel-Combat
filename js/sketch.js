@@ -18,9 +18,12 @@ function setup() {
 function draw() {
   background(93);
 
-  for(i=0;i<players.length;i++) {
-    players[i].show();
-    players[i].move();
+  for(i=0; i<players.length; i++) {
+    players[1].show();
+    players[1].move();
+    players[0].show();
+    players[0].move();
+
   }
 
 }
@@ -28,8 +31,7 @@ function draw() {
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     players[0].moveLeftRight(-1);
-  }
-  if (keyCode === RIGHT_ARROW) {
+  } else if (keyCode === RIGHT_ARROW) {
     players[0].moveLeftRight(1);
   }
 }
@@ -37,8 +39,7 @@ function keyPressed() {
 function keyReleased() {
   if (keyCode === LEFT_ARROW) {
     players[0].moveLeftRight(0);
-  }
-  if (keyCode === RIGHT_ARROW) {
+  } else if (keyCode === RIGHT_ARROW) {
     players[0].moveLeftRight(0);
   }
 }
