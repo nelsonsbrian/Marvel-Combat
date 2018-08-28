@@ -35,9 +35,9 @@ function Player(heroNumber) {
     // }
     // ellipse(this.x,this.y, this.radius*2,this.radius*2);
     if (this.name === "IronMan") {
-      image(ironManNeutral, this.x, (this.y - 200));
+      image(ironManSprite.neutral, this.x, (this.y - 200));
     } else {
-      image(captainAmericaNeutral, this.x, (this.y-200));
+      image(captainAmericaSprite.neutral, this.x, (this.y-200));
     }
   }
 
