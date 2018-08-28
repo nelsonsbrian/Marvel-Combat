@@ -13,8 +13,31 @@ body {
   border-radius: 10px;
   margin: 40px 200px;
   padding: 30px;
-
 }
+
+.bioText {
+  color: white;
+  background: #111;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 400px;
+  padding: 30px;
+}
+
+.bioImage {
+  color: white;
+  background: #111;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 400px;
+  width: 400px;
+  padding: 30px;
+}
+
+.bioFrame {
+  margin: 
+}
+
 
 canvas#defaultCanvas0{
     color: red;
