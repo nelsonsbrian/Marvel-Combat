@@ -4,7 +4,7 @@ function Laser(player) {
   this.y = player.y;
   this.l = 70;
   this.w = 25;
-  this.speed = 9;
+  this.speed = 30;
   this.powerCost = 75;
   this.damage = 100;
   player.power -= this.powerCost;

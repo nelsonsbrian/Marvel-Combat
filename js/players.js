@@ -4,10 +4,15 @@ function Player(heroNumber, indexNum) {
   this.startingY = 300;
   this.indexNum = indexNum;
   this.hero = [
-    ["Iron Man", 100, this.startingX, this.startingY, 30, 70, 80, 90, 100, 50],
-  //  ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25],
-    ["Hulk", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
+    //left side characters [0-2]
+    ["Iron Man", 200, this.startingX, this.startingY, 8, 70, 80, 90, 100, 50, 5],
+    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5],
+    ["Black Widow", 100, this.startingX, this.startingY, ],
 
+    //right side characters [3-5]
+    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5],
+    ["Thor",],
+    ["Scarlet Witch",],
   ];
   this.heroSelect = function() {
     this.name = this.hero[this.heroNumber][0];
@@ -21,6 +26,7 @@ function Player(heroNumber, indexNum) {
     this.block = this.hero[this.heroNumber][7];
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
+    this.powerRegen = this.hero[this.heroNumber][10];
   }
   this.heroSelect();
   this.direction = 0;
@@ -59,7 +65,7 @@ function Player(heroNumber, indexNum) {
 
 
      else {
-      image(hulkSprite.neutral, (this.x-100), (this.y - 200));
+      image(captainAmericaSprite.neutral, (this.x-100), (this.y - 200));
       ellipse(this.x,this.y,this.radius,this.radius);
     }
     // else{
@@ -82,7 +88,7 @@ function Player(heroNumber, indexNum) {
       if (collided) {
         players[i].hp -= this.combat(50, i);
         players[i].isHit(5);
-        this.power += 5;
+        this.power += this.powerRegen;
         this.power = constrain(this.power, 0, this.powerMax);
       }
     }
