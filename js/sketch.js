@@ -6,12 +6,18 @@ var statBar;
 var lasers = [];
 var laser;
 
+var timer;
+
 // loads all images into p5
 // moved to js/images.js
+
+
+
 
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
+
   player = new Player(0, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
@@ -20,6 +26,7 @@ function setup() {
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
+
   // gameReset();
 
 }
@@ -96,11 +103,17 @@ function keyTyped() {
   if (key === ' ') {
   }
   if (key === '1') {
-    players[0].punch();
+
+
+
+      players[0].punch();
+
   }
   if (key === '2') {
+
     if (10 <= players[0].power) {
       var laser = new Laser(players[0]);
+      players[0].shoot();
       lasers.push(laser);
     } else {
       console.log("not enough power to launch a laser.")

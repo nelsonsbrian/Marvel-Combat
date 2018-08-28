@@ -12,8 +12,10 @@ function Laser(player) {
 
 
   this.show = function() {
-    fill(103,199,235)
-    rect(this.x,this.y,this.l,this.w);
+    image(ironManSprite.range,this.x-100,this.y-180);
+    // players[0].;
+    // fill(103,199,235)
+    // rect(this.x,this.y,this.l,this.w);
   }
 
   this.move = function() {

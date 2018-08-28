@@ -42,8 +42,8 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       textStyle(BOLD);
       text(power + " / " + this.pPowerMax, 3, height-this.powerSize[1] - 10);
 
-    }
-    if (name === "Captain America") {
+    } else {
+    //hulkSprite,Captain America
       //player2 health
       fill(255,0,0);
       rect(width - this.healthSize[0],0,width,this.healthSize[1]);
