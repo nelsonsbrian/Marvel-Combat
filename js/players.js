@@ -60,11 +60,18 @@ function Player(heroNumber) {
     }
   }
 
-  this.combat = function(baseDam, i) {
+  this.laser = function(laserThatHit) {
+    console.log(laserThatHit.owner);
+    this.hp -= this.combat(laserThatHit.damage, laserThatHit.owner);
+    this.isHit(10);
+  }
+
+
+  this.combat = function(baseDam, playerI) {
     let dmg;
     var dmgDam = this.damageRoll(baseDam)
-    var dmgDef = this.defenseRoll(baseDam, i)
-    var block = this.blockingRoll(baseDam, i);
+    var dmgDef = this.defenseRoll(baseDam, playerI)
+    var block = this.blockingRoll(baseDam, playerI);
     dmg = dmgDam - dmgDef - block;
     console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block);
 
@@ -126,25 +133,34 @@ function Player(heroNumber) {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+  function Laser(player) {
+    this.owner = player;
+    this.x = player.x;
+    this.y = player.y;
+    this.l = 30;
+    this.w = 7;
+    this.speed = 3;
+    this.powerCost = 75;
+    this.damage = 100;
+    player.power -= this.powerCost;
+
+
+    this.show = function() {
+      fill(255)
+      rect(this.x,this.y,this.l,this.w);
+    }
+
+    this.move = function() {
+      this.x += this.speed;
+    }
+
+
+
+
+  }
