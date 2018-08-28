@@ -8,7 +8,9 @@ var laser;
 var timer;
 var gameOver = 0;
 
+
 //setup function runs when canvas loads. Functions
+
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
@@ -17,7 +19,7 @@ function setup() {
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(1, players.length);
+  player = new Player(3, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);

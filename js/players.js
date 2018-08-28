@@ -4,10 +4,15 @@ function Player(heroNumber, indexNum) {
   this.startingY = 300;
   this.indexNum = indexNum;
   this.hero = [
-    ["Iron Man", 100, this.startingX, this.startingY, 30, 70, 80, 90, 100, 50],
-  //  ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25],
-    ["Hulk", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
+    //left side characters [0-2]
+    ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
+    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
+    ["Black Widow", 100, this.startingX, this.startingY, ],
 
+    //right side characters [3-5]
+    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
+    ["Thor",],
+    ["Scarlet Witch",],
   ];
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero onject
     this.name = this.hero[this.heroNumber][0];
@@ -21,6 +26,8 @@ function Player(heroNumber, indexNum) {
     this.block = this.hero[this.heroNumber][7];
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
+    this.powerRegen = this.hero[this.heroNumber][10];
+    this.rangeCost = this.hero[this.heroNumber][11];
   }
   this.heroSelect();
   this.direction = 0;
@@ -56,29 +63,20 @@ function Player(heroNumber, indexNum) {
     if (this.spriteTime === 0){
       this.sprite = 0;
     }
-
-    //checks to see the sprite value of the player and change the displayed sprite img.
-    if (this.name === "Iron Man" && this.sprite === 0) {
-      image(ironManSprite.neutral, (this.x-100), (this.y - 170));
+  //checks to see the sprite value of the player and change the displayed sprite img.
+    if (this.sprite === 0) {
+      image(heroSprites[heroNumber].neutral, (this.x-100), (this.y - 170));
       ellipse(this.x,this.y,this.radius,this.radius);
-    } else if (this.name === "Iron Man" && this.sprite === 1) {
-      image(ironManSprite.attack, (this.x-100), (this.y - 170));
+    } else if (this.sprite === 1) {
+      image(heroSprites[heroNumber].attack, (this.x-100), (this.y - 170));
       ellipse(this.x,this.y,this.radius,this.radius);
-    } else if (this.name === "Iron Man" && this.sprite === 2) {
-        image(ironManSprite.special, (this.x-100), (this.y - 170));
+    } else if (this.sprite === 2) {
+        image(heroSprites[heroNumber].special, (this.x-100), (this.y - 170));
         ellipse(this.x,this.y,this.radius,this.radius);
-      }else if (this.name === "Iron Man" && this.sprite === 3) {
-        image(ironManSprite.block, (this.x-100), (this.y - 170));
-        ellipse(this.x,this.y,this.radius,this.radius);
-      }
-     else {
-      image(hulkSprite.neutral, (this.x-100), (this.y - 200));
+    } else if (this.sprite === 3) {
+      image(heroSprites[heroNumber].block, (this.x-100), (this.y - 170));
       ellipse(this.x,this.y,this.radius,this.radius);
     }
-    // else{
-    //   image(captainAmericaSprite.neutral, this.x, (this.y-200));
-    //   ellipse(this.x,this.y,this.radius,this.radius);
-    // }
   }
 
   //function sets the player's sprite index for a certain number of frames
@@ -100,7 +98,7 @@ function Player(heroNumber, indexNum) {
       if (collided) {
         players[i].hp -= this.combat(50, i);
         players[i].isHit(5);
-        this.power += 5;
+        this.power += this.powerRegen;
         this.power = constrain(this.power, 0, this.powerMax);
       }
     }
