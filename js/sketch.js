@@ -7,7 +7,7 @@ var lasers = [];
 var laser;
 var timer;
 
-//setup function runs when canvas loads. Functions 
+//setup function runs when canvas loads. Functions
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
@@ -70,42 +70,74 @@ function gameOver() {
 
 }
 
-//keybindings
-function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
+
+//keybindings for both players
+function keyPressed() { //player1
+  if (key === 'a') {
     players[0].moveLeftRight(-1);
-  } else if (keyCode === RIGHT_ARROW) {
+  } else if (key === 'd') {
     players[0].moveLeftRight(1);
   }
+  else if (key === 's') {
+    players[0].charBlocking(true);
+  } // player2
+  if (keyCode === LEFT_ARROW) {
+    players[1].moveLeftRight(-1);
+  } else if (keyCode === RIGHT_ARROW) {
+    players[1].moveLeftRight(1);
+  }
   else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(true);
+    players[1].charBlocking(true);
   }
 }
 
 function keyReleased() {
+  if (key === 'a') { //player1
+    players[0].moveLeftRight(0);
+  } else if (key === 'd') {
+    players[0].moveLeftRight(0);
+  } else if (key === 's') {
+    players[0].charBlocking(false);
+  } // player2
   if (keyCode === LEFT_ARROW) {
-    players[0].moveLeftRight(0);
+    players[1].moveLeftRight(0);
   } else if (keyCode === RIGHT_ARROW) {
-    players[0].moveLeftRight(0);
+    players[1].moveLeftRight(0);
   } else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(false);
+    players[1].charBlocking(false);
 
   }
 }
 
-function keyTyped() {
-  if (key === ' ') {
-  }
+function keyTyped() {// player 1
   if (key === '1') {
     players[0].punch();
   }
   if (key === '2') {
-    if (10 <= players[0].power) {
+    if (players[0].rangeCost <= players[0].power) {
       var laser = new Laser(players[0]);
       players[0].shoot();
       lasers.push(laser);
     } else {
       console.log("not enough power to launch a laser.")
+    }
+    if (key === '3') {
+
+    }// player 2
+    if (key === '7') {
+      players[1].punch();
+    }
+    if (key === '8') {
+      if (players[1].rangeCost <= players[1].power) {
+        var laser = new Laser(players[1]);
+        players[1].shoot();
+        lasers.push(laser);
+      } else {
+        console.log("not enough power to launch a laser.")
+      }
+    }
+    if (key === '9') {
+
     }
   }
 }
