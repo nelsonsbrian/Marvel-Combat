@@ -10,7 +10,7 @@ An arcade style fighting game that uses Marvel super heroes as it's characters.
 
 ### Specs
 
-* Game and GamePlay
+Game and GamePlay
 | Spec | Input | Output |
 | :-------------     | :------------- | :------------- |
 | **Create a sprite that moves with key inputs.** |  |  |
@@ -31,7 +31,7 @@ An arcade style fighting game that uses Marvel super heroes as it's characters.
 | **Add additional heroes and attacks** |  |  |
 
 
-* Webpage
+Webpage
 | Spec | Input | Output |
 | **Add basic html webpage that displays the gameboard** |  |  |
 | **Add wallpaper and titles.** |  |  |
