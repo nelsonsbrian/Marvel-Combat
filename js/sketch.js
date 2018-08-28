@@ -1,8 +1,10 @@
 // this function is called when the page loads and is the canvas setup
 var players = [];
 var player;
-var healthBars = [];
-var healthBar;
+var statBars = [];
+var statBar;
+var lasers = [];
+var laser;
 
 // loads all images into p5
 var backdrop;
@@ -17,18 +19,15 @@ function preload() {
 
 function setup() {
   var canvas = createCanvas(1024, 576);
-  // image(backdrop, 0, 0);
-
   canvas.parent('gameBoard');
-
   player = new Player(0);
   players.push(player);
-  healthBar = new Health(player.name, player.hp, player.hpMax);
-  healthBars.push(healthBar);
+  statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
+  statBars.push(statBar);
   player = new Player(1);
   players.push(player);
-  healthBar = new Health(player.name, player.hp, player.hpMax);
-  healthBars.push(healthBar);
+  statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
+  statBars.push(statBar);
   // gameReset();
 
 }
@@ -39,36 +38,46 @@ function draw() {
 
   background(backdrop, 0,0);
 
-  healthBars[0].show(players[0].name,players[0].hp);
-  healthBars[1].show(players[1].name,players[1].hp);
-  healthBars[0].update(players[0].name,players[0].hp);
-  healthBars[1].update(players[1].name,players[1].hp);
-  // for (var i = mobs.length-1; i >= 0; i--) {
+  statBars[0].show(players[0].name,players[0].hp,players[0].power);
+  statBars[1].show(players[1].name,players[1].hp,players[1].power);
+
+  //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
+    for (var j = lasers.length-1; j >= 0; j--) {
+      var laserHit = players[i].collide(lasers[j].x, lasers[j].y, lasers[j].l, 1);
+      if (laserHit) {
+        players[i].laser(lasers[j]);
+      }
+    }
     if (players[i].hp <= 0) {
       // players.splice(i, 1);
       // console.log(players[1].name + " is dead")
-
     } else {
-
-    players[i].show();
-    players[i].move();
+      players[i].show();
+      players[i].move();
+    }
   }
-
-
+  //loop for lasers every frame
+  for (var i = lasers.length-1; i >= 0; i--) {
+    lasers[i].move();
+    lasers[i].show();
   }
-
 }
+
 
 function gameOver() {
 
 }
 
+//keybindings
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     players[0].moveLeftRight(-1);
   } else if (keyCode === RIGHT_ARROW) {
     players[0].moveLeftRight(1);
+  }
+  else if (keyCode === DOWN_ARROW) {
+    players[0].isBlocking(true);
   }
 }
 
@@ -77,6 +86,9 @@ function keyReleased() {
     players[0].moveLeftRight(0);
   } else if (keyCode === RIGHT_ARROW) {
     players[0].moveLeftRight(0);
+  } else if (keyCode === DOWN_ARROW) {
+    players[0].isBlocking(false);
+
   }
 }
 
@@ -85,5 +97,13 @@ function keyTyped() {
   }
   if (key === '1') {
     players[0].punch();
+  }
+  if (key === '2') {
+    if (10 <= players[0].power) {
+      var laser = new Laser(players[0]);
+      lasers.push(laser);
+    } else {
+      console.log("not enough power to launch a laser.")
+    }
   }
 }
