@@ -15,7 +15,7 @@ body {
   padding: 30px;
 }
 
-.bioText {
+.bioFrame {
   color: white;
   background: #111;
   border: 2px solid white;
@@ -25,17 +25,14 @@ body {
 }
 
 .bioImage {
-  color: white;
-  background: #111;
-  border: 2px solid white;
-  border-radius: 10px;
   height: 400px;
   width: 400px;
   padding: 30px;
 }
 
-.bioFrame {
-  margin: 
+.bioTitle {
+  font-size: 40px;
+  font-weight: bold;
 }
 
 
