@@ -5,7 +5,9 @@ function Player(heroNumber, indexNum) {
   this.indexNum = indexNum;
   this.hero = [
     ["Iron Man", 100, this.startingX, this.startingY, 30, 70, 80, 90, 100, 50],
-    ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
+  //  ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25],
+    ["Hulk", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
+
   ];
   this.heroSelect = function() {
     this.name = this.hero[this.heroNumber][0];
@@ -26,6 +28,8 @@ function Player(heroNumber, indexNum) {
   this.damagedColor;
   this.gcd = 0;
   this.charBlocking = false;
+  this.sprite = 0;
+  this.spriteTime = 0;
   this.show = function() {
 
     if (this.damagedColor > 0) {
@@ -36,18 +40,41 @@ function Player(heroNumber, indexNum) {
     } else {
       fill(255,128,0);
     }
-    // }
-    // ellipse(this.x,this.y, this.radius*2,this.radius*2);
-    if (this.name === "Iron Man") {
-      image(ironManSprite.neutral, this.x, (this.y - 200));
+
+    this.spriteTime -= 1;
+    if (this.spriteTime === 0){
+      this.sprite = 0;
+    }
+
+    if (this.name === "Iron Man" && this.sprite === 0) {
+      image(ironManSprite.neutral, (this.x-100), (this.y - 170));
       ellipse(this.x,this.y,this.radius,this.radius);
-    } else {
-      image(captainAmericaSprite.neutral, this.x, (this.y-200));
+    } else if (this.name === "Iron Man" && this.sprite === 1) {
+      image(ironManSprite.attack, (this.x-100), (this.y - 170));
+      ellipse(this.x,this.y,this.radius,this.radius);}
+      else if (this.name === "Iron Man" && this.sprite === 2) {
+        image(ironManSprite.special, (this.x-100), (this.y - 170));
+        ellipse(this.x,this.y,this.radius,this.radius);
+      }
+
+
+     else {
+      image(hulkSprite.neutral, (this.x-100), (this.y - 200));
       ellipse(this.x,this.y,this.radius,this.radius);
     }
+    // else{
+    //   image(captainAmericaSprite.neutral, this.x, (this.y-200));
+    //   ellipse(this.x,this.y,this.radius,this.radius);
+    // }
+  }
+
+  this.spriteChange = function(num, time) {
+    this.sprite = num;
+    this.spriteTime = time;
   }
 
   this.punch = function() {
+    this.spriteChange(1, 6);
     for(i=0;i<players.length;i++) {
       if (this.name !== players[i].name) {
         var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
@@ -60,8 +87,16 @@ function Player(heroNumber, indexNum) {
       }
     }
   }
+  //
+  this.shoot=function(){
+    this.spriteChange(2, 6);
+
+
+
+  }
 
   this.laser = function(laserThatHit) {
+
     this.hp -= this.combat(laserThatHit.damage, laserThatHit.playerIndex);
     this.isHit(10);
   }
