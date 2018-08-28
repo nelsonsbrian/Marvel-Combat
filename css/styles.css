@@ -52,3 +52,37 @@ canvas#defaultCanvas0{
 button#reset {
   margin-top: 20px;
 }
+
+h2, h3, h4  {
+  color: white;
+}
+
+h2  {
+  margin-bottom: 30px;
+}
+
+h4  {
+  text-align: center;
+  font-size: 30px;
+}
+
+.player-container {
+  color: white;
+  background: #111;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 400px;
+  padding: 30px;
+}
+
+h4:hover,.player-container:hover {
+  background-color: lightgray;
+  color: black;
+  cursor: pointer;
+  font-style: italic;
+}
+
+img  {
+  max-width: 100%;
+  max-height: 100%;
+}
