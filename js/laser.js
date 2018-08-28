@@ -1,5 +1,6 @@
 function Laser(player) {
   this.playerIndex = player.indexNum;
+  this.heroNumber = player.heroNumber;
   this.x = player.x;
   this.y = player.y;
   this.l = 70;
@@ -12,7 +13,7 @@ function Laser(player) {
 
 
   this.show = function() {
-    image(ironManSprite.range,this.x-100,this.y-180);
+    image(heroSprites[this.heroNumber].range,this.x-100,this.y-180);
     // players[0].;
     // fill(103,199,235)
     // rect(this.x,this.y,this.l,this.w);

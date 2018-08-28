@@ -10,9 +10,8 @@ var captainAmericaSprite;
 var thorSprite;
 var scarletWitchSprite;
 
-//Character Sprties array
-var heroSprites = [ironManSprite, hulkSprite, blackWidowSprite,
-  captainAmericaSprite, thorSprite, scarletWitchSprite];
+//Character Sprites array
+var heroSprites = [];
 
 function Sprites(neutral, attack, block, special, range) {
   this.neutral = neutral;
@@ -20,12 +19,13 @@ function Sprites(neutral, attack, block, special, range) {
   this.block = block;
   this.special = special;
   this.range = range;
+  heroSprites.push(this);
 }
 
 function preload() {
   backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
 
-  ironManSprite = new Sprites(loadImage('https://i.imgur.com/AqQ7brV.png'),
+  new Sprites(loadImage('https://i.imgur.com/AqQ7brV.png'),
   loadImage('https://i.imgur.com/uZm54mX.png'),
   loadImage('https://i.imgur.com/U8EW5re.png'),
   loadImage('https://i.imgur.com/j7UjIdP.png'),

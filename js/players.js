@@ -5,12 +5,12 @@ function Player(heroNumber, indexNum) {
   this.indexNum = indexNum;
   this.hero = [
     //left side characters [0-2]
-    ["Iron Man", 200, this.startingX, this.startingY, 8, 70, 80, 90, 100, 50, 5],
-    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5],
+    ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
+    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
     ["Black Widow", 100, this.startingX, this.startingY, ],
 
     //right side characters [3-5]
-    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5],
+    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
     ["Thor",],
     ["Scarlet Witch",],
   ];
@@ -27,6 +27,7 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
+    this.rangeCost = this.hero[this.heroNumber][11];
   }
   this.heroSelect();
   this.direction = 0;
@@ -52,14 +53,14 @@ function Player(heroNumber, indexNum) {
       this.sprite = 0;
     }
 
-    if (this.name === "Iron Man" && this.sprite === 0) {
-      image(ironManSprite.neutral, (this.x-100), (this.y - 170));
+    if (this.sprite === 0) {
+      image(heroSprites[heroNumber].neutral, (this.x-100), (this.y - 170));
       ellipse(this.x,this.y,this.radius,this.radius);
-    } else if (this.name === "Iron Man" && this.sprite === 1) {
-      image(ironManSprite.attack, (this.x-100), (this.y - 170));
-      ellipse(this.x,this.y,this.radius,this.radius);}
-      else if (this.name === "Iron Man" && this.sprite === 2) {
-        image(ironManSprite.special, (this.x-100), (this.y - 170));
+    } else if (this.sprite === 1) {
+      image(heroSprites[heroNumber].attack, (this.x-100), (this.y - 170));
+      ellipse(this.x,this.y,this.radius,this.radius);
+    } else if (this.sprite === 2) {
+        image(heroSprites[heroNumber].special, (this.x-100), (this.y - 170));
         ellipse(this.x,this.y,this.radius,this.radius);
       }
 

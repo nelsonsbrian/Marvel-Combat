@@ -8,12 +8,6 @@ var laser;
 
 var timer;
 
-// loads all images into p5
-// moved to js/images.js
-
-
-
-
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
