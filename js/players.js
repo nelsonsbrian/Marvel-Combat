@@ -30,6 +30,7 @@ function Player(heroNumber, indexNum) {
   this.charBlocking = false;
   this.sprite = 0;
   this.spriteTime = 0;
+
   this.show = function() {
 
     if (this.damagedColor > 0) {
@@ -41,7 +42,13 @@ function Player(heroNumber, indexNum) {
       fill(255,128,0);
     }
 
-    this.spriteTime -= 1;
+
+      if (this.charBlocking===false) {
+        // console.log(this.spriteTime + ' ' + this.charBlocking);
+        this.spriteTime -= 1;
+
+      }
+
     if (this.spriteTime === 0){
       this.sprite = 0;
     }
@@ -51,13 +58,14 @@ function Player(heroNumber, indexNum) {
       ellipse(this.x,this.y,this.radius,this.radius);
     } else if (this.name === "Iron Man" && this.sprite === 1) {
       image(ironManSprite.attack, (this.x-100), (this.y - 170));
-      ellipse(this.x,this.y,this.radius,this.radius);}
-      else if (this.name === "Iron Man" && this.sprite === 2) {
+      ellipse(this.x,this.y,this.radius,this.radius);
+    } else if (this.name === "Iron Man" && this.sprite === 2) {
         image(ironManSprite.special, (this.x-100), (this.y - 170));
         ellipse(this.x,this.y,this.radius,this.radius);
+      }else if (this.name === "Iron Man" && this.sprite === 3) {
+        image(ironManSprite.block, (this.x-100), (this.y - 170));
+        ellipse(this.x,this.y,this.radius,this.radius);
       }
-
-
      else {
       image(hulkSprite.neutral, (this.x-100), (this.y - 200));
       ellipse(this.x,this.y,this.radius,this.radius);
@@ -70,7 +78,10 @@ function Player(heroNumber, indexNum) {
 
   this.spriteChange = function(num, time) {
     this.sprite = num;
-    this.spriteTime = time;
+
+        this.spriteTime = time;
+
+
   }
 
   this.punch = function() {
@@ -90,16 +101,12 @@ function Player(heroNumber, indexNum) {
   //
   this.shoot=function(){
     this.spriteChange(2, 6);
-
-
-
-  }
+  };
 
   this.laser = function(laserThatHit) {
-
     this.hp -= this.combat(laserThatHit.damage, laserThatHit.playerIndex);
     this.isHit(10);
-  }
+  };
 
 
   this.combat = function(baseDam, playerI) {
@@ -114,7 +121,8 @@ function Player(heroNumber, indexNum) {
   }
 
   this.isBlocking = function(bool, i) {
-    players[i].charBlocking = bool;
+    this.charBlocking = bool;
+      this.spriteChange(3, 1);
   }
 
   this.blockingRoll = function(baseDam) {

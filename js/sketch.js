@@ -84,7 +84,7 @@ function keyPressed() {
     players[0].moveLeftRight(1);
   }
   else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(true);
+    players[0].isBlocking(true,0);
   }
 }
 
@@ -94,7 +94,7 @@ function keyReleased() {
   } else if (keyCode === RIGHT_ARROW) {
     players[0].moveLeftRight(0);
   } else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(false);
+    players[0].isBlocking(false,0);
 
   }
 }
