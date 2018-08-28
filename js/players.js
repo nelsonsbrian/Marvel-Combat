@@ -1,10 +1,10 @@
 function Player(heroNumber) {
   this.heroNumber = heroNumber;
-  this.startingX = 50;
-  this.startingY = 400;
+  this.startingX = 90;
+  this.startingY = 300;
   this.hero = [
-    ["IronMan", 100, this.startingX, this.startingY, 10, 70, 80, 90, 100],
-    ["Dummie", 200, width-50, this.startingY, 10, 50, 90, 90, 50]
+    ["Iron Man", 100, this.startingX, this.startingY, 30, 70, 80, 90, 100, 50],
+    ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
   ];
   this.heroSelect = function() {
     this.name = this.hero[this.heroNumber][0];
@@ -16,12 +16,15 @@ function Player(heroNumber) {
     this.attack = this.hero[this.heroNumber][5];
     this.defense = this.hero[this.heroNumber][6];
     this.block = this.hero[this.heroNumber][7];
-    this.power = this.hero[this.heroNumber][8];
+    this.powerMax = this.hero[this.heroNumber][8];
+    this.power = this.hero[this.heroNumber][9];
   }
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
   this.damagedColor;
+  this.gcd = 0;
+  this.charBlocking = false;
   this.show = function() {
 
     if (this.damagedColor > 0) {
@@ -34,27 +37,61 @@ function Player(heroNumber) {
     }
     // }
     // ellipse(this.x,this.y, this.radius*2,this.radius*2);
-    if (this.name === "IronMan") {
-      image(ironManNeutral, this.x, (this.y - 200));
+    if (this.name === "Iron Man") {
+      image(ironManNeutral, this.x-75, (this.y - 100));
+      ellipse(this.x,this.y,10,10);
     } else {
-      image(captainAmericaNeutral, this.x, (this.y-200));
+      image(captainAmericaNeutral, this.x-75, (this.y-100));
+      ellipse(this.x,this.y,10,10);
     }
   }
 
   this.punch = function() {
     for(i=0;i<players.length;i++) {
       if (this.name !== players[i].name) {
-        var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 2)
+        var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
       }
       if (collided) {
-        console.log("punch dmg 23");
-        players[i].hp -= 23;
+        players[i].hp -= this.combat(50, i);
         players[i].isHit(5);
+        this.power += 5;
+        this.power = constrain(this.power, 0, this.powerMax);
       }
     }
   }
 
-  this.isHit = function () {
+  this.combat = function(baseDam, i) {
+    let dmg;
+    var dmgDam = this.damageRoll(baseDam)
+    var dmgDef = this.defenseRoll(baseDam, i)
+    var block = this.blockingRoll(baseDam, i);
+    dmg = dmgDam - dmgDef - block;
+    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block);
+
+    return dmg;
+  }
+
+  this.isBlocking = function(bool, i) {
+    players[i].charBlocking = bool;
+  }
+
+  this.blockingRoll = function(baseDam, i) {
+    if (players[i].charBlocking) {
+      return baseDam / 300;
+    } else {
+      return 0;
+    }
+  }
+
+  this.damageRoll = function(baseDam) {
+   return baseDam * this.attack / 100;
+  }
+
+  this.defenseRoll = function(baseDam, index) {
+    return baseDam * players[index].defense / 100 / 2;
+  }
+
+  this.isHit = function() {
     this.damagedColor = 5;
   }
 
