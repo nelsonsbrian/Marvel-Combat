@@ -5,8 +5,11 @@ var statBars = [];
 var statBar;
 var lasers = [];
 var laser;
-
 var timer;
+var gameOver = 0;
+
+
+//setup function runs when canvas loads. Functions
 
 function setup() {
   var canvas = createCanvas(1024, 576);
@@ -28,7 +31,6 @@ function setup() {
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 function draw() {
-
   background(backdrop, 0,0);
 
   statBars[0].show(players[0].name,players[0].hp,players[0].power);
@@ -55,10 +57,8 @@ function draw() {
         }
       }
     }
-    if (players[i].hp <= 0) {
-      // players.splice(i, 1);
-      // console.log(players[1].name + " is dead")
-    } else {
+    isGameOver(i);
+    if (gameOver === 0) {
       players[i].show();
       players[i].move();
     }
@@ -66,51 +66,98 @@ function draw() {
 }
 
 
-function gameOver() {
-
+function isGameOver(deadPlayer) {
+  // console.log(deadPlayer + ' ' + deadPlayer.indexNum)
+  var winner;
+  for (var i = players.length-1; i >= 0; i--) {
+    if (players[i].hp <= 0) {
+      gameOver = 1;
+      if (players[i].indexNum === 1) {
+        winner = 0;
+      } else {
+        winner = 1;
+      }
+    }
+  }
+  if (winner >= 0) {
+    fill(255);
+    rect(width / 2 - 100, height / 2, 300, 50);
+    fill(0);
+    textSize(30);
+    textStyle(BOLD);
+    text(players[winner].name + " Wins", width / 2 - 40, height / 2 + 35);
+  }
 }
 
-//keybindings
-function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
+
+//keybindings for both players
+function keyPressed() { //player1
+  if (key === 'a') {
     players[0].moveLeftRight(-1);
-  } else if (keyCode === RIGHT_ARROW) {
+  } else if (key === 'd') {
     players[0].moveLeftRight(1);
   }
+  else if (key === 's') {
+    players[0].charBlocking(true);
+  } // player2
+  if (keyCode === LEFT_ARROW) {
+    players[1].moveLeftRight(-1);
+  } else if (keyCode === RIGHT_ARROW) {
+    players[1].moveLeftRight(1);
+  }
   else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(true);
+    players[1].isBlocking(true,0);
   }
 }
 
 function keyReleased() {
+  if (key === 'a') { //player1
+    players[0].moveLeftRight(0);
+  } else if (key === 'd') {
+    players[0].moveLeftRight(0);
+  } else if (key === 's') {
+    players[0].charBlocking(false);
+  } // player2
   if (keyCode === LEFT_ARROW) {
-    players[0].moveLeftRight(0);
+    players[1].moveLeftRight(0);
   } else if (keyCode === RIGHT_ARROW) {
-    players[0].moveLeftRight(0);
+    players[1].moveLeftRight(0);
   } else if (keyCode === DOWN_ARROW) {
-    players[0].isBlocking(false);
+    players[1].isBlocking(false,0);
+
 
   }
 }
 
-function keyTyped() {
-  if (key === ' ') {
-  }
+function keyTyped() {// player 1
   if (key === '1') {
-
-
-
-      players[0].punch();
-
+    players[0].punch();
   }
   if (key === '2') {
-
-    if (10 <= players[0].power) {
+    if (players[0].rangeCost <= players[0].power) {
       var laser = new Laser(players[0]);
       players[0].shoot();
       lasers.push(laser);
     } else {
       console.log("not enough power to launch a laser.")
     }
+  }
+  if (key === '3') {
+
+  }// player 2
+  if (key === '7') {
+    players[1].punch();
+  }
+  if (key === '8') {
+    if (players[1].rangeCost <= players[1].power) {
+      var laser = new Laser(players[1]);
+      players[1].shoot();
+      lasers.push(laser);
+    } else {
+      console.log("not enough power to launch a laser.")
+    }
+  }
+  if (key === '9') {
+
   }
 }
