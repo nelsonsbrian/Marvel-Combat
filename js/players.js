@@ -1,7 +1,8 @@
-function Player(heroNumber) {
+function Player(heroNumber, indexNum) {
   this.heroNumber = heroNumber;
   this.startingX = 90;
   this.startingY = 300;
+  this.indexNum = indexNum;
   this.hero = [
     ["Iron Man", 100, this.startingX, this.startingY, 30, 70, 80, 90, 100, 50],
     ["Captain America", 200, width-this.startingX, this.startingY, 10, 50, 90, 90, 50, 25]
@@ -39,10 +40,10 @@ function Player(heroNumber) {
     // ellipse(this.x,this.y, this.radius*2,this.radius*2);
     if (this.name === "Iron Man") {
       image(ironManNeutral, this.x-75, (this.y - 100));
-      ellipse(this.x,this.y,10,10);
+      ellipse(this.x,this.y,this.radius,this.radius);
     } else {
       image(captainAmericaNeutral, this.x-75, (this.y-100));
-      ellipse(this.x,this.y,10,10);
+      ellipse(this.x,this.y,this.radius,this.radius);
     }
   }
 
@@ -61,19 +62,18 @@ function Player(heroNumber) {
   }
 
   this.laser = function(laserThatHit) {
-    console.log(laserThatHit.owner);
-    this.hp -= this.combat(laserThatHit.damage, laserThatHit.owner);
+    this.hp -= this.combat(laserThatHit.damage, laserThatHit.playerIndex);
     this.isHit(10);
   }
 
 
   this.combat = function(baseDam, playerI) {
     let dmg;
-    var dmgDam = this.damageRoll(baseDam)
-    var dmgDef = this.defenseRoll(baseDam, playerI)
-    var block = this.blockingRoll(baseDam, playerI);
+    var dmgDam = this.damageRoll(baseDam, playerI);
+    var dmgDef = this.defenseRoll(baseDam);
+    var block = this.blockingRoll(baseDam);
     dmg = dmgDam - dmgDef - block;
-    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block);
+    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit index:" + playerI);
 
     return dmg;
   }
@@ -82,20 +82,21 @@ function Player(heroNumber) {
     players[i].charBlocking = bool;
   }
 
-  this.blockingRoll = function(baseDam, i) {
-    if (players[i].charBlocking) {
+  this.blockingRoll = function(baseDam) {
+    if (this.charBlocking) {
       return baseDam / 300;
     } else {
       return 0;
     }
   }
 
-  this.damageRoll = function(baseDam) {
-   return baseDam * this.attack / 100;
+  this.damageRoll = function(baseDam, index) {
+    console.log(baseDam + ' ' + players[index].attack + ' ' + index + ' ' + this.indexNum);
+   return baseDam * players[index].attack / 100;
   }
 
-  this.defenseRoll = function(baseDam, index) {
-    return baseDam * players[index].defense / 100 / 2;
+  this.defenseRoll = function(baseDam) {
+    return baseDam * this.defense / 100 / 2;
   }
 
   this.isHit = function() {
@@ -134,33 +135,3 @@ function Player(heroNumber) {
   }
 
 }
-
-
-
-
-
-  function Laser(player) {
-    this.owner = player;
-    this.x = player.x;
-    this.y = player.y;
-    this.l = 30;
-    this.w = 7;
-    this.speed = 3;
-    this.powerCost = 75;
-    this.damage = 100;
-    player.power -= this.powerCost;
-
-
-    this.show = function() {
-      fill(255)
-      rect(this.x,this.y,this.l,this.w);
-    }
-
-    this.move = function() {
-      this.x += this.speed;
-    }
-
-
-
-
-  }
