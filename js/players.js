@@ -31,6 +31,7 @@ function Player(heroNumber, indexNum) {
   this.sprite = 0;
   this.spriteTime = 0;
 
+
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
 
@@ -44,8 +45,14 @@ function Player(heroNumber, indexNum) {
       fill(255,128,0);
     }
 
+
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
-    this.spriteTime -= 1;
+    if (this.charBlocking===false) {
+      // console.log(this.spriteTime + ' ' + this.charBlocking);
+      this.spriteTime -= 1;
+    }
+
+
     if (this.spriteTime === 0){
       this.sprite = 0;
     }
@@ -56,9 +63,12 @@ function Player(heroNumber, indexNum) {
       ellipse(this.x,this.y,this.radius,this.radius);
     } else if (this.name === "Iron Man" && this.sprite === 1) {
       image(ironManSprite.attack, (this.x-100), (this.y - 170));
-      ellipse(this.x,this.y,this.radius,this.radius);}
-      else if (this.name === "Iron Man" && this.sprite === 2) {
+      ellipse(this.x,this.y,this.radius,this.radius);
+    } else if (this.name === "Iron Man" && this.sprite === 2) {
         image(ironManSprite.special, (this.x-100), (this.y - 170));
+        ellipse(this.x,this.y,this.radius,this.radius);
+      }else if (this.name === "Iron Man" && this.sprite === 3) {
+        image(ironManSprite.block, (this.x-100), (this.y - 170));
         ellipse(this.x,this.y,this.radius,this.radius);
       }
      else {
@@ -74,7 +84,10 @@ function Player(heroNumber, indexNum) {
   //function sets the player's sprite index for a certain number of frames
   this.spriteChange = function(num, time) {
     this.sprite = num;
-    this.spriteTime = time;
+
+        this.spriteTime = time;
+
+
   }
 
   //basic punching attack
@@ -93,17 +106,17 @@ function Player(heroNumber, indexNum) {
     }
   }
 
-
   //player shoots and updates the sprite to it's special img sprite
   this.shoot=function(){
     this.spriteChange(2, 6);
   }
 
+
   //function is called when a player gets hit ny a laser and runs combat function
   this.laser = function(laserThatHit) {
     this.hp -= this.combat(laserThatHit.damage, laserThatHit.playerIndex);
     this.isHit(10);
-  }
+  };
 
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls
   this.combat = function(baseDam, playerI) {
@@ -119,7 +132,8 @@ function Player(heroNumber, indexNum) {
 
   //updates the player value if they are blocking or not.
   this.isBlocking = function(bool, i) {
-    players[i].charBlocking = bool;
+    this.charBlocking = bool;
+      this.spriteChange(3, 1);
   }
 
   //function reduces damage taken if player is blocking
