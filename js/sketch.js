@@ -15,11 +15,11 @@ function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
 
-  player = new Player(0, players.length);
+  player = new Player(2, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(3, players.length);
+  player = new Player(5, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
@@ -33,8 +33,8 @@ function setup() {
 function draw() {
   background(backdrop, 0,0);
 
-  statBars[0].show(players[0].name,players[0].hp,players[0].power);
-  statBars[1].show(players[1].name,players[1].hp,players[1].power);
+  statBars[0].show(players[0]);
+  statBars[1].show(players[1]);
   //loop for lasers every frame
   for (var i = lasers.length-1; i >= 0; i--) {
     if (lasers[i].toDelete === true) {
@@ -98,7 +98,7 @@ function keyPressed() { //player1
     players[0].moveLeftRight(1);
   }
   else if (key === 's') {
-    players[0].charBlocking(true);
+    players[0].isBlocking(true);
   } // player2
   if (keyCode === LEFT_ARROW) {
     players[1].moveLeftRight(-1);
@@ -116,7 +116,7 @@ function keyReleased() {
   } else if (key === 'd') {
     players[0].moveLeftRight(0);
   } else if (key === 's') {
-    players[0].charBlocking(false);
+    players[0].isBlocking(false);
   } // player2
   if (keyCode === LEFT_ARROW) {
     players[1].moveLeftRight(0);

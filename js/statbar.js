@@ -10,15 +10,18 @@ function StatBar(name, health, maxHealth, power, powerMax) {
   this.pPowerPercent = this.pPower / this.pPowerMax;
 
 
-  this.show = function(name, health, power) {
+  this.show = function(player) {
     // fill(255);
     // rect(200,0,width-400,50);
+    name = player.name;
+    health = player.hp;
+    power = player.power;
     if (name === this.pName) {
       this.pHealth = health;
     }
     this.pHealthPercent = health / this.pMaxHealth;
     this.pPowerPercent = power / this.pPowerMax;
-    if (name === "Iron Man") {
+    if (0 === player.indexNum) {
       //player 1 health
       fill(255,0,0);
       rect(0,0,this.healthSize[0],this.healthSize[1]);
@@ -41,8 +44,8 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       textSize(30);
       textStyle(BOLD);
       text(power + " / " + this.pPowerMax, 3, height-this.powerSize[1] - 10);
-
-    } else {
+    }
+    if (1 === player.indexNum) {
     //hulkSprite,Captain America
       //player2 health
       fill(255,0,0);

@@ -7,12 +7,12 @@ function Player(heroNumber, indexNum) {
     //left side characters [0-2]
     ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
     ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
-    ["Black Widow", 100, this.startingX, this.startingY, ],
+    ["Black Widow", 100, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
 
     //right side characters [3-5]
     ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
-    ["Thor",],
-    ["Scarlet Witch",],
+    ["Thor", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
+    ["Scarlet Witch", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25]
   ];
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero onject
     this.name = this.hero[this.heroNumber][0];
@@ -90,9 +90,11 @@ function Player(heroNumber, indexNum) {
 
   //basic punching attack
   this.punch = function() {
+    var collided = false;
     this.spriteChange(1, 6);
     for(i=0;i<players.length;i++) {
-      if (this.name !== players[i].name) {
+      if (this.indexNum !== players[i].indexNum) {
+        console.log(this.indexNum + ' ' + players[i].indexNum + ' ' + i)
         var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
       }
       if (collided) {
@@ -100,6 +102,7 @@ function Player(heroNumber, indexNum) {
         players[i].isHit(5);
         this.power += this.powerRegen;
         this.power = constrain(this.power, 0, this.powerMax);
+        collided = false;
       }
     }
   }
