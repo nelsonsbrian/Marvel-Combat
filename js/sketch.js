@@ -37,7 +37,7 @@ function draw() {
   background(backdrop, 0,0);
 
   statBars[0].show(players[0].name,players[0].hp,players[0].power);
-  statBars[1].show(players[1].name,players[1].hp,players[0].power);
+  statBars[1].show(players[1].name,players[1].hp,players[1].power);
   for (var i = players.length-1; i >= 0; i--) {
     if (players[i].hp <= 0) {
       // players.splice(i, 1);
