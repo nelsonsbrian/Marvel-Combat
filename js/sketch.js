@@ -20,11 +20,11 @@ function preload() {
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
-  player = new Player(0);
+  player = new Player(0, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(1);
+  player = new Player(1, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
@@ -40,13 +40,26 @@ function draw() {
 
   statBars[0].show(players[0].name,players[0].hp,players[0].power);
   statBars[1].show(players[1].name,players[1].hp,players[1].power);
+  //loop for lasers every frame
+  for (var i = lasers.length-1; i >= 0; i--) {
+    if (lasers[i].toDelete === true) {
+      lasers.splice(i,1);
+    } else {
+      lasers[i].move();
+      lasers[i].show();
+    }
+  }
 
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
     for (var j = lasers.length-1; j >= 0; j--) {
-      var laserHit = players[i].collide(lasers[j].x, lasers[j].y, lasers[j].l, 1);
-      if (laserHit) {
-        players[i].laser(lasers[j]);
+      if (players[i].indexNum !== lasers[j].playerIndex) {
+        var laserHit = players[i].collide(lasers[j].x, lasers[j].y, lasers[j].l, 1);
+        if (laserHit) {
+          console.log(lasers[j].x + ',' + lasers[j].y + '|' + players[i].x + ',' + players[i].y)
+          players[i].laser(lasers[j]);
+          lasers[j].toDelete = true;
+        }
       }
     }
     if (players[i].hp <= 0) {
@@ -56,11 +69,6 @@ function draw() {
       players[i].show();
       players[i].move();
     }
-  }
-  //loop for lasers every frame
-  for (var i = lasers.length-1; i >= 0; i--) {
-    lasers[i].move();
-    lasers[i].show();
   }
 }
 
