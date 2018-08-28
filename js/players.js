@@ -39,10 +39,10 @@ function Player(heroNumber, indexNum) {
     // }
     // ellipse(this.x,this.y, this.radius*2,this.radius*2);
     if (this.name === "Iron Man") {
-      image(ironManNeutral, this.x-75, (this.y - 100));
+      image(ironManSprite.neutral, this.x, (this.y - 200));
       ellipse(this.x,this.y,this.radius,this.radius);
     } else {
-      image(captainAmericaNeutral, this.x-75, (this.y-100));
+      image(captainAmericaSprite.neutral, this.x, (this.y-200));
       ellipse(this.x,this.y,this.radius,this.radius);
     }
   }
