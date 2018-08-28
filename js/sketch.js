@@ -103,14 +103,9 @@ function keyTyped() {
   if (key === ' ') {
   }
   if (key === '1') {
-
-
-
       players[0].punch();
-
   }
   if (key === '2') {
-
     if (10 <= players[0].power) {
       var laser = new Laser(players[0]);
       players[0].shoot();

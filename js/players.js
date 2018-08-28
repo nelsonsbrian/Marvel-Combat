@@ -46,7 +46,6 @@ function Player(heroNumber, indexNum) {
       if (this.charBlocking===false) {
         // console.log(this.spriteTime + ' ' + this.charBlocking);
         this.spriteTime -= 1;
-
       }
 
     if (this.spriteTime === 0){
