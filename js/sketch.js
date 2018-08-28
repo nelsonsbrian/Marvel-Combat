@@ -6,6 +6,7 @@ var statBar;
 var lasers = [];
 var laser;
 var timer;
+var gameOver = 0;
 
 //setup function runs when canvas loads. Functions
 function setup() {
@@ -28,7 +29,6 @@ function setup() {
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 function draw() {
-
   background(backdrop, 0,0);
 
   statBars[0].show(players[0].name,players[0].hp,players[0].power);
@@ -55,10 +55,8 @@ function draw() {
         }
       }
     }
-    if (players[i].hp <= 0) {
-      // players.splice(i, 1);
-      // console.log(players[1].name + " is dead")
-    } else {
+    isGameOver(i);
+    if (gameOver === 0) {
       players[i].show();
       players[i].move();
     }
@@ -66,8 +64,27 @@ function draw() {
 }
 
 
-function gameOver() {
-
+function isGameOver(deadPlayer) {
+  // console.log(deadPlayer + ' ' + deadPlayer.indexNum)
+  var winner;
+  for (var i = players.length-1; i >= 0; i--) {
+    if (players[i].hp <= 0) {
+      gameOver = 1;
+      if (players[i].indexNum === 1) {
+        winner = 0;
+      } else {
+        winner = 1;
+      }
+    }
+  }
+  if (winner >= 0) {
+    fill(255);
+    rect(width / 2 - 100, height / 2, 300, 50);
+    fill(0);
+    textSize(30);
+    textStyle(BOLD);
+    text(players[winner].name + " Wins", width / 2 - 40, height / 2 + 35);
+  }
 }
 
 
@@ -121,23 +138,23 @@ function keyTyped() {// player 1
     } else {
       console.log("not enough power to launch a laser.")
     }
-    if (key === '3') {
+  }
+  if (key === '3') {
 
-    }// player 2
-    if (key === '7') {
-      players[1].punch();
+  }// player 2
+  if (key === '7') {
+    players[1].punch();
+  }
+  if (key === '8') {
+    if (players[1].rangeCost <= players[1].power) {
+      var laser = new Laser(players[1]);
+      players[1].shoot();
+      lasers.push(laser);
+    } else {
+      console.log("not enough power to launch a laser.")
     }
-    if (key === '8') {
-      if (players[1].rangeCost <= players[1].power) {
-        var laser = new Laser(players[1]);
-        players[1].shoot();
-        lasers.push(laser);
-      } else {
-        console.log("not enough power to launch a laser.")
-      }
-    }
-    if (key === '9') {
+  }
+  if (key === '9') {
 
-    }
   }
 }
