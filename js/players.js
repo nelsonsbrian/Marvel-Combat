@@ -129,6 +129,7 @@ function Player(heroNumber, indexNum) {
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
+      this.power -= this.rangeCost;
       special = new Special(players[this.indexNum], 0, 0);
       specials.push(special);
       this.spriteChange(2, this.gcd);
