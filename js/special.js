@@ -1,6 +1,6 @@
 var imgOff = [-100, -180];
 
-function Special(player, attackIndex) {
+function Special(player, attackIndex, retAtt) {
   this.playerIndex = player.indexNum;
   this.heroNumber = player.heroNumber;
   this.x = player.x;
@@ -11,28 +11,39 @@ function Special(player, attackIndex) {
   this.toDelete = false;
   this.dir = 1;
   this.time = 0;
-  // console.log(player + ' ' + isComeback);
-  // this.isComebackCheck = function() {
-  //   if (isComeback) {
-  //   } else {
-  //     player.power -= player.rangeCost;
-  //   }
-  // }
-  // this.isComebackCheck();
+
 
   this.rangeType = [
-    //name     spd  cback  spin
-    ["Blast",   15, false, false],
-    ["Throw",    8, false, false],
-    ["Boomer1",   9, true, false],
-    ["Return",  20, false, false],
-    ["Boomer2",   9, true, true ]
+    //if cback is true, need a next attack index#
+    //name     spd  cback  spin  nextattack
+    [ "Blast",  15, false, false,   false ],
+    [ "Throw",   8, false, false,   false ],
+    ["Boomer",   9,  true, false,       3 ],
+    ["Return",  20, false, false,   false ],
+    ["Boomer",   9,  true,  true,       5 ],
+    ["Return",  20, false,  true,   false ]
   ];
+  console.log(attackIndex);
+  if (attackIndex === -1) {
+    this.type = this.rangeType[retAtt][0];
+    this.speed = this.rangeType[retAtt][1];
+    this.isComeBack = this.rangeType[retAtt][2];
+    this.toSpin = this.rangeType[retAtt][3];
+    this.nextAtt = this.rangeType[retAtt][4];
+  } else {
+    this.type = this.rangeType[player.rAttack[attackIndex]][0];
+    this.speed = this.rangeType[player.rAttack[attackIndex]][1];
+    this.isComeBack = this.rangeType[player.rAttack[attackIndex]][2];
+    this.toSpin = this.rangeType[player.rAttack[attackIndex]][3];
+    this.nextAtt = this.rangeType[player.rAttack[attackIndex]][4];
 
-  this.type = this.rangeType[player.rAttack[attackIndex]][0];
-  this.speed = this.rangeType[player.rAttack[attackIndex]][1];
-  this.isComeBack = this.rangeType[player.rAttack[attackIndex]][2];
-  console.log(this.type + ' ' + this.speed + ' ' + this.isComeBack);
+  }
+  console.log(this.type + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
+  if (this.nextAtt !== false) {
+    this.attackIndex = this.nextAtt;
+  } else {
+    this.attackIndex = attackIndex;
+  }
 
 
   //use the special attack in the correct direction
@@ -52,7 +63,8 @@ function Special(player, attackIndex) {
   }
 
   this.show = function() {
-    if (this.heroNumber===5) {
+
+    if (this.toSpin) {
       this.spin();
     } else {
       image(heroSprites[this.heroNumber].range,this.x + imgOff[0],this.y + imgOff[1]);
@@ -61,20 +73,23 @@ function Special(player, attackIndex) {
 
 
   this.move = function() {
-    if (this.heroNumber===1) {
+    if (this.type === "Blast") {
+
+    }
+    if (this.type=== "Throw") {
       this.throw();
     }
     this.x += this.dir * this.speed;
     translate(0,0);
   }
-
   this.throw = function() {
     this.y += this.time/8;
   }
 
   this.comeBack = function(hitPlayer) {
-    if ((this.heroNumber===4||this.heroNumber===5||this.heroNumber===7) && this.isComeBack === false) {
-      var special = new Special(hitPlayer, true);
+    if (this.isComeBack === true) {
+      console.log(hitPlayer.name + ' ' + this.attackIndex)
+      var special = new Special(hitPlayer, -1,this.attackIndex);
       special.damage = 0;
       special.speed *= 1.5;
       special.heroNumber = this.heroNumber;
