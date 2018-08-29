@@ -169,17 +169,18 @@ function Player(heroNumber, indexNum) {
       }
     }
     if (collided) {
-      this.x += this.direction * -1 * 25;
+      if (this.indexNum === 0 && this.direction === -1 || this.indexNum === 1 && this.direction === 1) {
+        this.x += this.direction * this.speed;
+      }
     } else {
       this.x += this.direction * this.speed;
     }
   }
-  this.direction = 0;
+  // this.direction = 0;
 
   //checks to see if this player has something collided with it. Pass in args of the thing to check.
   this.collide = function(x, y, r, buffer) {
     if (dist(this.x,this.y,x,y) < this.radius + r + buffer) {
-
       return true;
       // console.log(this.name + " collide");
     }
@@ -188,10 +189,7 @@ function Player(heroNumber, indexNum) {
   //move left and right
   this.moveLeftRight = function(direction) {
     if (this.direction !== direction) {
-
       this.direction = direction;
-    } else {
-
     }
   }
 
