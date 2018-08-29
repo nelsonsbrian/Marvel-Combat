@@ -50,8 +50,8 @@
 
     <div class="container">
       <h1 class="title">Super Smash Heroes</h1>
-      <div>
-        <button class="btn btn-danger" id="play">Play</button>
+      <div class="buttons">
+        <button class="btn btn-success" id="play">Play</button>
       </div>
 
       <div id="selection">
@@ -63,80 +63,81 @@
             <h2 style="text-align: right">Player Two</h2>
           </div>
         </div>
-        <form>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="player-container left" id="hero0">
-                <h4></h4>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="player-container left" id="hero1">
-                <h4></h4>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="player-container left" id="hero2">
-                <h4></h4>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero6">
-                <h4></h4>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero7">
-                <h4></h4>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero8">
-                <h4></h4>
-              </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="player-container left" id="hero0" value=0>
+              <h4></h4>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="player-container left" id="hero3">
-                <h4></h4>
-              </div>
+          <div class="col-md-2">
+            <div class="player-container left" id="hero1" value=1>
+              <h4></h4>
             </div>
-            <div class="col-md-2">
-              <div class="player-container left" id="hero4">
-                <h4></h4>
-              </div>
+          </div>
+          <div class="col-md-2 radioL">
+            <div class="player-container left" id="hero2" value=2>
+              <h4></h4>
             </div>
-            <div class="col-md-2">
-              <div class="player-container left" id="hero5">
-                <h4></h4>
-              </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero6" value=6>
+              <h4></h4>
             </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero9">
-                <h4></h4>
-              </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero7" value=7>
+              <h4></h4>
             </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero10">
-                <h4></h4>
-              </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero8" value=8>
+              <h4></h4>
             </div>
-            <div class="col-md-2">
-              <div class="player-container right" id="hero11">
-                <h4></h4>
-              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="player-container left" id="hero3" value=3>
+              <h4></h4>
             </div>
-          <button type=submit class="btn btn-danger">Start</button>
-        </form>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container left" id="hero4" value=4>
+              <h4></h4>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container left" id="hero5" value=5>
+              <h4></h4>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero9" value=9>
+              <h4></h4>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero10" value=10>
+              <h4></h4>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="player-container right" id="hero11" value=11>
+              <h4></h4>
+            </div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button type=submit class="btn btn-success" id="start">Start</button>
+        </div>
       </div>
-
-      <div id="gameBoard">
-        <!-- canvas from p5 libray gets added in this div -->
-      </div>
-      <div class="button">
-        <button type="button" class="btn btn-danger" id="reset" name="button">Reset Game</button>
-        <p id='output'></p>
+      <div id="gamePlay">
+        <div id="gameBoard">
+          <!-- canvas from p5 libray gets added in this div -->
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn btn-success" id="reset" name="button">Reset Game</button>
+        </div>
       </div>
     </div>
   </body>
