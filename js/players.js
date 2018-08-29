@@ -51,6 +51,7 @@ function Player(heroNumber, indexNum) {
   this.gcd = 0;
   this.hurtTime = 0;
   this.hurtReflex = 8;
+  this.winner = 0;
 
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
@@ -65,22 +66,25 @@ function Player(heroNumber, indexNum) {
     }
 
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
-    if (this.charBlocking===false && this.spriteTime > 0) {
-      // console.log(this.spriteTime + ' ' + this.charBlocking);
-      this.spriteTime -= 1;
-    }
-    if (this.direction > 0) {
-      this.spriteChange(5,3)
-    }
-    if (this.direction < 0) {
-      this.spriteChange(4,3)
-    }
-    if (this.hurtTime > 0) {
-      this.spriteChange(6, 10)
-    }
-
-    if (this.spriteTime === 0){
-      this.sprite = 0;
+    if (this.winner === 1) {
+      this.sprite = 8;
+    } else {
+      if (this.charBlocking === false && this.spriteTime > 0) {
+        // console.log(this.spriteTime + ' ' + this.charBlocking);
+        this.spriteTime -= 1;
+      }
+      if (this.direction > 0) {
+        this.spriteChange(5,3)
+      }
+      if (this.direction < 0) {
+        this.spriteChange(4,3)
+      }
+      if (this.hurtTime > 0) {
+        this.spriteChange(6, 10)
+      }
+      if (this.spriteTime === 0){
+        this.sprite = 0;
+      }
     }
 
     if (this.hurtTime > 0) {
@@ -92,7 +96,9 @@ function Player(heroNumber, indexNum) {
     }
 
     //checks to see the sprite value of the player and change the displayed sprite img.
-    if (this.sprite === 0) {
+    if (this.sprite === 8) {
+      image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 0) {
       image(heroSprites[heroNumber].neutral, (this.x + imgOff[0]), (this.y + imgOff[1]));
     } else if (this.sprite === 1) {
       image(heroSprites[heroNumber].attack, (this.x + imgOff[0]), (this.y + imgOff[1]));
@@ -107,11 +113,9 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 6) {
       image(heroSprites[heroNumber].hit, (this.x + imgOff[0]), (this.y + imgOff[1]));
     } else if (this.sprite === 7) {
-      image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
-    } else if (this.sprite === 8) {
       image(heroSprites[heroNumber].jump, (this.x + imgOff[0]), (this.y + imgOff[1]));
     }
-    ellipse(this.x,this.y,this.radius,this.radius);
+    // ellipse(this.x,this.y,this.radius,this.radius);
   }
 
 
