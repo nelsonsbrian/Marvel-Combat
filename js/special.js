@@ -5,8 +5,8 @@ function Special(player) {
   this.y = player.y;
   this.l = 70;
   this.w = 25;
-  this.speed = 30;
-  this.damage = 100;
+  this.speed = player.speed * 2;
+  this.damage = player.rangeAttack;
   player.power -= player.rangeCost;
   this.toDelete = false;
   this.dir = 1;
