@@ -33,23 +33,23 @@ function Special(player, isComeback) {
 
 var angle = 0;
   this.spin = function(toSpin) {
-    if (toSpin){
-      translate(this.x,this.y);
-      rotate(angle);
-      angle+=25;
-    }
+    // if (toSpin){
+    //   translate(this.x,this.y);
+    //   rotate(angle);
+    //   angle+=25;
+    // }
   }
 
-  this.show = function(this.spinning) {
-    this.spin();
-    image(heroSprites[this.heroNumber].range,0-100,0-180);
+  this.show = function() {
+    // this.spin();
+    image(heroSprites[this.heroNumber].range,this.x-100,this.y-180);
     this.time ++;
   }
 
 
   this.move = function() {
     if (this.heroNumber===1) {
-      this.throw();
+      this.throw();7
     }
     this.x += this.dir * this.speed;
     translate(0,0);
