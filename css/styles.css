@@ -64,7 +64,7 @@ h2  {
 
 h4  {
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 #left {
@@ -76,29 +76,31 @@ h4  {
 }
 
 .player-container {
+  position: relative;
   color: white;
+  text-shadow: 3px 3px 3px black;
   border: 2px solid white;
   border-radius: 10px;
-  height: 180px;
+  height: 120px;
   width: 100%;
+  box-shadow: 5px 5px 5px black;
 }
 
 .player-container img {
   position: absolute;
-  width: auto;
   bottom: 0px;
 }
 
 .left {
-  background-color: darkred;
+  background-image: linear-gradient(darkred, black);
 }
 
 .right {
-  background-color: darkblue;
+  background-image: linear-gradient(darkblue, black);
 }
 
-h4:hover,.player-container:hover {
-  background-color: lightgray;
+.player-container:hover {
+  background-image: linear-gradient(lightgray, black);
   color: black;
   cursor: pointer;
   font-style: italic;
@@ -112,9 +114,4 @@ img {
 .row  {
   margin-top: 20px;
   margin-bottom: 20px;
-}
-
-.col-md-2, .col-md-4, .col-md-8  {
-
-  max-height: 100%;
 }

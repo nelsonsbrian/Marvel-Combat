@@ -6,7 +6,7 @@ $(document).ready(function() {
     event.preventDefault();
     for (i = 0; i < heroes.length; i++) {
       $("#hero" + i + " h4").text(heroes[i][0]);
-      $('#hero' + i).append("<img src='" + heroSprites[i].image + "'>");
+      $('#hero' + i).prepend("<img src='" + heroSprites[i].image + "'>");
     };
   });
 
