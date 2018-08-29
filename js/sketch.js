@@ -14,6 +14,7 @@ var gameOver = 0;
 function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
+  angleMode(DEGREES);
 
   player = new Player(1, players.length);
   players.push(player);
@@ -36,15 +37,7 @@ function draw() {
   statBars[0].show(players[0]);
   statBars[1].show(players[1]);
   //loop for specials every frame
-  for (var i = specials.length-1; i >= 0; i--) {
-    if (specials[i].toDelete === true) {
-      specials.splice(i,1);
-    } else {
-      specials[i].move();
-      specials[i].show();
-    }
-  }
-
+  translate(0,0);
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
     // if (frameCount % 30 == 0) {//global cooldown counter
@@ -68,6 +61,14 @@ function draw() {
     if (gameOver === 0) {
       players[i].show();
       players[i].move();
+    }
+  }
+  for (var i = specials.length-1; i >= 0; i--) {
+    if (specials[i].toDelete === true) {
+      specials.splice(i,1);
+    } else {
+      specials[i].move();
+      specials[i].show();
     }
   }
 }
