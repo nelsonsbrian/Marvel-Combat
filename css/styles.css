@@ -17,6 +17,8 @@ body {
   border-radius: 10px;
   /*margin: 40px 200px;*/
   padding-top: 30px;
+  box-shadow: 5px 5px 5px black;
+
 }
 
 .bioFrame {
@@ -71,7 +73,7 @@ h2  {
 
 h4  {
   text-align: center;
-  font-size: 25px;
+  font-size: 21px;
 }
 
 #selection {
@@ -111,7 +113,7 @@ h4  {
 }
 
 .left.selected {
-  border: 6px solid #6EC44C;
+  border: 5px solid #6EC44C;
   background-image: linear-gradient(lightgray, gray);
   font-style: italic;
   color: black;
@@ -119,7 +121,7 @@ h4  {
 }
 
 .right.selected {
-  border: 6px solid #6EC44C;
+  border: 5px solid #6EC44C;
   background-image: linear-gradient(lightgray, gray);
   font-style: italic;
   color: black;

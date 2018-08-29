@@ -16,9 +16,9 @@ function Special(player, attackIndex, retAtt) {
   this.rangeType = [
     //if cback is true, need a next attack index#
     //name     spd  cback  spin  nextattack
-    [ "Blast",  15, false, false,   false ],
+    [ "Blast",  40, false, false,   false ],
     [ "Throw",  12, false, false,   false ],
-    ["Boomer",   9,  true, false,       3 ],
+    ["Boomer",  30,  true, false,       3 ],
     ["Return",  20, false, false,   false ],
     ["Boomer",   9,  true,  false,       5 ],
     ["Return",  20, false,  false,   false ]
