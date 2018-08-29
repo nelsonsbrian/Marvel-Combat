@@ -37,9 +37,12 @@ function keyReleased() {
   }
 }
 
+
+
 function keyTyped() {// player 1
   if (key === '1') {
     players[0].punch();
+    
   }
   if (key === '2') {
     players[0].shoot();
