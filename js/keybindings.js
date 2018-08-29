@@ -47,13 +47,13 @@ function keyTyped() {// player 1
   if (key === '3') {
 
   }// player 2
-  if (key === '7') {
+  if (key === ',') {
     players[1].punch();
   }
-  if (key === '8') {
+  if (key === '.') {
     players[1].shoot();
   }
-  if (key === '9') {
-
+  if (key === '/') {
+    players[1].punch();
   }
 }

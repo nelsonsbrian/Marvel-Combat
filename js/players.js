@@ -10,23 +10,19 @@ function Player(heroNumber, indexNum) {
   heroes = [];
   this.hero = [
     //left side characters [0-5]
-
-    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
-    ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
-    ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45],
-    ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45],
-    ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45],
-    ["Doctor Strange",  130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
-    ["Sixth Character", 130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
-
-    //right side characters [6-11]
-    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
-    ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45],
-    ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45],
-    ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45],
-    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45],
-    ["Vision",          150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45],
-    ["Sixth Character", 130, 900,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45]
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Rattack
+    ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45, [0]],
+    ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45, [1]],
+    ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45, [0]],
+    ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45, [0]],
+    ["Doctor Strange",  130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45, [0]],
+    //right side characters [5-9]
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
+    ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45, [2]],
+    ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 99, 10, 75, 25, 45, [4]],
+    ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45, [0]],
+    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45, [2]],
+    ["Vision",          150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45, [0]]
   ];
   this.hero.forEach(function(hero) {
     heroes.push(hero);
@@ -48,6 +44,7 @@ function Player(heroNumber, indexNum) {
     this.rangeAttack = this.hero[this.heroNumber][11];
     this.rangeCost = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
+    this.rAttack = this.hero[this.heroNumber][14];
   }
 
   this.heroSelect();
@@ -136,9 +133,9 @@ function Player(heroNumber, indexNum) {
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
-      special = new Special(players[this.indexNum], false);
+      special = new Special(players[this.indexNum], 0, 0);
       specials.push(special);
-      this.spriteChange(2, 10);
+      this.spriteChange(2, this.gcd);
     }
 
   }
@@ -146,8 +143,8 @@ function Player(heroNumber, indexNum) {
 
 
   //function is called when a player gets hit by a special ranged attack and runs combat function
-  this.special = function(missleHit) {
-    this.hp -= this.combat(missleHit.damage, missleHit.playerIndex);
+  this.special = function(missileHit) {
+    this.hp -= this.combat(missileHit.damage, missileHit.playerIndex);
     this.isHit(10);
   };
 
