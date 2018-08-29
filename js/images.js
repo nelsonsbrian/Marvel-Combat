@@ -4,10 +4,10 @@ var backdrop;
 //Character Sprites array
 var heroSprites = [];
 
-function Sprite(neutral, forward, back, attack, block, special, range, jump, hit, portrait) {
+function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jump, hit, portrait) {
   this.neutral = neutral;
-  this.forward = forward;
-  this.back = back;
+  this.moveLeft = moveLeft;
+  this.moveRight = moveRight;
   this.attack = attack;
   this.block = block;
   this.special = special;
@@ -25,8 +25,8 @@ function preload() {
   //LEFT SIDE CHARACTERS
   //Iron Man [0]
   new Sprite(loadImage('https://i.imgur.com/AqQ7brV.png'),
-  loadImage('https://i.imgur.com/qBIkAz2.png'),
   loadImage('https://i.imgur.com/CDOysU0.png'),
+  loadImage('https://i.imgur.com/qBIkAz2.png'),
   loadImage('https://i.imgur.com/uZm54mX.png'),
   loadImage('https://i.imgur.com/U8EW5re.png'),
   loadImage('https://i.imgur.com/j7UjIdP.png'),
@@ -37,8 +37,8 @@ function preload() {
 
   //Hulk [1]
   new Sprite(loadImage('https://i.imgur.com/daAdlYF.png'),
-  loadImage('https://i.imgur.com/9Tm3SZb.png'),
   loadImage('https://i.imgur.com/SqsSfVR.png'),
+  loadImage('https://i.imgur.com/9Tm3SZb.png'),
   loadImage('https://i.imgur.com/nc61aYu.png'),
   loadImage('https://i.imgur.com/3o0afq3.png'),
   loadImage('https://i.imgur.com/jcarFX3.png'),
@@ -49,8 +49,8 @@ function preload() {
 
   //Black Widow [2]
   new Sprite(loadImage('https://i.imgur.com/ggZosIJ.png'),
-  loadImage('https://i.imgur.com/gup2pJh.png'),
   loadImage('https://i.imgur.com/5hGjnRK.png'),
+  loadImage('https://i.imgur.com/gup2pJh.png'),
   loadImage('https://i.imgur.com/3RJZ2ms.png'),
   loadImage('https://i.imgur.com/xKu87V7.png'),
   loadImage('https://i.imgur.com/EQ0Mrvi.png'),
@@ -61,8 +61,8 @@ function preload() {
 
   //Spider-Man [3]
   new Sprite(loadImage('https://i.imgur.com/xPeTmA2.png'),
-  loadImage('https://i.imgur.com/BPBpd1m.png'),
   loadImage('https://i.imgur.com/2d9sfhc.png'),
+  loadImage('https://i.imgur.com/BPBpd1m.png'),
   loadImage('https://i.imgur.com/qrbtVQu.png'),
   loadImage('https://i.imgur.com/dpU4Yck.png'),
   loadImage('https://i.imgur.com/py0s9O9.png'),
@@ -73,8 +73,8 @@ function preload() {
 
   //Doctor Strange [4]
   new Sprite(loadImage('https://i.imgur.com/XVsyj5k.png'),
-  loadImage('https://i.imgur.com/9P2hlWN.png'),
   loadImage('https://i.imgur.com/qO8tHLR.png'),
+  loadImage('https://i.imgur.com/9P2hlWN.png'),
   loadImage('https://i.imgur.com/OY3aT8A.png'),
   loadImage('https://i.imgur.com/ZgHa8aY.png'),
   loadImage('https://i.imgur.com/GcVZq15.png'),
