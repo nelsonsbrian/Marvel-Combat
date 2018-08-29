@@ -1,24 +1,29 @@
+var xOff = -125;
+var yOff = -100;
+
 function Player(heroNumber, indexNum) {
   this.heroNumber = heroNumber;
   this.startingX = 90;
-  this.startingY = 300;
+  this.startingY = 230;
   this.indexNum = indexNum;
   this.hero = [
     //left side characters [0-2]
-    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
-    ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33],
-    ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25],
-    ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50],
-    ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25],
+
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
+    ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
+    ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45],
+    ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45],
+    ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45],
 
     //right side characters [3-5]
     //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
-    ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25],
-    ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25],
-    ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10],
-    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50]
+    ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45],
+    ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45],
+    ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45],
+    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45]
+
   ];
-  this.heroSelect = function() {// pull hero stats from this.hero array into a hero onject
+  this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
     this.hp = this.hero[this.heroNumber][1];
     this.hpMax = this.hp;
@@ -31,9 +36,11 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
-    this.rangeAttack = this.hero[this.heroNumber][11];
+    this.rangeAttack = this.hero[this.heroNumber][11];  
     this.rangeCost = this.hero[this.heroNumber][12];
+    this.attackSpeed = this.hero[this.heroNumber][13];
   }
+  
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
@@ -42,7 +49,7 @@ function Player(heroNumber, indexNum) {
   this.charBlocking = false;
   this.sprite = 0;
   this.spriteTime = 0;
-
+  this.gcd = 0;
 
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
@@ -59,27 +66,29 @@ function Player(heroNumber, indexNum) {
 
 
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
-    if (this.charBlocking===false) {
+    if (this.charBlocking===false && this.spriteTime > 0) {
       // console.log(this.spriteTime + ' ' + this.charBlocking);
       this.spriteTime -= 1;
     }
-
+    this.globalCD = function() {
+      this.gcd -= 1;
+    }
 
     if (this.spriteTime === 0){
       this.sprite = 0;
     }
   //checks to see the sprite value of the player and change the displayed sprite img.
     if (this.sprite === 0) {
-      image(heroSprites[heroNumber].neutral, (this.x-100), (this.y - 170));
+      image(heroSprites[heroNumber].neutral, (this.x + xOff), (this.y + yOff));
       ellipse(this.x,this.y,this.radius,this.radius);
     } else if (this.sprite === 1) {
-      image(heroSprites[heroNumber].attack, (this.x-100), (this.y - 170));
+      image(heroSprites[heroNumber].attack, (this.x + xOff), (this.y + yOff));
       ellipse(this.x,this.y,this.radius,this.radius);
     } else if (this.sprite === 2) {
-        image(heroSprites[heroNumber].special, (this.x-100), (this.y - 170));
-        ellipse(this.x,this.y,this.radius,this.radius);
+      image(heroSprites[heroNumber].special, (this.x + xOff), (this.y + yOff));
+      ellipse(this.x,this.y,this.radius,this.radius);
     } else if (this.sprite === 3) {
-      image(heroSprites[heroNumber].block, (this.x-100), (this.y - 170));
+      image(heroSprites[heroNumber].block, (this.x + xOff), (this.y + yOff));
       ellipse(this.x,this.y,this.radius,this.radius);
     }
   }
@@ -92,26 +101,39 @@ function Player(heroNumber, indexNum) {
 
   //basic punching attack
   this.punch = function() {
-    var collided = false;
-    this.spriteChange(1, 10);
-    for(i=0; i<players.length; i++) {
-      if (this.indexNum !== players[i].indexNum) {
-        var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
-      }
-      if (collided) {
-        players[i].hp -= this.combat(50, i);
-        players[i].isHit(5);
-        this.power += this.powerRegen;
-        this.power = constrain(this.power, 0, this.powerMax);
-        collided = false;
+
+    if (this.gcd === 0) {
+      this.gcd =+ this.attackSpeed;
+      var collided = false;
+      this.spriteChange(1, 15);
+      for(i=0;i<players.length;i++) {
+        if (this.indexNum !== players[i].indexNum) {
+          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
+        }
+        if (collided) {
+          players[i].hp -= this.combat(50, i);
+          players[i].isHit(5);
+          this.power += this.powerRegen;
+          this.power = constrain(this.power, 0, this.powerMax);
+          collided = false;
+        }
+
       }
     }
   }
 
   //player shoots and updates the sprite to it's special img sprite
-  this.shoot=function(){
-    this.spriteChange(2, 10);
+
+  this.shoot = function() {
+    if (this.rangeCost <= this.power && this.gcd === 0) {
+      this.gcd =+ this.attackSpeed;
+      var players[this.indexNum], false);
+      specials.push(special);
+      this.spriteChange(2, 10);
+    }
+
   }
+
 
 
   //function is called when a player gets hit by a special ranged attack and runs combat function
@@ -149,7 +171,6 @@ function Player(heroNumber, indexNum) {
 
   //function computes the attack damage
   this.damageRoll = function(baseDam, index) {
-    console.log(baseDam + ' ' + players[index].attack + ' ' + index + ' ' + this.indexNum);
    return baseDam * players[index].attack / 100;
   }
 
@@ -165,20 +186,24 @@ function Player(heroNumber, indexNum) {
 
   //this is in the draw function. Updates the x coord of the player
   this.move = function() {
-    for(i=0;i<players.length;i++) {
-      if (this.name !== players[i].name) {
-        var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
+    var borders = [];
+    borders = this.edges();
+    if ((borders[0] === false && borders[1] === false) || ((borders[0] === true && this.direction > 0) || (borders[1] === true && this.direction < 0))) {
+      if (this.indexNum === 0) {
+        var collided = this.collide(players[1].x, players[1].y, players[1].radius, 5)
+      } else {
+        var collided = this.collide(players[0].x, players[0].y, players[0].radius, 5)
       }
-    }
-    if (collided) {
-      if (this.indexNum === 0 && this.direction === -1 || this.indexNum === 1 && this.direction === 1) {
+      if (collided) {
+        if (this.indexNum === 0 && this.direction === -1 || this.indexNum === 1 && this.direction === 1) {
+
+          this.x += this.direction * this.speed;
+        }
+      } else {
         this.x += this.direction * this.speed;
       }
-    } else {
-      this.x += this.direction * this.speed;
     }
   }
-  // this.direction = 0;
 
   //checks to see if this player has something collided with it. Pass in args of the thing to check.
   this.collide = function(x, y, r, buffer) {
@@ -190,9 +215,15 @@ function Player(heroNumber, indexNum) {
 
   //move left and right
   this.moveLeftRight = function(direction) {
-    if (this.direction !== direction) {
+    // if (this.direction !== direction) {
       this.direction = direction;
-    }
+    // }
   }
 
+  this.edges = function() {
+    var leftright = [];
+    leftright[0] = this.x < 20;
+    leftright[1] = this.x > width - 20;
+    return leftright;
+  }
 }

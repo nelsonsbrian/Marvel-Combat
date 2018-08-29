@@ -15,11 +15,11 @@ function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
 
-  player = new Player(3, players.length);
+  player = new Player(1, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(7, players.length);
+  player = new Player(4, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
@@ -47,12 +47,19 @@ function draw() {
 
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
+    // if (frameCount % 30 == 0) {//global cooldown counter
+      if (players[i].gcd > 0) {
+        players[i].globalCD();
+      }
+    // }
     for (var j = specials.length-1; j >= 0; j--) {
       if (players[i].indexNum !== specials[j].playerIndex) {
         var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
         if (specialHit) {
-          console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
+          console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' +
+           players[i].y)
           players[i].special(specials[j]);
+          specials[j].comeBack(players[i]);
           specials[j].toDelete = true;
         }
       }

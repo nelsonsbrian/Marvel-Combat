@@ -19,6 +19,7 @@ function Sprite(neutral, attack, block, special, range, jump, hit, portrait) {
 function preload() {
   backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
 
+
   //LEFT SIDE CHARACTERS
   //Iron Man [0]
   new Sprite(loadImage('https://i.imgur.com/AqQ7brV.png'),
