@@ -8,14 +8,20 @@ function Player(heroNumber, indexNum) {
   this.indexNum = indexNum;
   this.hero = [
     //left side characters [0-2]
-    ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25, 35],
-    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 60],
-    ["Black Widow", 100, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25, 20],
+
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
+    ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
+    ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45],
+    ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45],
+    ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45],
 
     //right side characters [3-5]
-    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 70, 25, 5, 25, 40],
-    ["Thor", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 50],
-    ["Scarlet Witch", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 30]
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
+    ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45],
+    ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45],
+    ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45],
+    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45]
+
   ];
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
@@ -30,9 +36,11 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
-    this.rangeCost = this.hero[this.heroNumber][11];
-    this.attackSpeed = this.hero[this.heroNumber][12];
+    this.rangeAttack = this.hero[this.heroNumber][11];  
+    this.rangeCost = this.hero[this.heroNumber][12];
+    this.attackSpeed = this.hero[this.heroNumber][13];
   }
+  
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
@@ -88,14 +96,12 @@ function Player(heroNumber, indexNum) {
   //function sets the player's sprite index for a certain number of frames
   this.spriteChange = function(num, time) {
     this.sprite = num;
-
-        this.spriteTime = time;
-
-
+    this.spriteTime = time;
   }
 
   //basic punching attack
   this.punch = function() {
+
     if (this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
       var collided = false;
@@ -111,18 +117,21 @@ function Player(heroNumber, indexNum) {
           this.power = constrain(this.power, 0, this.powerMax);
           collided = false;
         }
+
       }
     }
   }
 
   //player shoots and updates the sprite to it's special img sprite
+
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
-      var special = new Special(players[this.indexNum], false);
+      var players[this.indexNum], false);
       specials.push(special);
-      this.spriteChange(2, 6);
+      this.spriteChange(2, 10);
     }
+
   }
 
 
@@ -148,7 +157,7 @@ function Player(heroNumber, indexNum) {
   //updates the player value if they are blocking or not.
   this.isBlocking = function(bool, i) {
     this.charBlocking = bool;
-      this.spriteChange(3, 1);
+    this.spriteChange(3, 1);
   }
 
   //function reduces damage taken if player is blocking

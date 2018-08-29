@@ -7,8 +7,8 @@ function Special(player, isComeback) {
   this.y = player.y;
   this.l = 70;
   this.w = 25;
-  this.speed = 13;
-  this.damage = 100;
+  this.speed = player.speed * 2;
+  this.damage = player.rangeAttack;
   this.toDelete = false;
   this.isComeBack = isComeback;
   this.dir = 1;
