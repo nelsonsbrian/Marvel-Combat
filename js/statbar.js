@@ -45,7 +45,7 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       textStyle(BOLD);
       text(power + " / " + this.pPowerMax, 3, height-this.powerSize[1] - 10);
     }
-    if (1 === player.indexNum) {
+  if (1 === player.indexNum) {
     //hulkSprite,Captain America
       //player2 health
       fill(255,0,0);
@@ -64,7 +64,7 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       fill(255,255,0);
       let bluePower = this.pPowerPercent * this.powerSize[0];
       bluePower = constrain(bluePower, 0, this.powerSize[0]);
-      rect(width - this.powerSize[1],height-this.powerSize[1],bluePower,this.powerSize[1]);
+      rect(width - this.powerSize[0],height-this.powerSize[1],bluePower,this.powerSize[1]);
       fill(255);
       textSize(30);
       textStyle(BOLD);

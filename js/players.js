@@ -10,7 +10,7 @@ function Player(heroNumber, indexNum) {
     ["Black Widow", 100, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
 
     //right side characters [3-5]
-    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
+    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 70, 25, 5, 25],
     ["Thor", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
     ["Scarlet Witch", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25]
   ];
