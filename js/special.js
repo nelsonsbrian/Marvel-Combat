@@ -5,7 +5,7 @@ function Special(player, attackIndex, retAtt) {
   this.heroNumber = player.heroNumber;
   this.x = player.x;
   this.y = player.y;
-  this.l = 70;
+  this.l = 170;
   this.w = 25;
   this.damage = player.rangeAttack;
   this.toDelete = false;
@@ -17,20 +17,21 @@ function Special(player, attackIndex, retAtt) {
     //if cback is true, need a next attack index#
     //name     spd  cback  spin  nextattack
     [ "Blast",  15, false, false,   false ],
-    [ "Throw",   8, false, false,   false ],
+    [ "Throw",  12, false, false,   false ],
     ["Boomer",   9,  true, false,       3 ],
     ["Return",  20, false, false,   false ],
     ["Boomer",   9,  true,  true,       5 ],
     ["Return",  20, false,  true,   false ]
   ];
-  console.log(attackIndex);
+  // console.log(attackIndex);
+  //if the attack is a return attack from the rangetype meaning another attack already preceded it.
   if (attackIndex === -1) {
     this.type = this.rangeType[retAtt][0];
     this.speed = this.rangeType[retAtt][1];
     this.isComeBack = this.rangeType[retAtt][2];
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
-  } else {
+  } else {//if the attack is the first original attack
     this.type = this.rangeType[player.rAttack[attackIndex]][0];
     this.speed = this.rangeType[player.rAttack[attackIndex]][1];
     this.isComeBack = this.rangeType[player.rAttack[attackIndex]][2];
@@ -53,47 +54,55 @@ function Special(player, attackIndex, retAtt) {
     this.dir = -1;
   }
 
+  //rotate the image if the this.spin is true
   var angle = 0;
   this.spin = function() {
     translate(this.x,this.y);
     rotate(angle);
     angle-=25;
     image(heroSprites[this.heroNumber].range,imgOff[0],imgOff[1]);
-    this.time ++;
   }
 
-  this.show = function() {
 
+  this.show = function() {
     if (this.toSpin) {
       this.spin();
     } else {
       image(heroSprites[this.heroNumber].range,this.x + imgOff[0],this.y + imgOff[1]);
     }
+    this.time ++;
   }
 
+  //when this type is throw, gravity affects the attack
+  this.throw = function() {
+    this.y += this.time/10;
+  }
 
   this.move = function() {
     if (this.type === "Blast") {
 
     }
-    if (this.type=== "Throw") {
+    if (this.type === "Throw") {
       this.throw();
     }
     this.x += this.dir * this.speed;
     translate(0,0);
   }
-  this.throw = function() {
-    this.y += this.time/8;
-  }
+
 
   this.comeBack = function(hitPlayer) {
     if (this.isComeBack === true) {
-      console.log(hitPlayer.name + ' ' + this.attackIndex)
       var special = new Special(hitPlayer, -1,this.attackIndex);
       special.damage = 0;
       special.speed *= 1.5;
       special.heroNumber = this.heroNumber;
       specials.push(special);
+    }
+  }
+
+  this.edges = function() {
+    if (this.x > width + 50 || this.x < -50 || this.y > height + 50 || this.y < -50) {
+      this.toDelete = true;
     }
   }
 

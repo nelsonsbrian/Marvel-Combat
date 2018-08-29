@@ -46,6 +46,7 @@ function draw() {
       }
     // }
     for (var j = specials.length-1; j >= 0; j--) {
+      specials[j].edges();
       if (players[i].indexNum !== specials[j].playerIndex) {
         var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
         if (specialHit) {
