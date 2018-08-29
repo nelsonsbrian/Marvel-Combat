@@ -112,7 +112,7 @@ h4  {
 
 .left.selected {
   border: 6px solid #6EC44C;
-  background-image: linear-gradient(lightgray, black);
+  background-image: linear-gradient(lightgray, gray);
   font-style: italic;
   color: black;
   text-shadow: none;
@@ -120,7 +120,7 @@ h4  {
 
 .right.selected {
   border: 6px solid #6EC44C;
-  background-image: linear-gradient(lightgray, black);
+  background-image: linear-gradient(lightgray, gray);
   font-style: italic;
   color: black;
   text-shadow: none;
@@ -128,7 +128,7 @@ h4  {
 }
 
 .player-container:hover {
-  background-image: linear-gradient(lightgray, black);
+  background-image: linear-gradient(lightgray, gray);
   color: black;
   cursor: pointer;
   font-style: italic;
