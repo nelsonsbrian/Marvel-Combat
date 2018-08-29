@@ -16,11 +16,11 @@ function setup() {
   canvas.parent('gameBoard');
   angleMode(DEGREES);
 
-  player = new Player(1, players.length);
+  player = new Player(4, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(5, players.length);
+  player = new Player(10, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
