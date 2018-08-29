@@ -1,4 +1,4 @@
-function Laser(player) {
+function Special(player) {
   this.playerIndex = player.indexNum;
   this.heroNumber = player.heroNumber;
   this.x = player.x;

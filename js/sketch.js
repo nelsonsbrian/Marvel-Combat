@@ -3,8 +3,8 @@ var players = [];
 var player;
 var statBars = [];
 var statBar;
-var lasers = [];
-var laser;
+var specials = [];
+var special;
 var timer;
 var gameOver = 0;
 
@@ -35,25 +35,25 @@ function draw() {
 
   statBars[0].show(players[0]);
   statBars[1].show(players[1]);
-  //loop for lasers every frame
-  for (var i = lasers.length-1; i >= 0; i--) {
-    if (lasers[i].toDelete === true) {
-      lasers.splice(i,1);
+  //loop for specials every frame
+  for (var i = specials.length-1; i >= 0; i--) {
+    if (specials[i].toDelete === true) {
+      specials.splice(i,1);
     } else {
-      lasers[i].move();
-      lasers[i].show();
+      specials[i].move();
+      specials[i].show();
     }
   }
 
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
-    for (var j = lasers.length-1; j >= 0; j--) {
-      if (players[i].indexNum !== lasers[j].playerIndex) {
-        var laserHit = players[i].collide(lasers[j].x, lasers[j].y, lasers[j].l, 1);
-        if (laserHit) {
-          console.log(lasers[j].x + ',' + lasers[j].y + '|' + players[i].x + ',' + players[i].y)
-          players[i].laser(lasers[j]);
-          lasers[j].toDelete = true;
+    for (var j = specials.length-1; j >= 0; j--) {
+      if (players[i].indexNum !== specials[j].playerIndex) {
+        var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
+        if (specialHit) {
+          console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
+          players[i].special(specials[j]);
+          specials[j].toDelete = true;
         }
       }
     }
@@ -79,7 +79,7 @@ function isGameOver(deadPlayer) {
       }
     }
   }
-  if (winner >= 0) {
+  if (winner >= 0) {//fill screen with game over rectangle and text
     fill(255);
     rect(width / 2 - 100, height / 2, 300, 50);
     fill(0);
@@ -135,11 +135,9 @@ function keyTyped() {// player 1
   }
   if (key === '2') {
     if (players[0].rangeCost <= players[0].power) {
-      var laser = new Laser(players[0]);
+      var special = new Special(players[0]);
       players[0].shoot();
-      lasers.push(laser);
-    } else {
-      console.log("not enough power to launch a laser.")
+      specials.push(special);
     }
   }
   if (key === '3') {
@@ -150,11 +148,9 @@ function keyTyped() {// player 1
   }
   if (key === '8') {
     if (players[1].rangeCost <= players[1].power) {
-      var laser = new Laser(players[1]);
+      var special = new Special(players[1]);
       players[1].shoot();
-      lasers.push(laser);
-    } else {
-      console.log("not enough power to launch a laser.")
+      specials.push(special);
     }
   }
   if (key === '9') {

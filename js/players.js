@@ -112,9 +112,9 @@ function Player(heroNumber, indexNum) {
   }
 
 
-  //function is called when a player gets hit ny a laser and runs combat function
-  this.laser = function(laserThatHit) {
-    this.hp -= this.combat(laserThatHit.damage, laserThatHit.playerIndex);
+  //function is called when a player gets hit by a special ranged attack and runs combat function
+  this.special = function(missleHit) {
+    this.hp -= this.combat(missleHit.damage, missleHit.playerIndex);
     this.isHit(10);
   };
 
