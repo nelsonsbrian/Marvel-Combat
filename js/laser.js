@@ -6,10 +6,20 @@ function Laser(player) {
   this.l = 70;
   this.w = 25;
   this.speed = 30;
-  this.powerCost = 75;
   this.damage = 100;
-  player.power -= this.powerCost;
+  player.power -= player.rangeCost;
   this.toDelete = false;
+  this.dir = 1;
+
+
+    if (player.indexNum === 0) {
+      this.dir = 1;
+    } else {
+      this.dir = -1;
+    }
+    console.log(this.dir);
+
+
 
 
   this.show = function() {
@@ -20,7 +30,7 @@ function Laser(player) {
   }
 
   this.move = function() {
-    this.x += this.speed;
+    this.x += this.dir * this.speed;
   }
 
 

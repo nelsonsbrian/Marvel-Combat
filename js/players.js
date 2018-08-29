@@ -94,7 +94,6 @@ function Player(heroNumber, indexNum) {
     this.spriteChange(1, 6);
     for(i=0;i<players.length;i++) {
       if (this.indexNum !== players[i].indexNum) {
-        console.log(this.indexNum + ' ' + players[i].indexNum + ' ' + i)
         var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
       }
       if (collided) {
