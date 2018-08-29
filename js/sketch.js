@@ -47,6 +47,11 @@ function draw() {
 
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
+    // if (frameCount % 30 == 0) {//global cooldown counter
+      if (players[i].gcd > 0) {
+        players[i].globalCD();
+      }
+    // }
     for (var j = specials.length-1; j >= 0; j--) {
       if (players[i].indexNum !== specials[j].playerIndex) {
         var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);

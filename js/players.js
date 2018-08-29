@@ -5,16 +5,16 @@ function Player(heroNumber, indexNum) {
   this.indexNum = indexNum;
   this.hero = [
     //left side characters [0-2]
-    ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
-    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
-    ["Black Widow", 100, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25],
+    ["Iron Man", 200, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25, 35],
+    ["Hulk", 300, this.startingX, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 60],
+    ["Black Widow", 100, this.startingX, this.startingY, 15, 70, 80, 90, 100, 50, 5, 25, 20],
 
     //right side characters [3-5]
-    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 70, 25, 5, 25],
-    ["Thor", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25],
-    ["Scarlet Witch", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25]
+    ["Captain America", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 70, 25, 5, 25, 40],
+    ["Thor", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 50],
+    ["Scarlet Witch", 170, width-this.startingX-90, this.startingY, 10, 50, 90, 90, 50, 25, 5, 25, 30]
   ];
-  this.heroSelect = function() {// pull hero stats from this.hero array into a hero onject
+  this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
     this.hp = this.hero[this.heroNumber][1];
     this.hpMax = this.hp;
@@ -28,6 +28,7 @@ function Player(heroNumber, indexNum) {
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
     this.rangeCost = this.hero[this.heroNumber][11];
+    this.attackSpeed = this.hero[this.heroNumber][12];
   }
   this.heroSelect();
   this.direction = 0;
@@ -37,6 +38,7 @@ function Player(heroNumber, indexNum) {
   this.charBlocking = false;
   this.sprite = 0;
   this.spriteTime = 0;
+  this.gcd = 0;
 
 
   //this.show is called from the draw function and is executed every frame
@@ -54,11 +56,13 @@ function Player(heroNumber, indexNum) {
 
 
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
-    if (this.charBlocking===false) {
+    if (this.charBlocking===false && this.spriteTime > 0) {
       // console.log(this.spriteTime + ' ' + this.charBlocking);
       this.spriteTime -= 1;
     }
-
+    this.globalCD = function() {
+      this.gcd -= 1;
+    }
 
     if (this.spriteTime === 0){
       this.sprite = 0;
@@ -90,25 +94,33 @@ function Player(heroNumber, indexNum) {
 
   //basic punching attack
   this.punch = function() {
-    var collided = false;
-    this.spriteChange(1, 6);
-    for(i=0;i<players.length;i++) {
-      if (this.indexNum !== players[i].indexNum) {
-        var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
-      }
-      if (collided) {
-        players[i].hp -= this.combat(50, i);
-        players[i].isHit(5);
-        this.power += this.powerRegen;
-        this.power = constrain(this.power, 0, this.powerMax);
-        collided = false;
+    if (this.gcd === 0) {
+      this.gcd =+ this.attackSpeed;
+      var collided = false;
+      this.spriteChange(1, 6);
+      for(i=0;i<players.length;i++) {
+        if (this.indexNum !== players[i].indexNum) {
+          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
+        }
+        if (collided) {
+          players[i].hp -= this.combat(50, i);
+          players[i].isHit(5);
+          this.power += this.powerRegen;
+          this.power = constrain(this.power, 0, this.powerMax);
+          collided = false;
+        }
       }
     }
   }
 
   //player shoots and updates the sprite to it's special img sprite
-  this.shoot=function(){
-    this.spriteChange(2, 6);
+  this.shoot = function() {
+    if (this.rangeCost <= this.power && this.gcd === 0) {
+      this.gcd =+ this.attackSpeed;
+      var special = new Special(players[this.indexNum]);
+      specials.push(special);
+      this.spriteChange(2, 6);
+    }
   }
 
 

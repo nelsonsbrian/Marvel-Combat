@@ -42,11 +42,7 @@ function keyTyped() {// player 1
     players[0].punch();
   }
   if (key === '2') {
-    if (players[0].rangeCost <= players[0].power) {
-      var special = new Special(players[0]);
-      players[0].shoot();
-      specials.push(special);
-    }
+    players[0].shoot();
   }
   if (key === '3') {
 
@@ -55,11 +51,7 @@ function keyTyped() {// player 1
     players[1].punch();
   }
   if (key === '8') {
-    if (players[1].rangeCost <= players[1].power) {
-      var special = new Special(players[1]);
-      players[1].shoot();
-      specials.push(special);
-    }
+    players[1].shoot();
   }
   if (key === '9') {
 
