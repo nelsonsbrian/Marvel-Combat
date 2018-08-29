@@ -7,21 +7,22 @@ function Player(heroNumber, indexNum) {
   this.startingY = 230;
   this.indexNum = indexNum;
   this.hero = [
-    //left side characters [0-2]
+    //left side characters [0-4]
 
     //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
     ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
     ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45],
     ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45],
     ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45],
+    ["Doctor Strange",  130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45],
 
-    //right side characters [3-5]
-    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
+    //right side characters [5-9]
+    //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS
     ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45],
     ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45],
     ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45],
-    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45]
-
+    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45],
+    ["Vision",          150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45]
   ];
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
@@ -36,11 +37,11 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
-    this.rangeAttack = this.hero[this.heroNumber][11];  
+    this.rangeAttack = this.hero[this.heroNumber][11];
     this.rangeCost = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
   }
-  
+
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
