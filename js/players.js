@@ -43,7 +43,6 @@ function Player(heroNumber, indexNum) {
   this.spriteTime = 0;
   this.gcd = 0;
 
-
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
 
@@ -120,7 +119,7 @@ function Player(heroNumber, indexNum) {
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
-      var special = new Special(players[this.indexNum]);
+      var special = new Special(players[this.indexNum], false);
       specials.push(special);
       this.spriteChange(2, 6);
     }
@@ -163,7 +162,6 @@ function Player(heroNumber, indexNum) {
 
   //function computes the attack damage
   this.damageRoll = function(baseDam, index) {
-    console.log(baseDam + ' ' + players[index].attack + ' ' + index + ' ' + this.indexNum);
    return baseDam * players[index].attack / 100;
   }
 
