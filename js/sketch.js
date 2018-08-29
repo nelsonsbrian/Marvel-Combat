@@ -38,13 +38,8 @@ function draw() {
   statBars[0].show(players[0]);
   statBars[1].show(players[1]);
   //loop for specials every frame
-  //loop for players every frame
-  for (var i = players.length-1; i >= 0; i--) {
-    // if (frameCount % 30 == 0) {//global cooldown counter
-      if (players[i].gcd > 0) {
-        players[i].globalCD();
-      }
-    // }
+  for (var i = players.length-1; i >= 0; i--) { 
+    //loop for players every frame
     for (var j = specials.length-1; j >= 0; j--) {
       specials[j].edges();
       if (players[i].indexNum !== specials[j].playerIndex) {
