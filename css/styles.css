@@ -42,6 +42,7 @@ canvas#defaultCanvas0{
 }
 
 #gameBoard {
+  /*display: none;*/
   background: black;
   border: 40px solid black;
   text-align: center;
@@ -63,16 +64,37 @@ h2  {
 
 h4  {
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
+}
+
+#left {
+  background-color: darkred;
+}
+
+#right {
+  background-color: darkblue;
 }
 
 .player-container {
   color: white;
-  background: #111;
   border: 2px solid white;
   border-radius: 10px;
-  height: 400px;
-  padding: 30px;
+  height: 180px;
+  width: 100%;
+}
+
+.player-container img {
+  position: absolute;
+  width: auto;
+  bottom: 0px;
+}
+
+.left {
+  background-color: darkred;
+}
+
+.right {
+  background-color: darkblue;
 }
 
 h4:hover,.player-container:hover {
@@ -92,7 +114,7 @@ img {
   margin-bottom: 20px;
 }
 
-.col-md-4, .col-md-8  {
+.col-md-2, .col-md-4, .col-md-8  {
 
   max-height: 100%;
 }
