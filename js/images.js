@@ -103,7 +103,7 @@ function preload() {
   loadImage('https://i.imgur.com/VGmDlkr.png'),
   loadImage('https://i.imgur.com/x34SXto.png'),
   loadImage('https://i.imgur.com/4LBlDdv.png'),
-  loadImage('https://i.imgur.com/6PLFZq2.png'),
+  loadImage('https://i.imgur.com/exa7stF.png'),
   loadImage('https://i.imgur.com/carE2jd.png'),
   loadImage('https://i.imgur.com/2bpJBvZ.png'),
   loadImage('https://i.imgur.com/YAPM8qm.png'));

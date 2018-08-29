@@ -16,11 +16,11 @@ function setup() {
   canvas.parent('gameBoard');
   angleMode(DEGREES);
 
-  player = new Player(1, players.length);
+  player = new Player(4, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(5, players.length);
+  player = new Player(6, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
@@ -33,11 +33,11 @@ function setup() {
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 function draw() {
   background(backdrop, 0,0);
+  translate(0,0);
 
   statBars[0].show(players[0]);
   statBars[1].show(players[1]);
   //loop for specials every frame
-  translate(0,0);
   //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
     // if (frameCount % 30 == 0) {//global cooldown counter
@@ -68,6 +68,7 @@ function draw() {
     if (specials[i].toDelete === true) {
       specials.splice(i,1);
     } else {
+      translate(0,0);
       specials[i].move();
       specials[i].show();
     }

@@ -1,10 +1,10 @@
-var imgOff = [-100, -180];
 
 function Special(player, attackIndex, retAtt) {
+  var imgOff = [140, 140];
   this.playerIndex = player.indexNum;
   this.heroNumber = player.heroNumber;
   this.x = player.x;
-  this.y = player.y;
+  this.y = player.y+40;
   this.l = 170;
   this.w = 25;
   this.damage = player.rangeAttack;
@@ -20,8 +20,8 @@ function Special(player, attackIndex, retAtt) {
     [ "Throw",  12, false, false,   false ],
     ["Boomer",   9,  true, false,       3 ],
     ["Return",  20, false, false,   false ],
-    ["Boomer",   9,  true,  true,       5 ],
-    ["Return",  20, false,  true,   false ]
+    ["Boomer",   9,  true,  false,       5 ],
+    ["Return",  20, false,  false,   false ]
   ];
   // console.log(attackIndex);
   //if the attack is a return attack from the rangetype meaning another attack already preceded it.
@@ -46,6 +46,7 @@ function Special(player, attackIndex, retAtt) {
     this.attackIndex = attackIndex;
   }
 
+  //
 
   //use the special attack in the correct direction
   if (player.indexNum === 0) {
@@ -57,18 +58,23 @@ function Special(player, attackIndex, retAtt) {
   //rotate the image if the this.spin is true
   var angle = 0;
   this.spin = function() {
-    translate(this.x,this.y);
+    translate(this.x - imgOff[0],this.y - imgOff[1]);
     rotate(angle);
-    angle-=25;
-    image(heroSprites[this.heroNumber].range,imgOff[0],imgOff[1]);
+    angle-=30;
+    fill(255);
+    console.log('x: ' + this.x + ' ' + " y: " + this.y + ' ')
+    image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
+    translate(0,0);
   }
 
 
   this.show = function() {
     if (this.toSpin) {
+      this.y = player.y+200;
       this.spin();
+      rotate(0);
     } else {
-      image(heroSprites[this.heroNumber].range,this.x + imgOff[0],this.y + imgOff[1]);
+      image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
     }
     this.time ++;
   }
