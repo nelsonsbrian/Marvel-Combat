@@ -24,6 +24,7 @@ heroStats.forEach(function(hero) {
 });
 
 function Player(heroNumber, indexNum) {
+  var imgOff = [-125, -100];
   this.heroNumber = heroNumber;
   this.startingX = 90;
   this.startingY = 230;
@@ -55,17 +56,18 @@ function Player(heroNumber, indexNum) {
 
   this.heroSelect();
   this.direction = 0;
-  this.radius = 25;
+  this.radius = 70;
   this.damagedColor;
-  this.gcd = 0;
   this.charBlocking = false;
   this.sprite = 0;
   this.spriteTime = 0;
   this.gcd = 0;
+  this.hurtTime = 0;
+  this.hurtReflex = 8;
+  this.winner = 0;
 
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
-
     //change color of player hitbox shape to see if player is getting hit.
     if (this.damagedColor > 0) {
       fill(255,0,0);
@@ -76,34 +78,59 @@ function Player(heroNumber, indexNum) {
       fill(255,128,0);
     }
 
-
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
-    if (this.charBlocking===false && this.spriteTime > 0) {
-      // console.log(this.spriteTime + ' ' + this.charBlocking);
-      this.spriteTime -= 1;
+    if (this.winner === 1) {
+      this.sprite = 8;
+    } else {
+      if (this.charBlocking === false && this.spriteTime > 0) {
+        // console.log(this.spriteTime + ' ' + this.charBlocking);
+        this.spriteTime -= 1;
+      }
+      if (this.direction > 0) {
+        this.spriteChange(5,3)
+      }
+      if (this.direction < 0) {
+        this.spriteChange(4,3)
+      }
+      if (this.hurtTime > 0) {
+        this.spriteChange(6, 10)
+      }
+      if (this.spriteTime === 0){
+        this.sprite = 0;
+      }
     }
-    this.globalCD = function() {
+
+    if (this.hurtTime > 0) {
+      this.hurtTime -= 1;
+    }
+
+    if (this.gcd > 0) {
       this.gcd -= 1;
     }
 
-    if (this.spriteTime === 0){
-      this.sprite = 0;
-    }
-  //checks to see the sprite value of the player and change the displayed sprite img.
-    if (this.sprite === 0) {
-      image(heroSprites[heroNumber].neutral, (this.x + xOff), (this.y + yOff));
-      ellipse(this.x,this.y,this.radius,this.radius);
+    //checks to see the sprite value of the player and change the displayed sprite img.
+    if (this.sprite === 8) {
+      image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 0) {
+      image(heroSprites[heroNumber].neutral, (this.x + imgOff[0]), (this.y + imgOff[1]));
     } else if (this.sprite === 1) {
-      image(heroSprites[heroNumber].attack, (this.x + xOff), (this.y + yOff));
-      ellipse(this.x,this.y,this.radius,this.radius);
+      image(heroSprites[heroNumber].attack, (this.x + imgOff[0]), (this.y + imgOff[1]));
     } else if (this.sprite === 2) {
-      image(heroSprites[heroNumber].special, (this.x + xOff), (this.y + yOff));
-      ellipse(this.x,this.y,this.radius,this.radius);
+      image(heroSprites[heroNumber].special, (this.x + imgOff[0]), (this.y + imgOff[1]));
     } else if (this.sprite === 3) {
-      image(heroSprites[heroNumber].block, (this.x + xOff), (this.y + yOff));
-      ellipse(this.x,this.y,this.radius,this.radius);
+      image(heroSprites[heroNumber].block, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 4) {
+      image(heroSprites[heroNumber].moveLeft, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 5) {
+      image(heroSprites[heroNumber].moveRight, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 6) {
+      image(heroSprites[heroNumber].hit, (this.x + imgOff[0]), (this.y + imgOff[1]));
+    } else if (this.sprite === 7) {
+      image(heroSprites[heroNumber].jump, (this.x + imgOff[0]), (this.y + imgOff[1]));
     }
+    // ellipse(this.x,this.y,this.radius,this.radius);
   }
+
 
   //function sets the player's sprite index for a certain number of frames
   this.spriteChange = function(num, time) {
@@ -113,7 +140,6 @@ function Player(heroNumber, indexNum) {
 
   //basic punching attack
   this.punch = function() {
-
     if (this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
       var collided = false;
@@ -124,21 +150,20 @@ function Player(heroNumber, indexNum) {
         }
         if (collided) {
           players[i].hp -= this.combat(50, i);
-          players[i].isHit(5);
+          players[i].isHit(this.hurtReflex);
           this.power += this.powerRegen;
           this.power = constrain(this.power, 0, this.powerMax);
           collided = false;
         }
-
       }
     }
   }
 
   //player shoots and updates the sprite to it's special img sprite
-
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
+      this.power -= this.rangeCost;
       special = new Special(players[this.indexNum], 0, 0);
       specials.push(special);
       this.spriteChange(2, this.gcd);
@@ -151,7 +176,7 @@ function Player(heroNumber, indexNum) {
   //function is called when a player gets hit by a special ranged attack and runs combat function
   this.special = function(missileHit) {
     this.hp -= this.combat(missileHit.damage, missileHit.playerIndex);
-    this.isHit(10);
+    this.isHit(this.hurtReflex);
   };
 
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls
@@ -162,7 +187,6 @@ function Player(heroNumber, indexNum) {
     var block = this.blockingRoll(baseDam);
     dmg = dmgDam - dmgDef - block;
     console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit index:" + playerI);
-
     return dmg;
   }
 
@@ -192,8 +216,9 @@ function Player(heroNumber, indexNum) {
   }
 
   //sets frames for how long the hitbox shape is colored when hit
-  this.isHit = function() {
-    this.damagedColor = 5;
+  this.isHit = function(time) {
+    this.damagedColor = time;
+    this.hurtTime = time;
   }
 
   //this is in the draw function. Updates the x coord of the player
@@ -227,9 +252,7 @@ function Player(heroNumber, indexNum) {
 
   //move left and right
   this.moveLeftRight = function(direction) {
-    // if (this.direction !== direction) {
-      this.direction = direction;
-    // }
+    this.direction = direction;
   }
 
   this.edges = function() {

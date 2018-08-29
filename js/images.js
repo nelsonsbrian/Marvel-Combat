@@ -21,7 +21,7 @@ function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jum
 
 function preload() {
   backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
-
+  //backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
 
   //LEFT SIDE CHARACTERS
   //Iron Man [0]
@@ -113,7 +113,7 @@ function preload() {
   loadImage('https://i.imgur.com/VGmDlkr.png'),
   loadImage('https://i.imgur.com/x34SXto.png'),
   loadImage('https://i.imgur.com/4LBlDdv.png'),
-  loadImage('https://i.imgur.com/6PLFZq2.png'),
+  loadImage('https://i.imgur.com/exa7stF.png'),
   loadImage('https://i.imgur.com/carE2jd.png'),
   loadImage('https://i.imgur.com/2bpJBvZ.png'),
   loadImage('https://i.imgur.com/YAPM8qm.png'),
