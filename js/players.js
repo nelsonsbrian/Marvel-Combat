@@ -7,20 +7,21 @@ function Player(heroNumber, indexNum) {
   this.startingY = 230;
   this.indexNum = indexNum;
   this.hero = [
-    //left side characters [0-2]
+    //left side characters [0-4]
 
     //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Rattack
     ["Iron Man",        130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45, [0]],
     ["Hulk",            150, 90,  300, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45, [1]],
     ["Black Widow",     100, 90,  300, 16, 70, 20, 5,  99, 99, 10, 75, 50, 45, [0]],
     ["Spider-Man",      100, 90,  300, 16, 50, 30, 5,  99, 99, 10, 50, 25, 45, [0]],
-
-    //right side characters [3-5]
+    ["Doctor Strange",  130, 90,  300, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45, [0]],
+    //right side characters [5-9]
     //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo
     ["Captain America", 130, 900, 330, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45, [2]],
     ["Thor",            150, 900, 300, 8,  70, 70, 3,  99, 99, 10, 75, 25, 45, [4]],
     ["Scarlet Witch",   100, 900, 300, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45, [0]],
-    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45, [2]]
+    ["Black Panther",   120, 900, 300, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45, [2]],
+    ["Vision",          150, 900, 300, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45, [0]]
 
   ];
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
