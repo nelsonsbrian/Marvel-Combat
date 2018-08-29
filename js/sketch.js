@@ -33,19 +33,15 @@ function setup() {
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 function draw() {
   background(backdrop, 0,0);
+  translate(0,0);
 
   statBars[0].show(players[0]);
   statBars[1].show(players[1]);
   //loop for specials every frame
-  translate(0,0);
-  //loop for players every frame
   for (var i = players.length-1; i >= 0; i--) {
-    // if (frameCount % 30 == 0) {//global cooldown counter
-      if (players[i].gcd > 0) {
-        players[i].globalCD();
-      }
-    // }
+    //loop for players every frame
     for (var j = specials.length-1; j >= 0; j--) {
+      specials[j].edges();
       if (players[i].indexNum !== specials[j].playerIndex) {
         var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
         if (specialHit) {
@@ -58,7 +54,11 @@ function draw() {
       }
     }
     isGameOver(i);
+
     if (gameOver === 0) {
+      players[i].show();
+      players[i].move();
+    } else if (players[i].winner === 1 && gameOver === 1) {
       players[i].show();
       players[i].move();
     }
@@ -67,6 +67,7 @@ function draw() {
     if (specials[i].toDelete === true) {
       specials.splice(i,1);
     } else {
+      translate(0,0);
       specials[i].move();
       specials[i].show();
     }
@@ -76,23 +77,24 @@ function draw() {
 
 function isGameOver(deadPlayer) {
   // console.log(deadPlayer + ' ' + deadPlayer.indexNum)
-  var winner;
-  for (var i = players.length-1; i >= 0; i--) {
-    if (players[i].hp <= 0) {
+    if (players[deadPlayer].hp <= 0) {
       gameOver = 1;
-      if (players[i].indexNum === 1) {
-        winner = 0;
+      if (deadPlayer === 1) {
+        deadPlayer = 0
       } else {
-        winner = 1;
+        deadPlayer++;
       }
+      players[deadPlayer].winner = 1;
     }
-  }
-  if (winner >= 0) {//fill screen with game over rectangle and text
-    fill(255);
-    rect(width / 2 - 100, height / 2, 300, 50);
-    fill(0);
-    textSize(30);
-    textStyle(BOLD);
-    text(players[winner].name + " Wins", width / 2 - 40, height / 2 + 35);
-  }
+    if (players[deadPlayer].winner === 1) {
+      //fill screen with game over rectangle and text
+      players[deadPlayer].x = width / 2;
+      // fill(255);
+      // rect(width / 2 - 100, height / 2 - 200, 300, 50);
+      // fill(0);
+      // textSize(30);
+      // textStyle(BOLD);
+      // text(players[deadPlayer].name + " Wins", width / 2 - 40, height / 2 + 35);
+    }
+
 }
