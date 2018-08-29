@@ -36,11 +36,11 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
-    this.rangeAttack = this.hero[this.heroNumber][11];  
+    this.rangeAttack = this.hero[this.heroNumber][11];
     this.rangeCost = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
   }
-  
+
   this.heroSelect();
   this.direction = 0;
   this.radius = 25;
@@ -127,7 +127,7 @@ function Player(heroNumber, indexNum) {
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
-      var players[this.indexNum], false);
+      special = new Special(players[this.indexNum], false);
       specials.push(special);
       this.spriteChange(2, 10);
     }
