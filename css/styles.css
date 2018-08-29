@@ -1,5 +1,6 @@
 body {
   color: white;
+  font-family: arial-black;
   background-image: url(../img/website/cinematic-background.jpg) ;
   background-repeat: no-repeat;
   background-color: black;
@@ -7,16 +8,19 @@ body {
 }
 
 .title {
+  font-family: 'Avengeance', serif;
+  font-size: 64px;
   text-align: center;
   color: white;
   background: #111;
   border: 2px solid white;
   border-radius: 10px;
-  margin: 40px 200px;
-  padding: 30px;
+  /*margin: 40px 200px;*/
+  padding-top: 30px;
 }
 
 .bioFrame {
+  font-family: arial;
   color: white;
   background: #111;
   border: 2px solid white;
@@ -38,6 +42,31 @@ body {
 
 h2  {
   margin-bottom: 30px;
+}
+
+#p1title {
+  color: white;
+  font-family: 'Avengeance', serif;
+  padding: 20px 0 0 20px;
+  text-shadow: 3px 3px 3px black;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 5px 5px 5px black;
+  background-image: linear-gradient(darkred, black);
+}
+
+#p2title {
+  color: white;
+  font-family: 'Avengeance', serif;
+  padding: 20px 20px 0 0;
+  text-align: right;
+  text-shadow: 3px 3px 3px black;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 5px 5px 5px black;
+  background-image: linear-gradient(darkblue, black);
 }
 
 h4  {
@@ -85,12 +114,17 @@ h4  {
   border: 6px solid #6EC44C;
   background-image: linear-gradient(lightgray, black);
   font-style: italic;
+  color: black;
+  text-shadow: none;
 }
 
 .right.selected {
   border: 6px solid #6EC44C;
   background-image: linear-gradient(lightgray, black);
   font-style: italic;
+  color: black;
+  text-shadow: none;
+
 }
 
 .player-container:hover {
@@ -98,6 +132,11 @@ h4  {
   color: black;
   cursor: pointer;
   font-style: italic;
+  text-shadow: none;
+}
+
+#hero5, #hero11 {
+  display: none;
 }
 
 img {
@@ -129,8 +168,8 @@ img {
 
 .btn {
   width: 400px;
-  text-transform: uppercase;
   background-image: linear-gradient(darkred, #222);
+  text-transform: uppercase;
   font-size: 24px;
   padding: 20px;
   border: 2px solid black;
