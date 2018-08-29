@@ -21,6 +21,8 @@ function Special(player, isComeback) {
     }
   }
   this.isComebackCheck();
+  // this.spinning = player.spinning;
+  this.spinning = true;
 
   //use the special attack in the correct direction
   if (player.indexNum === 0) {
@@ -29,16 +31,28 @@ function Special(player, isComeback) {
     this.dir = -1;
   }
 
-  this.show = function() {
-    image(heroSprites[this.heroNumber].range,this.x-100,this.y-180);
+var angle = 0;
+  this.spin = function(toSpin) {
+    if (toSpin){
+      translate(this.x,this.y);
+      rotate(angle);
+      angle+=25;
+    }
+  }
+
+  this.show = function(this.spinning) {
+    this.spin();
+    image(heroSprites[this.heroNumber].range,0-100,0-180);
     this.time ++;
   }
+
 
   this.move = function() {
     if (this.heroNumber===1) {
       this.throw();
     }
     this.x += this.dir * this.speed;
+    translate(0,0);
   }
 
   this.throw = function() {
