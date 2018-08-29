@@ -1,12 +1,15 @@
+var xOff = -125;
+var yOff = -100;
+var heroes = [];
 function Player(heroNumber, indexNum) {
   var imgOff = [-125, -100];
   this.heroNumber = heroNumber;
   this.startingX = 90;
   this.startingY = 230;
   this.indexNum = indexNum;
+  heroes = [];
   this.hero = [
-    //left side characters [0-4]
-
+    //left side characters [0-5]
     //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Rattack
     ["Iron Man",        130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 45, [0]],
     ["Hulk",            150, 90,  230, 8,  90, 60, 2,  99, 25, 5,  50, 25, 45, [1]],
@@ -20,8 +23,11 @@ function Player(heroNumber, indexNum) {
     ["Scarlet Witch",   100, 900, 230, 16, 50, 20, 2,  99, 99, 10, 99, 10, 45, [0]],
     ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 0,  20, 30, 50, 45, [2]],
     ["Vision",          150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 45, [0]]
-
   ];
+  this.hero.forEach(function(hero) {
+    heroes.push(hero);
+  })
+
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
     this.hp = this.hero[this.heroNumber][1];

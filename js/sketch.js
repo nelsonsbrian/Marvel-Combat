@@ -20,7 +20,7 @@ function setup() {
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
-  player = new Player(6, players.length);
+  player = new Player(10, players.length);
   players.push(player);
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
