@@ -178,6 +178,5 @@ img {
 }
 
 .btn:hover {
-  background-image: linear-gradient(darkgreen, #222);
-  border: 2px solid darkgreen;
+  background-image: none;
 }
