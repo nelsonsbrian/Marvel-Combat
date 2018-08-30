@@ -51,9 +51,8 @@ function startGame() {
           if (players[i].indexNum !== specials[j].playerIndex) {
             var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
             if (specialHit) {
-              console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' +
-               players[i].y)
-              players[i].special(specials[j]);
+              console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
+              players[specials[j].playerIndex].special(players[i]);
               specials[j].comeBack(players[i]);
               specials[j].toDelete = true;
             }
