@@ -1,3 +1,19 @@
+var globalAttacks = [
+  //if cback is true, need a next attack index#
+  //                                              Arg
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  0,  0,  0],//0
+  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  0,  0,  0],//1
+  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  0,  0,  0],//2
+  ["Return"    ,  20, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//3
+  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  0,  0,  0],//4
+  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],  0,  0,  0,  0],//5
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  0,  0,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//7
+  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  0,  0,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  0,  0,  0]//9
+];
+
 
 function Special(attacker, attackIndex, retAtt) {
   var imgOff = [140, 140];
@@ -13,21 +29,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.time = 0;
 
 
-  this.rangeType = [
-    //if cback is true, need a next attack index#
-    //                                              Arg
-    //type         spd  cback  spin  nextattack   0, 1, 2
-    [ "Blast"    ,  40, false, false,   false,   [0, 0, 0]],//0
-    [ "Throw"    ,  12, false, false,   false,   [0, 0, 0]],//1
-    ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0]],//2
-    ["Return"    ,  20, false, false,   false,   [0, 0, 0]],//3
-    ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0]],//4
-    ["Return"    ,  20, false,  true,   false,   [0, 0, 0]],//5
-    ["Multiple"  ,  30, false, false,   false,   [7, 10, 0]],//6
-    ["nextRange" ,  30, false, false,   false,   [0, 0, 0]],//7
-    ["Charge"    ,  20, false, false,   false,   [0, 0, 0]],//8
-    ["Push"      ,  25, false, false,   false,   [0, 0, 0]]//9
-  ];
+  this.rangeType = globalAttacks;
   // console.log(attackIndex);
   //if the attack is a return attack from the rangetype meaning another attack already preceded it.
   if (attackIndex === -1) {
@@ -38,6 +40,8 @@ function Special(attacker, attackIndex, retAtt) {
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
   } else {//if the attack is the first original attack
+    console.log("ran");
+    console.log(attacker + ' ' + attackIndex + ' ' + retAtt);
     this.specType = this.rangeType[attacker.rAttack[attackIndex]][0];
     this.speed = this.rangeType[attacker.rAttack[attackIndex]][1];
     this.isComeBack = this.rangeType[attacker.rAttack[attackIndex]][2];

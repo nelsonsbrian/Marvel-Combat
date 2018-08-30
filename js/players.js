@@ -188,9 +188,17 @@ function Player(heroNumber, indexNum) {
     }
   }
 
+  //checks the power cost of a check before it creates it
+  this.powerCostCheck = function(attackNum) {
+    var index = this.hero[heroNumber][14][attackNum];
+    var power = globalAttacks[index][6];
+    return power;
+  }
   //player shoots and updates the sprite to it's special img sprite
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
+      var cost = this.powerCostCheck(1);
+      console.log(cost);
       this.gcd =+ this.attackSpeed;
       this.power -= this.rangeCost;
       special = new Special(this, 0, 0);
@@ -208,6 +216,7 @@ function Player(heroNumber, indexNum) {
       this.spriteChange(9, this.gcd);
     }
   }
+
 
   //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
   this.special = function(specialHit, defender) {

@@ -55,7 +55,7 @@ function draw() {
             players[specials[j].playerIndex].special(specials[j], players[i]);
             specials[j].comeBack(players[i]);
             specials[j].charge(players[i]);
-            specials[j].toPush(players[i]);            
+            specials[j].toPush(players[i]);
             specials[j].toDelete = true;
           }
         }
