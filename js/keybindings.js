@@ -25,7 +25,7 @@ function keyPressed() { //player1
     players[0].moveLeftRight(1);
   }
   else if (key === 's') {
-    players[0].isBlocking(true);
+    players[0].isBlocking(1);
   } // player2
   if (keyCode === LEFT_ARROW) {
     players[1].moveLeftRight(-1);
@@ -33,7 +33,7 @@ function keyPressed() { //player1
     players[1].moveLeftRight(1);
   }
   else if (keyCode === DOWN_ARROW) {
-    players[1].isBlocking(true,0);
+    players[1].isBlocking(1);
   }
   else if (keyCode === UP_ARROW) {
       players[1].punch();
@@ -48,11 +48,17 @@ function keyReleased() {
     players[0].moveLeftRight(0);
   } else if (key === 'd') {
     players[0].moveLeftRight(0);
+  } else if (key === 's') {
+    players[0].isBlocking(0);
   } // player2
   if (keyCode === LEFT_ARROW) {
     players[1].moveLeftRight(0);
   } else if (keyCode === RIGHT_ARROW) {
     players[1].moveLeftRight(0);
+  } else if (keyCode === DOWN_ARROW) {
+    players[1].isBlocking(0);
+
+
   }
 }
 

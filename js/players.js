@@ -4,21 +4,21 @@ var heroes = [];
 var heroStats = [
   //left side characters [0-5]
   //                                                                Punch     Range
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt pn AS   Attack
-  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0,0,0]], //0
-  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1,8,0]], //1
-  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10, [0,6,7]], //2
-  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0,9,0]], //3
-  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0,9,0]], //4
-  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0,9,0]], //5
+  //name              hp   x    y    sp  at  df  bl  pMx p   pRg  rAt pn  AS   Attack
+  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10, 80, 33, 15, [0,0,0]], //0
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 100, 5,  30, 40, 15, [1,8,0]], //1
+  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 100, 10, 45, 20, 12, [8,0,0]], //2
+  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10, 60, 25, 10, [0,8,0]], //3
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10, 70, 33, 15, [0,9,0]], //4
+  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3, 100, 100, 10, 99, 33, 10, [0,8,0]], //5
   //right side characters [6-11]
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2,8,0]], //6
-  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4,0,0]], //7
-  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
-  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
-  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [10,10,0]] // 11
+  //name              hp   x    y    sp  at  df  bl  pMx p    pRg rAt rCo AS    RA
+  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10, 50, 25, 15, [2,8,0]], //6
+  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10, 75, 25, 15, [4,9,0]], //7
+  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100, 100, 10, 20, 15, 10, [0,9,0]], //8
+  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 100, 20, 40, 55, 15, [2,0,0]], //9
+  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 100, 10, 65, 25, 10, [0,10,0]], //10
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3, 100, 100, 10, 75, 25, 10, [1,10,0]] // 11
 ];
 //Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos,
 
@@ -84,21 +84,24 @@ function Player(heroNumber, indexNum) {
     if (this.winner === 1) {
       this.sprite = 8;
     } else {
-      if (this.spriteTime > 0) {
-        // console.log(this.spriteTime + ' ' + this.charBlocking);
-        this.spriteTime -= 1;
-      }
-      if (this.direction > 0) {
-        this.spriteChange(5,3)
-      }
-      if (this.direction < 0) {
-        this.spriteChange(4,3)
-      }
-      if (this.hurtTime > 0 && this.charBlocking === false) {
-        this.spriteChange(6, 10)
-      }
-      if (this.spriteTime === 0){
-        this.sprite = 0;
+      if (this.charBlocking === true) {
+        this.spriteChange(3,5)
+      } else {
+        if (this.spriteTime > 0) {
+          this.spriteTime -= 1;
+        }
+        if (this.direction > 0) {
+          this.spriteChange(5,3)
+        }
+        if (this.direction < 0) {
+          this.spriteChange(4,3)
+        }
+        if (this.hurtTime > 0) {
+          this.spriteChange(6, 10)
+        }
+        if (this.spriteTime === 0){
+          this.sprite = 0;
+        }
       }
     }
 
@@ -127,6 +130,7 @@ function Player(heroNumber, indexNum) {
     } else if (this.windUpTime < 0) {
       this.windUpTime = 0;
     }
+
 
     push();
     if (whichSide()) {
@@ -167,11 +171,11 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 12) {
       image(heroSprites[heroNumber].range2, xOff, yOff);
     }
-    noFill();
-    stroke(255);
-    strokeWeight(5);
-    ellipse(this.x,this.y,this.radius,this.radius);
-    pop();
+    // noFill();
+    // stroke(255);
+    // strokeWeight(5);
+    // ellipse(this.x,this.y,this.radius,this.radius);
+    // pop();
   }
 
 
@@ -216,6 +220,7 @@ function Player(heroNumber, indexNum) {
 
   this.windUp = function(attackNum) {
     var index = this.hero[heroNumber][14][attackNum];
+    console.log(index + ' ' + ' ' + attackNum + ' '  + globalAttacks[index][8]);
     this.windUpTime = globalAttacks[index][8];
     if (attackNum === 0) {
       this.spriteChange(10, this.toStart);
@@ -226,7 +231,8 @@ function Player(heroNumber, indexNum) {
 
   this.startSpecial = function() {
     special = new Special(this, this.toStart, 0);
-    special.img = this.toStart-1;
+    special.imgNum = this.toStart+1;
+    // special.imgNum = 2;
     specials.push(special);
     if (this.toStart === 0) {
       this.spriteChange(2, this.gcd);
@@ -297,12 +303,15 @@ function Player(heroNumber, indexNum) {
   }
 
   //updates the player value if they are blocking or not.
-  this.isBlocking = function() {
-    this.charBlocking = true;
-    this.charBlockTime = this.attackSpeed;
-    this.gcd = this.attackSpeed;
-    this.spriteChange(3, 20);
+  this.isBlocking = function(num) {
+    if (this.gcd <= 0) {
+      this.charBlocking = true;
+      this.charBlockTime = 30;
+      this.gcd = 30;
+      this.spriteChange(3, 30);
+    }
   }
+
 
   //function computes the attack damage
   this.damageRoll = function(baseDam) {
@@ -350,9 +359,9 @@ function Player(heroNumber, indexNum) {
 
   //move left and right
   this.moveLeftRight = function(direction) {
-    if (this.charBlocking === false) {
+    // if (this.charBlocking === false) {
       this.direction = direction;
-    }
+    // }
   }
 
   this.edges = function() {

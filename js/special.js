@@ -3,16 +3,16 @@ var globalAttacks = [
   //                                              Arg                Wind
   //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
   [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],    5,  30,  10,  0],//0
-  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],   19,  20,  10,  0],//1
-  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],   11,  20,  0,  0],//2
-  ["Return"    ,  20, false, false,   false,   [0, 0, 0],    0,   0,  10,  0],//3
-  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],    10, 20,  0,  0],//4
-  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],     0,  0,  10,  0],//5
+  [ "Throw"    ,  30, false, false,   false,   [0, 0, 0],   19,  20,  10,  0],//1
+  ["Boomer"    ,  50,  true, false,       3,   [0, 0, 0],   11,  20,  10,  0],//2
+  ["Return"    ,  70, false, false,   false,   [0, 0, 0],    0,   0,  0,  0],//3
+  ["Boomer"    ,  50,  true,  true,       5,   [0, 0, 0],    10, 20,  10,  0],//4
+  ["Return"    ,  50, false,  true,   false,   [0, 0, 0],     0,  0,  0,  0],//5
   ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],   15, 30,  10,  0],//6
   ["nextRange" ,  30, false, false,   false,   [0, 0, 0],     0, 20,  0,  0],//7
-  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],    20, 20,  10,  0],//8
+  ["Charge"    ,  40, false, false,   false,   [0, 0, 0],    20, 20,  5,  0],//8
   ["Push"      ,  25, false, false,   false,   [0, 0, 0],    25, 15,  10,  0],//9
-  ["Dive"      ,  25, false, false,   false,   [20, 30, 10],  5, 45,  10,  0]//10
+  ["Dive"      ,  25, false, false,   false,   [40, 40, 16], 15, 45,  5,  0]//10
 ];
 
 
@@ -92,6 +92,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.multiple = function(ntimes, howOften) {
     if (this.time % howOften === 0 && ntimes * howOften > this.time && this.time !== 0) {
       var special = new Special(players[this.playerIndex], 2, 0);
+      this.imgNum = 2;
       special.heroNumber = this.heroNumber;
       specials.push(special);
     }
@@ -119,7 +120,7 @@ function Special(attacker, attackIndex, retAtt) {
 
   //when this specType is throw, gravity affects the attack
   this.throw = function() {
-    this.y += this.time/10;
+    this.y += this.time/5;
   }
 
   this.move = function() {
@@ -136,6 +137,9 @@ function Special(attacker, attackIndex, retAtt) {
   }
 
   this.dive = function() {
+    if (this.time === 1) {
+      this.y -= 200;
+    }
     if (this.time < this.arg[2]) {
       this.y -= this.arg[0];
     } else if (this.time > this.arg[2]) {
@@ -180,7 +184,7 @@ function Special(attacker, attackIndex, retAtt) {
   }
 
   this.edges = function() {
-    if (this.x > width + 50 || this.x < -50 || this.y > height + 50 || this.y < -50) {
+    if (this.x > width + 50 || this.x < -50 || this.y > height + 50 || this.y < -50000) {
       this.toDelete = true;
     }
   }
