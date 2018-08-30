@@ -18,8 +18,10 @@ var heroStats = [
   ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
   ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
   ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [10,10,0]] // 11
 ];
+//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos,
+
 heroStats.forEach(function(hero) {
   heroes.push(hero);
 });
@@ -63,6 +65,8 @@ function Player(heroNumber, indexNum) {
   this.hurtTime = 0;
   this.hurtReflex = 8;
   this.winner = 0;
+  this.windUpTime = 0;
+  this.toStart = -1;
 
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
@@ -114,7 +118,15 @@ function Player(heroNumber, indexNum) {
       this.charBlocking = false;
     }
 
-
+    if (this.windUpTime > 1) {
+      this.windUpTime -= 1;
+    } else if (this.windUpTime === 1) {
+      this.windUpTime -= 1;
+      this.startSpecial(this.toStart);
+      this.toStart = -1;
+    } else if (this.windUpTime < 0) {
+      this.windUpTime = 0;
+    }
 
     push();
     if (whichSide()) {
@@ -201,16 +213,40 @@ function Player(heroNumber, indexNum) {
     var power = globalAttacks[index][6];
     return power;
   }
+
+  this.windUp = function(attackNum) {
+    var index = this.hero[heroNumber][14][attackNum];
+    this.windUpTime = globalAttacks[index][8];
+    if (attackNum === 0) {
+      this.spriteChange(10, this.toStart);
+    } else if (attackNum === 1) {
+      this.spriteChange(11, this.toStart);
+    }
+  }
+
+  this.startSpecial = function() {
+    special = new Special(this, this.toStart, 0);
+    special.img = this.toStart-1;
+    specials.push(special);
+    if (this.toStart === 0) {
+      this.spriteChange(2, this.gcd);
+    } else if (this.toStart === 1) {
+      this.spriteChange(9, this.gcd);
+    }
+  }
+
   //player shoots and updates the sprite to it's special img sprite
   this.shoot = function() {
-    var cost = this.powerCostCheck(1);
+    var cost = this.powerCostCheck(0);
     if (cost <= this.power && this.gcd === 0) {
-      this.gcd += this.attackSpeed;
+      this.windUp(0);
+      this.toStart = 0;
+      this.gcd += this.attackSpeed + this.windUpTime;
       this.power -= cost;
-      special = new Special(this, 0, 0);
-      special.img = 1
-      specials.push(special);
-      this.spriteChange(2, this.gcd);
+      // special = new Special(this, 0, 0);
+      // special.img = 1
+      // specials.push(special);
+      // this.spriteChange(2, this.gcd);
     }
   }
 
@@ -218,12 +254,14 @@ function Player(heroNumber, indexNum) {
   this.fancy = function() {
     var cost = this.powerCostCheck(1);
     if (cost <= this.power && this.gcd === 0) {
-      this.gcd += this.attackSpeed;
+      this.windUp(1);
+      this.toStart = 1;
+      this.gcd += this.attackSpeed + this.windUpTime;
       this.power -= cost;
-      special = new Special(this, 1, 0);
-      special.imgNum = 2;
-      specials.push(special);
-      this.spriteChange(9, this.gcd);
+      // special = new Special(this, 1, 0);
+      // special.imgNum = 2;
+      // specials.push(special);
+      // this.spriteChange(9, this.gcd);
     }
   }
 

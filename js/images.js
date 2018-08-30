@@ -1,10 +1,11 @@
-var backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
+var backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive,backdropSix];
 var backdropOne;
 var backdropTwo;
 var backdropThree;
 var backdropFour;
 var backdropFive;
 var backdropSix;
+
 
 
 

@@ -20,9 +20,6 @@ function setup() {
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
   angleMode(DEGREES);
-
-  // gameReset();
-
 }
 
 function startGame() {
@@ -37,17 +34,6 @@ function startGame() {
   gameStarted = true;
   timeRem = 30 * 60;
 }
-
-//timer ,set the game 120s
-
-
-
-
-
-
-// setInterval(function(){ alert("Hello"); }, 3000);
-
-
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 

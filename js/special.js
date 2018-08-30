@@ -1,17 +1,18 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
-  //                                              Arg
-  //type         spd  cback  spin  nextattack   0, 1, 2   Cst dmg
-  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  30,  0,  0],//0
-  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  20,  0,  0],//1
-  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  20,  0,  0],//2
-  ["Return"    ,  20, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//3
-  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  20,  0,  0],//4
-  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],  0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  30,  0,  0],//6
-  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  20,  0,  0],//7
-  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  20,  0,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0]//9
+  //                                              Arg                Wind
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],    5,  30,  10,  0],//0
+  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],   19,  20,  10,  0],//1
+  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],   11,  20,  0,  0],//2
+  ["Return"    ,  20, false, false,   false,   [0, 0, 0],    0,   0,  10,  0],//3
+  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],    10, 20,  0,  0],//4
+  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],     0,  0,  10,  0],//5
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],   15, 30,  10,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],     0, 20,  0,  0],//7
+  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],    20, 20,  10,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],    25, 15,  10,  0],//9
+  ["Dive"      ,  25, false, false,   false,   [20, 30, 10],  5, 45,  10,  0]//10
 ];
 
 
@@ -30,6 +31,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.imgNum = 1;
 
 
+
   this.rangeType = globalAttacks;
   // console.log(attackIndex);
   //if the attack is a return attack from the rangetype meaning another attack already preceded it.
@@ -40,15 +42,16 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
+
   } else {//if the attack is the first original attack
-    console.log("ran");
-    console.log(attacker + ' ' + attackIndex + ' ' + retAtt);
+    console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
     this.specType = this.rangeType[attacker.rAttack[attackIndex]][0];
     this.speed = this.rangeType[attacker.rAttack[attackIndex]][1];
     this.isComeBack = this.rangeType[attacker.rAttack[attackIndex]][2];
     this.toSpin = this.rangeType[attacker.rAttack[attackIndex]][3];
     this.nextAtt = this.rangeType[attacker.rAttack[attackIndex]][4];
     this.arg = this.rangeType[attacker.rAttack[attackIndex]][5];
+
   }
   console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
   if (this.nextAtt !== false) {
@@ -126,14 +129,24 @@ function Special(attacker, attackIndex, retAtt) {
     if (this.specType === "Throw") {
       this.throw();
     }
+    if (this.specType === "Dive") {
+      this.dive();
+    }
     this.x += this.dir * this.speed;
-    // console.log(this.dir + "direction and speed: " + this.speed);
+  }
+
+  this.dive = function() {
+    if (this.time < this.arg[2]) {
+      this.y -= this.arg[0];
+    } else if (this.time > this.arg[2]) {
+      this.y += this.arg[1];
+    }
   }
 
 
   //charge attack
   this.charge = function(hitPlayer) {
-    if (this.specType === "Charge") {
+    if (this.specType === "Charge" || this.specType === "Dive") {
       if (players[this.playerIndex].x > hitPlayer.x) {
         var side = 1 * 140
       } else {
