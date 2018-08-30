@@ -90,8 +90,18 @@ function preload() {
   loadImage('https://i.imgur.com/nJkB9Sf.png'),
   'https://i.imgur.com/nJkB9Sf.png');
 
-  //Sixth Character [5]
-  new Sprite();
+  //Captain Marvel [5]
+  new Sprite(loadImage('https://i.imgur.com/nWwDBWj.png'),
+  loadImage('https://i.imgur.com/Fvbtufx.png'),
+  loadImage('https://i.imgur.com/Ii4frpq.png'),
+  loadImage('https://i.imgur.com/uVUmekK.png'),
+  loadImage('https://i.imgur.com/CmHdxDX.png'),
+  loadImage('https://i.imgur.com/H7ZrudW.png'),
+  loadImage('https://i.imgur.com/ZzjfJ5Z.png'),
+  loadImage('https://i.imgur.com/0NKJFXv.png'),
+  loadImage('https://i.imgur.com/29PEptG.png'),
+  loadImage('https://i.imgur.com/CYIOaM2.png?2'),
+  'https://i.imgur.com/CYIOaM2.png?2');
 
   //RIGHT SIDE CHARACTERS
   //Captain America [6]
@@ -159,6 +169,16 @@ function preload() {
   loadImage('https://i.imgur.com/uhG59VO.png'),
   'https://i.imgur.com/uhG59VO.png');
 
-  //Sixth Character [11]
-  new Sprite();
+  //Ant-Man [11]
+  new Sprite(loadImage('https://i.imgur.com/MuXSuX0.png'),
+  loadImage('https://i.imgur.com/mZGpdgd.png'),
+  loadImage('https://i.imgur.com/3YNxv8G.png'),
+  loadImage('https://i.imgur.com/fZm2Ech.png'),
+  loadImage('https://i.imgur.com/gDIasyt.png'),
+  loadImage('https://i.imgur.com/dYH3B2C.png'),
+  loadImage('https://i.imgur.com/Lm4n0sn.png'),
+  loadImage('https://i.imgur.com/oyARtha.png'),
+  loadImage('https://i.imgur.com/k2ZXIsQ.png'),
+  loadImage('https://i.imgur.com/uCk3Tne.png'),
+  'https://i.imgur.com/uCk3Tne.png');
 }
