@@ -4,7 +4,7 @@ var backdrop;
 //Character Sprites array
 var heroSprites = [];
 
-function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jump, hit, portrait, image) {
+function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jump, hit, portrait, image, fancy) {
   this.neutral = neutral;
   this.moveLeft = moveLeft;
   this.moveRight = moveRight;
@@ -16,6 +16,7 @@ function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jum
   this.hit = hit;
   this.portrait = portrait;
   this.image = image;
+  this.fancy = fancy;
   heroSprites.push(this);
 }
 

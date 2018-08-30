@@ -75,7 +75,7 @@ function keyTyped() {// player 1
   if (key === '.') {
     players[1].shoot();
   }
-  if (key === '/') {
+  if (key === 'm') {
     players[1].fancy();
   }
 }

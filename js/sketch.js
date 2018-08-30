@@ -54,6 +54,8 @@ function draw() {
             console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
             players[specials[j].playerIndex].special(specials[j], players[i]);
             specials[j].comeBack(players[i]);
+            specials[j].charge(players[i]);
+            specials[j].toPush(players[i]);            
             specials[j].toDelete = true;
           }
         }

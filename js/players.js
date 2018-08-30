@@ -4,19 +4,19 @@ var heroes = [];
 var heroStats = [
   //left side characters [0-5]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0]], //0
-  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1]], //1
-  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 1, 10, [0,7]], //2
-  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0]], //3
-  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0]], //4
+  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0,0,0]], //0
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1,8,0]], //1
+  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10,  [0,6,7]], //2
+  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0,9,0]], //3
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0,9,0]], //4
   [],                                                                              //5
   //right side characters [6-11]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 1270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2]], //6
-  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4]], //7
-  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0]], //8
-  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2]], //9
-  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0]], //10
+  ["Captain America", 1270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2,8,0]], //6
+  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4,0,0]], //7
+  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
+  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
+  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
   []                                                                               //11
 ];
 heroStats.forEach(function(hero) {
@@ -103,6 +103,8 @@ function Player(heroNumber, indexNum) {
 
     if (this.gcd > 0) {
       this.gcd -= 1;
+    } else if (this.gcd < 0) {
+      this.gcd = 0;
     }
 
     if (this.charBlockTime > 0) {
@@ -132,6 +134,8 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 1) {
       image(heroSprites[heroNumber].attack, xOff, yOff);
     } else if (this.sprite === 2) {
+      image(heroSprites[heroNumber].special, xOff, yOff);
+    } else if (this.sprite === 9) {
       image(heroSprites[heroNumber].special, xOff, yOff);
     } else if (this.sprite === 3) {
       image(heroSprites[heroNumber].block, xOff, yOff);
@@ -174,7 +178,10 @@ function Player(heroNumber, indexNum) {
           players[i].hp -= this.combat(50, players[i]); //i = defender player
           players[i].isHit(players[i].hurtReflex);
           this.power += this.powerRegen;
-          this.power = constrain(this.power, 0, this.powerMax);
+          players[i].power += this.powerRegen / 2;
+          this.power = Math.ceil(constrain(this.power, 0, this.powerMax));
+          players[i].power = Math.ceil(constrain(players[i].power, 0, players[i].powerMax));
+          players[i].gcd = this.attackSpeed / 2;
           collided = false;
         }
       }
@@ -198,13 +205,16 @@ function Player(heroNumber, indexNum) {
       this.power -= this.rangeCost;
       special = new Special(this, 1, 0);
       specials.push(special);
-      this.spriteChange(2, this.gcd);
+      this.spriteChange(9, this.gcd);
     }
   }
 
   //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
   this.special = function(specialHit, defender) {
     defender.hp -= this.combat(specialHit.damage, defender);
+    defender.power += this.powerRegen / 5;
+    defender.power = Math.ceil(constrain(defender.power, 0, defender.powerMax));
+    defender.gcd = this.attackSpeed / 2;
     defender.isHit(defender.hurtReflex);
   };
 
