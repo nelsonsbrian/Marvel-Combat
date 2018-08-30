@@ -55,6 +55,7 @@ function Player(heroNumber, indexNum) {
   this.radius = 70;
   this.damagedColor;
   this.charBlocking = false;
+  this.charBlockTime = 0;
   this.sprite = 0;
   this.spriteTime = 0;
   this.gcd = 0;
@@ -78,7 +79,7 @@ function Player(heroNumber, indexNum) {
     if (this.winner === 1) {
       this.sprite = 8;
     } else {
-      if (this.charBlocking === false && this.spriteTime > 0) {
+      if (this.spriteTime > 0) {
         // console.log(this.spriteTime + ' ' + this.charBlocking);
         this.spriteTime -= 1;
       }
@@ -104,6 +105,12 @@ function Player(heroNumber, indexNum) {
       this.gcd -= 1;
     }
 
+    if (this.charBlockTime > 0) {
+      this.charBlockTime -= 1;
+    } else {
+      this.charBlocking = false;
+    }
+
     //checks to see the sprite value of the player and change the displayed sprite img.
     if (this.sprite === 8) {
       image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
@@ -124,7 +131,10 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 7) {
       image(heroSprites[heroNumber].jump, (this.x + imgOff[0]), (this.y + imgOff[1]));
     }
-    // ellipse(this.x,this.y,this.radius,this.radius);
+    noFill();
+    stroke(255);
+    strokeWeight(5);
+    ellipse(this.x,this.y,this.radius,this.radius);
   }
 
 
@@ -145,8 +155,7 @@ function Player(heroNumber, indexNum) {
           var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
         }
         if (collided) {
-          players[i].hp -= this.combat(50, i);
-          players[i].isHit(this.hurtReflex);
+          players[i].hp -= this.combat(50, players[i]); //i = defender player
           this.power += this.powerRegen;
           this.power = constrain(this.power, 0, this.powerMax);
           collided = false;
@@ -167,48 +176,52 @@ function Player(heroNumber, indexNum) {
 
   }
 
-
-
-  //function is called when a player gets hit by a special ranged attack and runs combat function
-  this.special = function(missileHit) {
-    this.hp -= this.combat(missileHit.damage, missileHit.playerIndex);
+  //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
+  this.special = function(specialHit, defender) {
+    console.log("this " + this.name + " parameter " + defender);
+    defender.hp -= this.combat(specialHit.damage, defender);
+    defender.isHit(defender.hurtReflex);
     this.isHit(this.hurtReflex);
   };
 
-  //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls
-  this.combat = function(baseDam, playerI) {
+  //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls. /This/ is the player that attacks.
+  this.combat = function(baseDam, defender) {
     let dmg;
-    var dmgDam = this.damageRoll(baseDam, playerI);
-    var dmgDef = this.defenseRoll(baseDam);
-    var block = this.blockingRoll(baseDam);
-    dmg = dmgDam - dmgDef - block;
-    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit index:" + playerI);
+    var dmgDam = this.damageRoll(baseDam);
+    var dmgDef = this.defenseRoll(baseDam, defender);
+    var block = this.blockingRoll(baseDam, defender);
+    dmg = (dmgDam - dmgDef) * block;
+    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit:" + defender + ' ' + this.name );
     return dmg;
   }
 
-  //updates the player value if they are blocking or not.
-  this.isBlocking = function(bool, i) {
-    this.charBlocking = bool;
-    this.spriteChange(3, 1);
-  }
 
   //function reduces damage taken if player is blocking
-  this.blockingRoll = function(baseDam) {
-    if (this.charBlocking) {
-      return baseDam / 300;
+  this.blockingRoll = function(baseDam, defender) {
+    console.log(defender.charBlocking + ' ' + defender.name);
+    if (defender.charBlocking) {
+      return baseDam / (defender.block * 75 );
     } else {
-      return 0;
+      return 1;
     }
   }
 
+  //updates the player value if they are blocking or not.
+  this.isBlocking = function() {
+    this.charBlocking = true;
+    this.charBlockTime = this.attackSpeed;
+    this.gcd = this.attackSpeed;
+    this.spriteChange(3, this.attackSpeed);
+  }
+
   //function computes the attack damage
-  this.damageRoll = function(baseDam, index) {
-   return baseDam * players[index].attack / 100;
+  this.damageRoll = function(baseDam) {
+   return baseDam * this.attack / 100;
   }
 
   //function computes the defense damage to save
-  this.defenseRoll = function(baseDam) {
-    return baseDam * this.defense / 100 / 2;
+  this.defenseRoll = function(baseDam, defender) {
+    return baseDam * defender.defense / 100 / 2;
   }
 
   //sets frames for how long the hitbox shape is colored when hit
@@ -248,7 +261,9 @@ function Player(heroNumber, indexNum) {
 
   //move left and right
   this.moveLeftRight = function(direction) {
-    this.direction = direction;
+    if (this.charBlocking === false) {
+      this.direction = direction;
+    }
   }
 
   this.edges = function() {

@@ -1,3 +1,4 @@
+//prevent players from scrolling down the play screen with the up and down arrows
 var keys = {};
 window.addEventListener("keydown",
     function(e){
@@ -41,17 +42,17 @@ function keyReleased() {
     players[0].moveLeftRight(0);
   } else if (key === 'd') {
     players[0].moveLeftRight(0);
-  } else if (key === 's') {
-    players[0].isBlocking(false);
+  // } else if (key === 's') {
+  //   players[0].isBlocking(false);
   } // player2
   if (keyCode === LEFT_ARROW) {
     players[1].moveLeftRight(0);
   } else if (keyCode === RIGHT_ARROW) {
     players[1].moveLeftRight(0);
-  } else if (keyCode === DOWN_ARROW) {
-    players[1].isBlocking(false,0);
-
-
+  // } else if (keyCode === DOWN_ARROW) {
+  //   players[1].isBlocking(false,0);
+  //
+  //
   }
 }
 
@@ -60,7 +61,7 @@ function keyReleased() {
 function keyTyped() {// player 1
   if (key === '1') {
     players[0].punch();
-    
+
   }
   if (key === '2') {
     players[0].shoot();

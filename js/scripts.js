@@ -37,7 +37,6 @@ $(document).ready(function() {
     event.preventDefault();
     $('#selection').hide();
     $('#gamePlay').fadeIn();
-    console.log("works");
     startGame();
   });
 
