@@ -4,6 +4,9 @@ var backdropTwo;
 var backdropThree;
 var backdropFour;
 var backdropFive;
+var backdropSix;
+
+
 
 
 //Character Sprites array
@@ -36,6 +39,7 @@ function preload() {
 
   backdropFour =loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/4/4c/Combat_Background_012.jpg/revision/latest?cb=20130904170628");
   backdropFive =loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/3/39/Combat_Background_002.jpg/revision/latest?cb=20130904165731");
+  backdropSix=loadImage("https://vignette.wikia.nocookie.net/the-xmen-roleplay/images/1/12/Gallery1.jpeg/revision/latest?cb=20131222013123");
 
 
 

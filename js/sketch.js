@@ -8,13 +8,13 @@ var special;
 var timer;
 var gameOver = 0;
 var gameStarted = false
-
+var timeRem = 0;
 //setup function runs when canvas loads. Functions
 var backdropArr = [];
 var gameBackdrop;
 
 function setup() {
-  backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
+  backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive,backdropSix];
   var randomBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
   gameBackdrop = randomBackdrop;
   var canvas = createCanvas(1024, 576);
@@ -35,21 +35,26 @@ function startGame() {
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
   gameStarted = true;
+  timeRem = 30 * 60;
 }
 
-var timeleft = 120;
-var gameTimer = setInterval(function(){
-timeleft--;
-document.getElementById("countdowntimer").innerHTML = timeleft;
-if(timeleft <= 0){
-    clearInterval(gameTimer);
-},1000);
+//timer ,set the game 120s
+
+
+
+
+
+
+// setInterval(function(){ alert("Hello"); }, 3000);
 
 
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 
 function draw() {
+  if (timeRem > 0) {
+    timeRem--;
+  }
   //the backdrop img changed by which Character player one choose
   background(backdropArr[player1input], 0,0);
 
@@ -83,6 +88,13 @@ function draw() {
       } else if (players[i].winner === 1 && gameOver === 1) {
         players[i].show();
         players[i].move();
+      }
+    }
+    if (timeRem <= 0) {
+      if (players[0].hp > players[1].hp) {
+        players[1].hp = 0;
+      } else if (players[0].hp < players[1].hp) {
+        players[0].hp = 0;
       }
     }
     for (var i = specials.length-1; i >= 0; i--) {
