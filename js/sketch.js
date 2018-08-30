@@ -38,14 +38,23 @@ function startGame() {
   gameStarted = true;
 }
 
+var timeleft = 120;
+var gameTimer = setInterval(function(){
+timeleft--;
+document.getElementById("countdowntimer").innerHTML = timeleft;
+if(timeleft <= 0){
+    clearInterval(gameTimer);
+},1000);
+
 
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 
 
   function draw() {
-    //the background img changed by which Character user one choose
+    //the backdrop img changed by which Character player one choose
     background(backdropArr[player1input], 0,0);
+
 
 
 
