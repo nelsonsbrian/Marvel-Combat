@@ -4,7 +4,7 @@ var backdrop;
 //Character Sprites array
 var heroSprites = [];
 
-function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jump, hit, portrait, image) {
+function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jump, hit, portrait, image, fancy) {
   this.neutral = neutral;
   this.moveLeft = moveLeft;
   this.moveRight = moveRight;
@@ -16,6 +16,7 @@ function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jum
   this.hit = hit;
   this.portrait = portrait;
   this.image = image;
+  this.fancy = fancy;
   heroSprites.push(this);
 }
 
@@ -99,8 +100,8 @@ function preload() {
   loadImage('https://i.imgur.com/ZzjfJ5Z.png'),
   loadImage('https://i.imgur.com/0NKJFXv.png'),
   loadImage('https://i.imgur.com/29PEptG.png'),
-  loadImage('https://i.imgur.com/CYIOaM2.png?1'),
-  'https://i.imgur.com/CYIOaM2.png?1');
+  loadImage('https://i.imgur.com/CYIOaM2.png?2'),
+  'https://i.imgur.com/CYIOaM2.png?2');
 
   //RIGHT SIDE CHARACTERS
   //Captain America [6]

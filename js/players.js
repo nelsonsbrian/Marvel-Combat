@@ -3,21 +3,22 @@ var yOff = -100;
 var heroes = [];
 var heroStats = [
   //left side characters [0-5]
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Iron Man",        130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 20, [0]],
-  ["The Hulk",        150, 90,  230, 8,  90, 60, 2,  99, 25, 5,  50, 10, 10, [1]],
-  ["Black Widow",     100, 90,  230, 16, 70, 20, 5,  99, 99, 10, 75, 50, 10, [0]],
-  ["Spider-Man",      100, 90,  230, 16, 50, 30, 5,  99, 99, 10, 50, 25, 10, [0]],
-  ["Doctor Strange",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]],
-  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]],
+  //                                                                          Range
+  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Attack
+  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0,0,0]], //0
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1,8,0]], //1
+  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10, [0,6,7]], //2
+  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0,9,0]], //3
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0,9,0]], //4
+  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0,9,0]], //5
   //right side characters [6-11]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 130, 900, 230, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45, [2]],
-  ["Thor",            150, 900, 230, 8,  70, 70, 3,  99, 99, 10, 75, 25, 45, [4]],
-  ["Scarlet Witch",   100, 900, 230, 16, 50, 20, 2,  99, 99, 10, 99, 10, 10, [0]],
-  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 99, 20, 30, 50, 30, [2]],
-  ["Vision",          150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0]],
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [1]]
+  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2,8,0]], //6
+  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4,0,0]], //7
+  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
+  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
+  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11       
 ];
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -103,6 +104,8 @@ function Player(heroNumber, indexNum) {
 
     if (this.gcd > 0) {
       this.gcd -= 1;
+    } else if (this.gcd < 0) {
+      this.gcd = 0;
     }
 
     if (this.charBlockTime > 0) {
@@ -111,31 +114,49 @@ function Player(heroNumber, indexNum) {
       this.charBlocking = false;
     }
 
+
+
+    push();
+    if (whichSide()) {
+      translate(this.x + imgOff[0],this.y + imgOff[1]);
+      scale(-1,1);
+      var xOff = 0;
+      var yOff = 0;
+    } else {
+      var xOff = -125 + this.x;
+      var yOff = -100 + this.y;
+    }
+
     //checks to see the sprite value of the player and change the displayed sprite img.
     if (this.sprite === 8) {
-      image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].portrait, xOff, yOff);
     } else if (this.sprite === 0) {
-      image(heroSprites[heroNumber].neutral, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].neutral, xOff, yOff);
     } else if (this.sprite === 1) {
-      image(heroSprites[heroNumber].attack, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].attack, xOff, yOff);
     } else if (this.sprite === 2) {
-      image(heroSprites[heroNumber].special, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].special, xOff, yOff);
+    } else if (this.sprite === 9) {
+      image(heroSprites[heroNumber].special, xOff, yOff);
     } else if (this.sprite === 3) {
-      image(heroSprites[heroNumber].block, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].block, xOff, yOff);
     } else if (this.sprite === 4) {
-      image(heroSprites[heroNumber].moveLeft, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].moveLeft, xOff, yOff);
     } else if (this.sprite === 5) {
-      image(heroSprites[heroNumber].moveRight, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].moveRight, xOff, yOff);
     } else if (this.sprite === 6) {
-      image(heroSprites[heroNumber].hit, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].hit, xOff, yOff);
     } else if (this.sprite === 7) {
-      image(heroSprites[heroNumber].jump, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].jump, xOff, yOff);
     }
     noFill();
     stroke(255);
     strokeWeight(5);
     ellipse(this.x,this.y,this.radius,this.radius);
+    pop();
   }
+
+
 
 
   //function sets the player's sprite index for a certain number of frames
@@ -152,36 +173,59 @@ function Player(heroNumber, indexNum) {
       this.spriteChange(1, 12);
       for(i=0;i<players.length;i++) {
         if (this.indexNum !== players[i].indexNum) {
-          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius)
+          var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
         }
         if (collided) {
           players[i].hp -= this.combat(50, players[i]); //i = defender player
+          players[i].isHit(players[i].hurtReflex);
           this.power += this.powerRegen;
-          this.power = constrain(this.power, 0, this.powerMax);
+          players[i].power += this.powerRegen / 2;
+          this.power = Math.ceil(constrain(this.power, 0, this.powerMax));
+          players[i].power = Math.ceil(constrain(players[i].power, 0, players[i].powerMax));
+          players[i].gcd = this.attackSpeed / 2;
           collided = false;
         }
       }
     }
   }
 
+  //checks the power cost of a check before it creates it
+  this.powerCostCheck = function(attackNum) {
+    var index = this.hero[heroNumber][14][attackNum];
+    var power = globalAttacks[index][6];
+    return power;
+  }
   //player shoots and updates the sprite to it's special img sprite
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
+      var cost = this.powerCostCheck(1);
+      console.log(cost);
       this.gcd += this.attackSpeed;
       this.power -= this.rangeCost;
-      special = new Special(players[this.indexNum], 0, 0);
+      special = new Special(this, 0, 0);
       specials.push(special);
       this.spriteChange(2, this.gcd);
     }
-
   }
+
+  this.fancy = function() {
+    if (this.rangeCost <= this.power && this.gcd === 0) {
+      this.gcd += this.attackSpeed;
+      this.power -= this.rangeCost;
+      special = new Special(this, 1, 0);
+      specials.push(special);
+      this.spriteChange(9, this.gcd);
+    }
+  }
+
 
   //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
   this.special = function(specialHit, defender) {
-    console.log("this " + this.name + " parameter " + defender);
     defender.hp -= this.combat(specialHit.damage, defender);
+    defender.power += this.powerRegen / 5;
+    defender.power = Math.ceil(constrain(defender.power, 0, defender.powerMax));
+    defender.gcd = this.attackSpeed / 2;
     defender.isHit(defender.hurtReflex);
-    this.isHit(this.hurtReflex);
   };
 
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls. /This/ is the player that attacks.
@@ -198,7 +242,6 @@ function Player(heroNumber, indexNum) {
 
   //function reduces damage taken if player is blocking
   this.blockingRoll = function(baseDam, defender) {
-    console.log(defender.charBlocking + ' ' + defender.name);
     if (defender.charBlocking) {
       return baseDam / (defender.block * 75 );
     } else {
@@ -255,7 +298,6 @@ function Player(heroNumber, indexNum) {
   this.collide = function(x, y, r, buffer) {
     if (dist(this.x,this.y,x,y) < this.radius + r + buffer) {
       return true;
-      // console.log(this.name + " collide");
     }
   }
 
