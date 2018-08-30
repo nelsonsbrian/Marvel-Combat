@@ -52,7 +52,7 @@ function startGame() {
             var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
             if (specialHit) {
               console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
-              players[specials[j].playerIndex].special(players[i]);
+              players[specials[j].playerIndex].special(specials[j], players[i]);
               specials[j].comeBack(players[i]);
               specials[j].toDelete = true;
             }
