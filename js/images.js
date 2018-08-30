@@ -1,4 +1,10 @@
-var backdrop;
+var backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
+var backdropOne;
+var backdropTwo;
+var backdropThree;
+var backdropFour;
+var backdropFive;
+
 
 
 //Character Sprites array
@@ -20,7 +26,17 @@ function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jum
 }
 
 function preload() {
-  backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
+  backdropOne = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
+  backdropTwo = loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/7/73/Combat_Background_014.jpg/revision/latest?cb=20130904170651");
+
+  backdropThree = loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/1/18/Combat_Background_022.jpg/revision/latest?cb=20121028000729");
+
+  backdropFour =loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/4/4c/Combat_Background_012.jpg/revision/latest?cb=20130904170628");
+  backdropFive =loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/3/39/Combat_Background_002.jpg/revision/latest?cb=20130904165731");
+
+
+
+
   //backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
 
   //LEFT SIDE CHARACTERS
