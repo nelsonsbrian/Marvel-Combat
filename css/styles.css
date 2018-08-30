@@ -178,3 +178,7 @@ img {
 .btn:hover {
   background-image: none;
 }
+
+footer  {
+  margin-top: 500px;
+}

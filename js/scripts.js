@@ -10,6 +10,9 @@ function getRandomInt(min, max) {
 
 // user logic
 $(document).ready(function() {
+  $("body").append('<audio id="myAudio" controls>    <source src="../sound/background.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio>');
+  $("#myAudio").hide();
+  $(document).click();
   //What happens when "play" button is clicked
   $('#play').click(function(event) {
     event.preventDefault();
@@ -20,7 +23,7 @@ $(document).ready(function() {
     };
     $('#play').hide();
   });
-  $("#my_audio").get(0).play();
+  // $("#my_audio").get(0).play();
   //Turns player 1 character divs into radio buttons
   $('.left').click(function() {
     $(this).parents().find('.left').removeClass('selected');
@@ -36,6 +39,7 @@ $(document).ready(function() {
   //Starts the game with selected characters
   $('#start').click(function(event) {
     event.preventDefault();
+    $("#myAudio").trigger('play');
     $('#selection').hide();
     $('#gamePlay').fadeIn();
     startGame();
