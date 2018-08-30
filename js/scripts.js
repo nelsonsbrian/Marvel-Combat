@@ -20,6 +20,7 @@ $(document).ready(function() {
     };
     $('#play').hide();
   });
+  $("#my_audio").get(0).play();
   //Turns player 1 character divs into radio buttons
   $('.left').click(function() {
     $(this).parents().find('.left').removeClass('selected');
