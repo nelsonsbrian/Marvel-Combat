@@ -137,7 +137,7 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 2) {
       image(heroSprites[heroNumber].special, xOff, yOff);
     } else if (this.sprite === 9) {
-      image(heroSprites[heroNumber].special, xOff, yOff);
+      image(heroSprites[heroNumber].special2, xOff, yOff);
     } else if (this.sprite === 3) {
       image(heroSprites[heroNumber].block, xOff, yOff);
     } else if (this.sprite === 4) {
@@ -148,6 +148,12 @@ function Player(heroNumber, indexNum) {
       image(heroSprites[heroNumber].hit, xOff, yOff);
     } else if (this.sprite === 7) {
       image(heroSprites[heroNumber].jump, xOff, yOff);
+    } else if (this.sprite === 10) {
+      image(heroSprites[heroNumber].windup, xOff, yOff);
+    } else if (this.sprite === 11) {
+      image(heroSprites[heroNumber].windup2, xOff, yOff);
+    } else if (this.sprite === 12) {
+      image(heroSprites[heroNumber].range2, xOff, yOff);
     }
     noFill();
     stroke(255);
