@@ -16,12 +16,12 @@ function Special(player, attackIndex, retAtt) {
   this.rangeType = [
     //if cback is true, need a next attack index#
     //name     spd  cback  spin  nextattack
-    [ "Blast",  40, false, false,   false ],
-    [ "Throw",  12, false, false,   false ],
-    ["Boomer",  30,  true, false,       3 ],
-    ["Return",  20, false, false,   false ],
-    ["Boomer",   9,  true,  false,       5 ],
-    ["Return",  20, false,  false,   false ]
+    [ "Blast",  40, false, false,   false ],//0
+    [ "Throw",  12, false, false,   false ],//1
+    ["Boomer",  30,  true, false,       3 ],//2
+    ["Return",  20, false, false,   false ],//3
+    ["Boomer",   9,  true,  true,       5 ],//4
+    ["Return",  20, false,  true,   false ] //5
   ];
   // console.log(attackIndex);
   //if the attack is a return attack from the rangetype meaning another attack already preceded it.
@@ -58,13 +58,14 @@ function Special(player, attackIndex, retAtt) {
   //rotate the image if the this.spin is true
   var angle = 0;
   this.spin = function() {
+    push();
     translate(this.x - imgOff[0],this.y - imgOff[1]);
     rotate(angle);
     angle-=30;
     fill(255);
     console.log('x: ' + this.x + ' ' + " y: " + this.y + ' ')
     image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
-    translate(0,0);
+    pop();
   }
 
 
