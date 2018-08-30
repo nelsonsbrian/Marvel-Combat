@@ -4,7 +4,7 @@ var heroes = [];
 var heroStats = [
   //left side characters [0-5]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Iron Man",        130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]],
+  ["Iron Man",        130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 20, [0]],
   ["The Hulk",        150, 90,  230, 8,  90, 60, 2,  99, 25, 5,  50, 10, 10, [1]],
   ["Black Widow",     100, 90,  230, 16, 70, 20, 5,  99, 99, 10, 75, 50, 10, [0]],
   ["Spider-Man",      100, 90,  230, 16, 50, 30, 5,  99, 99, 10, 50, 25, 10, [0]],
@@ -12,12 +12,12 @@ var heroStats = [
   ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]],
   //right side characters [6-11]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 130, 900, 230, 12, 90, 50, 5,  99, 99, 10, 50, 25, 10, [2]],
-  ["Thor",            150, 900, 230, 8,  70, 70, 3,  99, 99, 10, 75, 25, 10, [4]],
+  ["Captain America", 130, 900, 230, 12, 90, 50, 5,  99, 99, 10, 50, 25, 45, [2]],
+  ["Thor",            150, 900, 230, 8,  70, 70, 3,  99, 99, 10, 75, 25, 45, [4]],
   ["Scarlet Witch",   100, 900, 230, 16, 50, 20, 2,  99, 99, 10, 99, 10, 10, [0]],
-  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 0,  20, 30, 50, 10, [2]],
+  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 99, 20, 30, 50, 30, [2]],
   ["Vision",          150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0]],
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0]]
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [1]]
 ];
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -149,10 +149,10 @@ function Player(heroNumber, indexNum) {
     if (this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
       var collided = false;
-      this.spriteChange(1, 15);
+      this.spriteChange(1, 12);
       for(i=0;i<players.length;i++) {
         if (this.indexNum !== players[i].indexNum) {
-          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
+          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius)
         }
         if (collided) {
           players[i].hp -= this.combat(50, players[i]); //i = defender player
@@ -167,7 +167,7 @@ function Player(heroNumber, indexNum) {
   //player shoots and updates the sprite to it's special img sprite
   this.shoot = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
-      this.gcd =+ this.attackSpeed;
+      this.gcd += this.attackSpeed;
       this.power -= this.rangeCost;
       special = new Special(players[this.indexNum], 0, 0);
       specials.push(special);
@@ -211,7 +211,7 @@ function Player(heroNumber, indexNum) {
     this.charBlocking = true;
     this.charBlockTime = this.attackSpeed;
     this.gcd = this.attackSpeed;
-    this.spriteChange(3, this.attackSpeed);
+    this.spriteChange(3, 20);
   }
 
   //function computes the attack damage
