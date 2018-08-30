@@ -1,6 +1,6 @@
 // business logic
-var player1input = getRandomInt(0,4);
-var player2input = getRandomInt(6,10);
+var player1input = getRandomInt(0,5);
+var player2input = getRandomInt(6,11);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 
 // user logic
 $(document).ready(function() {
-
+  //What happens when "play" button is clicked
   $('#play').click(function(event) {
     event.preventDefault();
     $('#selection').fadeIn();
@@ -20,27 +20,26 @@ $(document).ready(function() {
     };
     $('#play').hide();
   });
-
+  //Turns player 1 character divs into radio buttons
   $('.left').click(function() {
     $(this).parents().find('.left').removeClass('selected');
     $(this).addClass('selected');
     player1input = $(this).attr('value');
   });
-
+  //Turns player 2 character divs into radio buttons
   $('.right').click(function() {
     $(this).parents().find('.right').removeClass('selected');
     $(this).addClass('selected');
     player2input = $(this).attr('value');
   });
-
+  //Starts the game with selected characters
   $('#start').click(function(event) {
     event.preventDefault();
     $('#selection').hide();
     $('#gamePlay').fadeIn();
     startGame();
   });
-
-
+  //Refreshes the page
   $('#reset').click(function() {
     $('#reset').blur();
     document.location.reload();

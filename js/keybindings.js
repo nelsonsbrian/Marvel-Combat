@@ -35,6 +35,12 @@ function keyPressed() { //player1
   else if (keyCode === DOWN_ARROW) {
     players[1].isBlocking(true,0);
   }
+  else if (keyCode === UP_ARROW) {
+      players[1].punch();
+    }
+  else if (keyCode === 191) {
+      players[1].fancy();
+    }
 }
 
 function keyReleased() {
@@ -63,19 +69,24 @@ function keyTyped() {// player 1
     players[0].punch();
 
   }
+  if (key === 'w') {
+    players[0].punch();
+
+  }
+  if (key === '3') {
+    players[0].punch();
+
+  }
   if (key === '2') {
     players[0].shoot();
   }
   if (key === '3') {
-
+    players[0].fancy();
   }// player 2
   if (key === ',') {
     players[1].punch();
   }
   if (key === '.') {
     players[1].shoot();
-  }
-  if (key === '/') {
-    players[1].punch();
   }
 }
