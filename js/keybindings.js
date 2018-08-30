@@ -67,7 +67,7 @@ function keyTyped() {// player 1
     players[0].shoot();
   }
   if (key === '3') {
-
+    players[0].fancy();
   }// player 2
   if (key === ',') {
     players[1].punch();
@@ -75,7 +75,7 @@ function keyTyped() {// player 1
   if (key === '.') {
     players[1].shoot();
   }
-  if (key === '/') {
-    players[1].punch();
+  if (key === 'm') {
+    players[1].fancy();
   }
 }
