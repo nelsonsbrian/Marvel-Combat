@@ -1,0 +1,10 @@
+﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */
+@font-face {
+  font-family:"Avengeance";
+  src:url("AVENGEANCE.eot?") format("eot"),
+  url("AVENGEANCE.woff") format("woff"),
+  url("AVENGEANCE.ttf") format("truetype"),
+  url("AVENGEANCE.svg#Avengeance") format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
