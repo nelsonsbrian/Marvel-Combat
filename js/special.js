@@ -2,17 +2,17 @@ var globalAttacks = [
   //if cback is true, need a next attack index#
   //                                              Arg                Wind
   //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
-  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],    5,  30,  10,  0],//0
-  [ "Throw"    ,  30, false, false,   false,   [0, 0, 0],   19,  20,  10,  0],//1
-  ["Boomer"    ,  50,  true, false,       3,   [0, 0, 0],   11,  20,  10,  0],//2
-  ["Return"    ,  70, false, false,   false,   [0, 0, 0],    0,   0,  0,  0],//3
-  ["Boomer"    ,  50,  true,  true,       5,   [0, 0, 0],    10, 20,  10,  0],//4
-  ["Return"    ,  50, false,  true,   false,   [0, 0, 0],     0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],   15, 30,  10,  0],//6
-  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],     0, 20,  0,  0],//7
-  ["Charge"    ,  40, false, false,   false,   [0, 0, 0],    20, 20,  5,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],    25, 15,  10,  0],//9
-  ["Dive"      ,  25, false, false,   false,   [40, 40, 16], 15, 45,  5,  0]//10
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],   25, 50,  10,  0],//0
+  [ "Throw"    ,  30, false, false,   false,   [0, 0, 0],   20, 40,  10,  0],//1
+  ["Boomer"    ,  50,  true, false,       3,   [0, 0, 0],   20, 40,  10,  0],//2
+  ["Return"    ,  70, false, false,   false,   [0, 0, 0],    0,  0,  0,  0],//3
+  ["Boomer"    ,  50,  true,  true,       5,   [0, 0, 0],   20, 40,  10,  0],//4
+  ["Return"    ,  50, false,  true,   false,   [0, 0, 0],    0,  0,  0,  0],//5
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],  20, 40,  10,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],    0, 40,  0,  0],//7
+  ["Charge"    ,  40, false, false,   false,   [0, 0, 0],   20, 40,  5,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],   15, 30,  10,  0],//9
+  ["Dive"      ,  25, false, false,   false,   [40, 40, 16],30, 60,  5,  0]//10
 ];
 
 
