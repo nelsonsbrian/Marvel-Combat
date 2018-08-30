@@ -27,6 +27,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.toDelete = false;
   this.dir = 1;
   this.time = 0;
+  this.imgNum = 1;
 
 
   this.rangeType = globalAttacks;
@@ -76,7 +77,11 @@ function Special(attacker, attackIndex, retAtt) {
     rotate(angle);
     angle-=30;
     fill(255);
-    image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
+    if (this.imgNum === 1) {
+      image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
+    } else if (this.imgNum === 2) {
+      image(heroSprites[this.heroNumber].range2,-imgOff[0],-imgOff[1]);
+    }
     pop();
   }
 
@@ -100,7 +105,11 @@ function Special(attacker, attackIndex, retAtt) {
       this.spin();
       rotate(0);
     } else {
-      image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
+      if (this.imgNum === 1) {
+        image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
+      } else if (this.imgNum === 2) {
+        image(heroSprites[this.heroNumber].range2,this.x - imgOff[0],this.y - imgOff[1]);
+      }
     }
     this.time ++;
   }

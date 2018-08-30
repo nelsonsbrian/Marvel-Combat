@@ -206,8 +206,9 @@ function Player(heroNumber, indexNum) {
     var cost = this.powerCostCheck(1);
     if (cost <= this.power && this.gcd === 0) {
       this.gcd += this.attackSpeed;
-      this.power -= this.cost;
+      this.power -= cost;
       special = new Special(this, 0, 0);
+      special.img = 1
       specials.push(special);
       this.spriteChange(2, this.gcd);
     }
@@ -218,8 +219,9 @@ function Player(heroNumber, indexNum) {
     var cost = this.powerCostCheck(1);
     if (cost <= this.power && this.gcd === 0) {
       this.gcd += this.attackSpeed;
-      this.power -= this.cost;
+      this.power -= cost;
       special = new Special(this, 1, 0);
+      special.imgNum = 2;
       specials.push(special);
       this.spriteChange(9, this.gcd);
     }
