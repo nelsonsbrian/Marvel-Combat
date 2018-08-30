@@ -1,17 +1,17 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
   //                                              Arg
-  //type         spd  cback  spin  nextattack   0, 1, 2   Cst
-  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  0,  0,  0],//0
-  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  0,  0,  0],//1
-  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  0,  0,  0],//2
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst dmg
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  30,  0,  0],//0
+  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  20,  0,  0],//1
+  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  20,  0,  0],//2
   ["Return"    ,  20, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//3
-  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  0,  0,  0],//4
+  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  20,  0,  0],//4
   ["Return"    ,  20, false,  true,   false,   [0, 0, 0],  0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  0,  0,  0],//6
-  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//7
-  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  0,  0,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  0,  0,  0]//9
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  30,  0,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  20,  0,  0],//7
+  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  20,  0,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0]//9
 ];
 
 

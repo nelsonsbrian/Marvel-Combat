@@ -3,8 +3,8 @@ var yOff = -100;
 var heroes = [];
 var heroStats = [
   //left side characters [0-5]
-  //                                                                          Range
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Attack
+  //                                                                Punch     Range
+  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt pn AS   Attack
   ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0,0,0]], //0
   ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1,8,0]], //1
   ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10, [0,6,7]], //2
@@ -46,7 +46,7 @@ function Player(heroNumber, indexNum) {
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
     this.rangeAttack = this.hero[this.heroNumber][11];
-    this.rangeCost = this.hero[this.heroNumber][12];
+    this.punchDmg = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
     this.rAttack = this.hero[this.heroNumber][14];
   }
@@ -176,7 +176,7 @@ function Player(heroNumber, indexNum) {
           var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
         }
         if (collided) {
-          players[i].hp -= this.combat(50, players[i]); //i = defender player
+          players[i].hp -= this.combat(this.punchDmg, players[i]); //i = defender player
           players[i].isHit(players[i].hurtReflex);
           this.power += this.powerRegen;
           players[i].power += this.powerRegen / 2;
