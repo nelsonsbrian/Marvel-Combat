@@ -1,18 +1,18 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
-  //                                              Arg
-  //type         spd  cback  spin  nextattack   0, 1, 2   Cst dmg
-  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  30,  0,  0],//0
-  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  20,  0,  0],//1
-  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  20,  0,  0],//2
-  ["Return"    ,  20, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//3
-  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  20,  0,  0],//4
-  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],  0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  30,  0,  0],//6
-  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  20,  0,  0],//7
-  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  20,  0,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0],//9
-  ["Dive"      ,  25, false, false,   false,   [20, 30, 10],  5,  45,  0,  0]//10
+  //                                              Arg                Wind
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],    5,  30,  10,  0],//0
+  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],   19,  20,  10,  0],//1
+  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],   11,  20,  0,  0],//2
+  ["Return"    ,  20, false, false,   false,   [0, 0, 0],    0,   0,  10,  0],//3
+  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],    10, 20,  0,  0],//4
+  ["Return"    ,  20, false,  true,   false,   [0, 0, 0],     0,  0,  10,  0],//5
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],   15, 30,  10,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],     0, 20,  0,  0],//7
+  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],    20, 20,  10,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],    25, 15,  10,  0],//9
+  ["Dive"      ,  25, false, false,   false,   [20, 30, 10],  5, 45,  10,  0]//10
 ];
 
 
@@ -29,6 +29,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.dir = 1;
   this.time = 0;
   this.imgNum = 1;
+  this.windUpTime = 0;
 
 
   this.rangeType = globalAttacks;
@@ -41,6 +42,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
+    this.arg = this.windUpTime[retAtt][8];
   } else {//if the attack is the first original attack
     console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
     this.specType = this.rangeType[attacker.rAttack[attackIndex]][0];
@@ -49,6 +51,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[attacker.rAttack[attackIndex]][3];
     this.nextAtt = this.rangeType[attacker.rAttack[attackIndex]][4];
     this.arg = this.rangeType[attacker.rAttack[attackIndex]][5];
+    this.arg = this.windUpTime[attacker.rAttack[attackIndex]][8];
   }
   console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
   if (this.nextAtt !== false) {
