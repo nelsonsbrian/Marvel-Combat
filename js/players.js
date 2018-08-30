@@ -3,8 +3,8 @@ var yOff = -100;
 var heroes = [];
 var heroStats = [
   //left side characters [0-5]
-  //                                                                          Range
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS   Attack
+  //                                                                Punch     Range
+  //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt pn AS   Attack
   ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0,0,0]], //0
   ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1,8,0]], //1
   ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10, [0,6,7]], //2
@@ -18,7 +18,7 @@ var heroStats = [
   ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
   ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
   ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11       
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11
 ];
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -46,7 +46,7 @@ function Player(heroNumber, indexNum) {
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
     this.rangeAttack = this.hero[this.heroNumber][11];
-    this.rangeCost = this.hero[this.heroNumber][12];
+    this.punchDmg = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
     this.rAttack = this.hero[this.heroNumber][14];
   }
@@ -90,7 +90,7 @@ function Player(heroNumber, indexNum) {
       if (this.direction < 0) {
         this.spriteChange(4,3)
       }
-      if (this.hurtTime > 0) {
+      if (this.hurtTime > 0 && this.charBlocking === false) {
         this.spriteChange(6, 10)
       }
       if (this.spriteTime === 0){
@@ -137,7 +137,7 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 2) {
       image(heroSprites[heroNumber].special, xOff, yOff);
     } else if (this.sprite === 9) {
-      image(heroSprites[heroNumber].special, xOff, yOff);
+      image(heroSprites[heroNumber].special2, xOff, yOff);
     } else if (this.sprite === 3) {
       image(heroSprites[heroNumber].block, xOff, yOff);
     } else if (this.sprite === 4) {
@@ -148,6 +148,12 @@ function Player(heroNumber, indexNum) {
       image(heroSprites[heroNumber].hit, xOff, yOff);
     } else if (this.sprite === 7) {
       image(heroSprites[heroNumber].jump, xOff, yOff);
+    } else if (this.sprite === 10) {
+      image(heroSprites[heroNumber].windup, xOff, yOff);
+    } else if (this.sprite === 11) {
+      image(heroSprites[heroNumber].windup2, xOff, yOff);
+    } else if (this.sprite === 12) {
+      image(heroSprites[heroNumber].range2, xOff, yOff);
     }
     noFill();
     stroke(255);
@@ -176,7 +182,7 @@ function Player(heroNumber, indexNum) {
           var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
         }
         if (collided) {
-          players[i].hp -= this.combat(50, players[i]); //i = defender player
+          players[i].hp -= this.combat(this.punchDmg, players[i]); //i = defender player
           players[i].isHit(players[i].hurtReflex);
           this.power += this.powerRegen;
           players[i].power += this.powerRegen / 2;
@@ -197,22 +203,25 @@ function Player(heroNumber, indexNum) {
   }
   //player shoots and updates the sprite to it's special img sprite
   this.shoot = function() {
-    if (this.rangeCost <= this.power && this.gcd === 0) {
-      var cost = this.powerCostCheck(1);
-      console.log(cost);
+    var cost = this.powerCostCheck(1);
+    if (cost <= this.power && this.gcd === 0) {
       this.gcd += this.attackSpeed;
-      this.power -= this.rangeCost;
+      this.power -= cost;
       special = new Special(this, 0, 0);
+      special.img = 1
       specials.push(special);
       this.spriteChange(2, this.gcd);
     }
   }
 
+  //Player third attack
   this.fancy = function() {
-    if (this.rangeCost <= this.power && this.gcd === 0) {
+    var cost = this.powerCostCheck(1);
+    if (cost <= this.power && this.gcd === 0) {
       this.gcd += this.attackSpeed;
-      this.power -= this.rangeCost;
+      this.power -= cost;
       special = new Special(this, 1, 0);
+      special.imgNum = 2;
       specials.push(special);
       this.spriteChange(9, this.gcd);
     }

@@ -1,17 +1,17 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
   //                                              Arg
-  //type         spd  cback  spin  nextattack   0, 1, 2   Cst
-  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  0,  0,  0],//0
-  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  0,  0,  0],//1
-  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  0,  0,  0],//2
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst dmg
+  [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],  5,  30,  0,  0],//0
+  [ "Throw"    ,  12, false, false,   false,   [0, 0, 0],  19,  20,  0,  0],//1
+  ["Boomer"    ,  30,  true, false,       3,   [0, 0, 0],  11,  20,  0,  0],//2
   ["Return"    ,  20, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//3
-  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  0,  0,  0],//4
+  ["Boomer"    ,   9,  true,  true,       5,   [0, 0, 0],  10,  20,  0,  0],//4
   ["Return"    ,  20, false,  true,   false,   [0, 0, 0],  0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  0,  0,  0],//6
-  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  0,  0,  0],//7
-  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  0,  0,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  0,  0,  0]//9
+  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  30,  0,  0],//6
+  ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  20,  0,  0],//7
+  ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  20,  0,  0],//8
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0]//9
 ];
 
 
@@ -27,6 +27,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.toDelete = false;
   this.dir = 1;
   this.time = 0;
+  this.imgNum = 1;
 
 
   this.rangeType = globalAttacks;
@@ -76,7 +77,11 @@ function Special(attacker, attackIndex, retAtt) {
     rotate(angle);
     angle-=30;
     fill(255);
-    image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
+    if (this.imgNum === 1) {
+      image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
+    } else if (this.imgNum === 2) {
+      image(heroSprites[this.heroNumber].range2,-imgOff[0],-imgOff[1]);
+    }
     pop();
   }
 
@@ -100,7 +105,11 @@ function Special(attacker, attackIndex, retAtt) {
       this.spin();
       rotate(0);
     } else {
-      image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
+      if (this.imgNum === 1) {
+        image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
+      } else if (this.imgNum === 2) {
+        image(heroSprites[this.heroNumber].range2,this.x - imgOff[0],this.y - imgOff[1]);
+      }
     }
     this.time ++;
   }
