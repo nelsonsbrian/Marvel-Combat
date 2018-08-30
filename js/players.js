@@ -90,7 +90,7 @@ function Player(heroNumber, indexNum) {
       if (this.direction < 0) {
         this.spriteChange(4,3)
       }
-      if (this.hurtTime > 0) {
+      if (this.hurtTime > 0 && this.charBlocking === false) {
         this.spriteChange(6, 10)
       }
       if (this.spriteTime === 0){
