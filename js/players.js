@@ -15,7 +15,7 @@ var heroStats = [
   ["Captain America", 130, 900, 230, 12, 90, 50, 5,  99, 99, 10, 50, 25, 10, [2]], //6
   ["Thor",            150, 900, 230, 8,  70, 70, 3,  99, 99, 10, 75, 25, 10, [4]], //7
   ["Scarlet Witch",   100, 900, 230, 16, 50, 20, 2,  99, 99, 10, 99, 10, 10, [0]], //8
-  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 0,  20, 30, 50, 10, [2]], //9
+  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 70, 20, 30, 50, 10, [2]], //9
   ["Vision",          150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0]], //10
   []                                                                               //11
 ];
@@ -111,31 +111,47 @@ function Player(heroNumber, indexNum) {
       this.charBlocking = false;
     }
 
+
+
+    push();
+    if (whichSide()) {
+      translate(this.x + imgOff[0],this.y + imgOff[1]);
+      scale(-1,1);
+      var xOff = 0;
+      var yOff = 0;
+    } else {
+      var xOff = -125 + this.x;
+      var yOff = -100 + this.y;
+    }
+
     //checks to see the sprite value of the player and change the displayed sprite img.
     if (this.sprite === 8) {
-      image(heroSprites[heroNumber].portrait, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].portrait, xOff, yOff);
     } else if (this.sprite === 0) {
-      image(heroSprites[heroNumber].neutral, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].neutral, xOff, yOff);
     } else if (this.sprite === 1) {
-      image(heroSprites[heroNumber].attack, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].attack, xOff, yOff);
     } else if (this.sprite === 2) {
-      image(heroSprites[heroNumber].special, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].special, xOff, yOff);
     } else if (this.sprite === 3) {
-      image(heroSprites[heroNumber].block, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].block, xOff, yOff);
     } else if (this.sprite === 4) {
-      image(heroSprites[heroNumber].moveLeft, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].moveLeft, xOff, yOff);
     } else if (this.sprite === 5) {
-      image(heroSprites[heroNumber].moveRight, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].moveRight, xOff, yOff);
     } else if (this.sprite === 6) {
-      image(heroSprites[heroNumber].hit, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].hit, xOff, yOff);
     } else if (this.sprite === 7) {
-      image(heroSprites[heroNumber].jump, (this.x + imgOff[0]), (this.y + imgOff[1]));
+      image(heroSprites[heroNumber].jump, xOff, yOff);
     }
     noFill();
     stroke(255);
     strokeWeight(5);
     ellipse(this.x,this.y,this.radius,this.radius);
+    pop();
   }
+
+
 
 
   //function sets the player's sprite index for a certain number of frames

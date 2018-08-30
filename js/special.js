@@ -51,8 +51,11 @@ function Special(player, attackIndex, retAtt) {
   //use the special attack in the correct direction
   if (player.indexNum === 0) {
     this.dir = 1;
-  } else {
+  } else if (player.indexNum === 1) {
     this.dir = -1;
+  }
+  if (whichSide()) {
+    this.dir *= -1;
   }
 
   //rotate the image if the this.spin is true
@@ -63,7 +66,6 @@ function Special(player, attackIndex, retAtt) {
     rotate(angle);
     angle-=30;
     fill(255);
-    console.log('x: ' + this.x + ' ' + " y: " + this.y + ' ')
     image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
     pop();
   }
@@ -93,7 +95,7 @@ function Special(player, attackIndex, retAtt) {
       this.throw();
     }
     this.x += this.dir * this.speed;
-    translate(0,0);
+    console.log(this.dir + "direction and speed: " + this.speed);
   }
 
 
