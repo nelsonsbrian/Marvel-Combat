@@ -4,19 +4,19 @@ var heroes = [];
 var heroStats = [
   //left side characters [0-5]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Iron Man",        130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]], //0
-  ["The Hulk",        150, 90,  230, 8,  90, 60, 2,  99, 25, 5,  50, 10, 10, [1]], //1
-  ["Black Widow",     100, 90,  230, 16, 70, 20, 5,  99, 99, 10, 75, 50, 10, [0]], //2
-  ["Spider-Man",      100, 90,  230, 16, 50, 30, 5,  99, 99, 10, 50, 25, 10, [0]], //3
-  ["Doctor Strange",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0]], //4
+  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 60, 10, 80, 33, 15, [0]], //0
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 50, 5,  30, 40, 25, [1]], //1
+  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 1, 10, [0,7]], //2
+  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0]], //3
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0]], //4
   [],                                                                              //5
   //right side characters [6-11]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 130, 900, 230, 12, 90, 50, 5,  99, 99, 10, 50, 25, 10, [2]], //6
-  ["Thor",            150, 900, 230, 8,  70, 70, 3,  99, 99, 10, 75, 25, 10, [4]], //7
-  ["Scarlet Witch",   100, 900, 230, 16, 50, 20, 2,  99, 99, 10, 99, 10, 10, [0]], //8
-  ["Black Panther",   120, 900, 230, 12, 70, 60, 3,  99, 70, 20, 30, 50, 10, [2]], //9
-  ["Vision",          150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0]], //10
+  ["Captain America", 1270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2]], //6
+  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4]], //7
+  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0]], //8
+  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2]], //9
+  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0]], //10
   []                                                                               //11
 ];
 heroStats.forEach(function(hero) {
@@ -168,10 +168,11 @@ function Player(heroNumber, indexNum) {
       this.spriteChange(1, 15);
       for(i=0;i<players.length;i++) {
         if (this.indexNum !== players[i].indexNum) {
-          var collided = this.collide(players[i].x, players[i].y, players[i].radius, this.radius * 5)
+          var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
         }
         if (collided) {
           players[i].hp -= this.combat(50, players[i]); //i = defender player
+          players[i].isHit(players[i].hurtReflex);
           this.power += this.powerRegen;
           this.power = constrain(this.power, 0, this.powerMax);
           collided = false;
@@ -185,19 +186,26 @@ function Player(heroNumber, indexNum) {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
       this.power -= this.rangeCost;
-      special = new Special(players[this.indexNum], 0, 0);
+      special = new Special(this, 0, 0);
       specials.push(special);
       this.spriteChange(2, this.gcd);
     }
+  }
 
+  this.fancy = function() {
+    if (this.rangeCost <= this.power && this.gcd === 0) {
+      this.gcd =+ this.attackSpeed;
+      this.power -= this.rangeCost;
+      special = new Special(this, 1, 0);
+      specials.push(special);
+      this.spriteChange(2, this.gcd);
+    }
   }
 
   //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
   this.special = function(specialHit, defender) {
-    console.log("this " + this.name + " parameter " + defender);
     defender.hp -= this.combat(specialHit.damage, defender);
     defender.isHit(defender.hurtReflex);
-    this.isHit(this.hurtReflex);
   };
 
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls. /This/ is the player that attacks.
@@ -214,7 +222,6 @@ function Player(heroNumber, indexNum) {
 
   //function reduces damage taken if player is blocking
   this.blockingRoll = function(baseDam, defender) {
-    console.log(defender.charBlocking + ' ' + defender.name);
     if (defender.charBlocking) {
       return baseDam / (defender.block * 75 );
     } else {
@@ -271,7 +278,6 @@ function Player(heroNumber, indexNum) {
   this.collide = function(x, y, r, buffer) {
     if (dist(this.x,this.y,x,y) < this.radius + r + buffer) {
       return true;
-      // console.log(this.name + " collide");
     }
   }
 
