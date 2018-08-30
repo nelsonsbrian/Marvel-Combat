@@ -9,7 +9,6 @@ var timer;
 var gameOver = 0;
 var gameStarted = false
 
-
 //setup function runs when canvas loads. Functions
 
 function setup() {

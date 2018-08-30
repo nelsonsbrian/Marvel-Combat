@@ -1,6 +1,6 @@
 // business logic
-var player1input = getRandomInt(0,4);
-var player2input = getRandomInt(6,10);
+var player1input = getRandomInt(0,5);
+var player2input = getRandomInt(6,11);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
