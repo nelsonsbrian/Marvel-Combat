@@ -71,6 +71,12 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       text(power + " / " + this.pPowerMax, width-100, height-this.powerSize[1] - 10);
 
     }
+
+  // timer text:
+    fill(255);
+    textSize(50);
+    textStyle(BOLD);
+    text(Math.ceil(timeRem/30), width/2 - 25, 50);
   };
 
 
