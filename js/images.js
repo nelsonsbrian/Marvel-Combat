@@ -99,8 +99,8 @@ function preload() {
   loadImage('https://i.imgur.com/ZzjfJ5Z.png'),
   loadImage('https://i.imgur.com/0NKJFXv.png'),
   loadImage('https://i.imgur.com/29PEptG.png'),
-  loadImage('https://i.imgur.com/CYIOaM2.png?1'),
-  'https://i.imgur.com/CYIOaM2.png?1');
+  loadImage('https://i.imgur.com/CYIOaM2.png?2'),
+  'https://i.imgur.com/CYIOaM2.png?2');
 
   //RIGHT SIDE CHARACTERS
   //Captain America [6]
