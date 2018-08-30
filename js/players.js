@@ -10,16 +10,15 @@ var heroStats = [
   ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 20, 10, 45, 20, 10, [0,6,7]], //2
   ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 70, 10, 60, 25, 10, [0,9,0]], //3
   ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 90, 10, 70, 33, 15, [0,9,0]], //4
-  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0,9,0]], //5                                                                            //5
+  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3,  99, 99, 10, 99, 33, 10, [0,9,0]], //5
   //right side characters [6-11]
   //name              hp   x    y    sp  at  df  bl  pMx p   pRg rAt rCo AS  RA
-  ["Captain America", 1270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2,8,0]], //6
+  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 25, 10, 50, 25, 15, [2,8,0]], //6
   ["Thor",            250, 900, 230, 8,  80, 80, 4, 100,  0, 10, 75, 25, 20, [4,0,0]], //7
   ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100,100, 10, 20, 15, 10, [0,9,0]], //8
   ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 70, 20, 40, 55, 15, [2,0,0]], //9
   ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
-  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11                                                                              //11
-
+  ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11       
 ];
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -171,7 +170,7 @@ function Player(heroNumber, indexNum) {
     if (this.gcd === 0) {
       this.gcd =+ this.attackSpeed;
       var collided = false;
-      this.spriteChange(1, 15);
+      this.spriteChange(1, 12);
       for(i=0;i<players.length;i++) {
         if (this.indexNum !== players[i].indexNum) {
           var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
@@ -201,7 +200,7 @@ function Player(heroNumber, indexNum) {
     if (this.rangeCost <= this.power && this.gcd === 0) {
       var cost = this.powerCostCheck(1);
       console.log(cost);
-      this.gcd =+ this.attackSpeed;
+      this.gcd += this.attackSpeed;
       this.power -= this.rangeCost;
       special = new Special(this, 0, 0);
       specials.push(special);
@@ -211,7 +210,7 @@ function Player(heroNumber, indexNum) {
 
   this.fancy = function() {
     if (this.rangeCost <= this.power && this.gcd === 0) {
-      this.gcd =+ this.attackSpeed;
+      this.gcd += this.attackSpeed;
       this.power -= this.rangeCost;
       special = new Special(this, 1, 0);
       specials.push(special);
@@ -255,7 +254,7 @@ function Player(heroNumber, indexNum) {
     this.charBlocking = true;
     this.charBlockTime = this.attackSpeed;
     this.gcd = this.attackSpeed;
-    this.spriteChange(3, this.attackSpeed);
+    this.spriteChange(3, 20);
   }
 
   //function computes the attack damage
