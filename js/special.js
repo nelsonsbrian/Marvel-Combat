@@ -11,7 +11,8 @@ var globalAttacks = [
   ["Multiple"  ,  30, false, false,   false,   [7, 10, 0], 15,  30,  0,  0],//6
   ["nextRange" ,  30, false, false,   false,   [0, 0, 0],  0,  20,  0,  0],//7
   ["Charge"    ,  20, false, false,   false,   [0, 0, 0],  20,  20,  0,  0],//8
-  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0]//9
+  ["Push"      ,  25, false, false,   false,   [0, 0, 0],  25,  15,  0,  0],//9
+  ["Dive"      ,  25, false, false,   false,   [20, 30, 10],  5,  45,  0,  0]//10
 ];
 
 
@@ -41,8 +42,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
   } else {//if the attack is the first original attack
-    console.log("ran");
-    console.log(attacker + ' ' + attackIndex + ' ' + retAtt);
+    console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
     this.specType = this.rangeType[attacker.rAttack[attackIndex]][0];
     this.speed = this.rangeType[attacker.rAttack[attackIndex]][1];
     this.isComeBack = this.rangeType[attacker.rAttack[attackIndex]][2];
@@ -126,14 +126,24 @@ function Special(attacker, attackIndex, retAtt) {
     if (this.specType === "Throw") {
       this.throw();
     }
+    if (this.specType === "Dive") {
+      this.dive();
+    }
     this.x += this.dir * this.speed;
-    // console.log(this.dir + "direction and speed: " + this.speed);
+  }
+
+  this.dive = function() {
+    if (this.time < this.arg[2]) {
+      this.y -= this.arg[0];
+    } else if (this.time > this.arg[2]) {
+      this.y += this.arg[1];
+    }
   }
 
 
   //charge attack
   this.charge = function(hitPlayer) {
-    if (this.specType === "Charge") {
+    if (this.specType === "Charge" || this.specType === "Dive") {
       if (players[this.playerIndex].x > hitPlayer.x) {
         var side = 1 * 140
       } else {

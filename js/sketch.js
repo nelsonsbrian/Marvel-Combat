@@ -15,13 +15,9 @@ var gameBackdrop;
 
 function setup() {
   backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
-  // gameBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
   angleMode(DEGREES);
-
-  // gameReset();
-
 }
 
 function startGame() {
@@ -35,16 +31,6 @@ function startGame() {
   statBars.push(statBar);
   gameStarted = true;
 }
-
-// var timeleft = 120;
-// var gameTimer = setInterval(function(){
-// timeleft--;
-// document.getElementById("countdowntimer").innerHTML = timeleft;
-// if(timeleft <= 0){
-//     clearInterval(gameTimer);
-// },1000);
-
-
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 
