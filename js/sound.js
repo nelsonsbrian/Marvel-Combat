@@ -2,14 +2,11 @@
 //var mySound;
 
 
-//
-
 function Sounds(sound1, sound2) {
   this.sound1 = sound1;
   this.sound2 = sound2;
 
 }
-
 
 
 function preload() {
