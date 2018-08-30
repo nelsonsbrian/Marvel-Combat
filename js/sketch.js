@@ -10,12 +10,16 @@ var gameOver = 0;
 var gameStarted = false
 
 //setup function runs when canvas loads. Functions
+var backdropArr = [];
+var gameBackdrop;
 
 function setup() {
+  backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
+  var randomBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
+  gameBackdrop = randomBackdrop;
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
   angleMode(DEGREES);
-
 
   // gameReset();
 
@@ -33,10 +37,22 @@ function startGame() {
   gameStarted = true;
 }
 
+var timeleft = 120;
+var gameTimer = setInterval(function(){
+timeleft--;
+document.getElementById("countdowntimer").innerHTML = timeleft;
+if(timeleft <= 0){
+    clearInterval(gameTimer);
+},1000);
+
+
+
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
 
 function draw() {
-  background(backdrop, 0,0);
+  //the backdrop img changed by which Character player one choose
+  background(backdropArr[player1input], 0,0);
+
   if (gameStarted === true) {
     translate(0,0);
 
