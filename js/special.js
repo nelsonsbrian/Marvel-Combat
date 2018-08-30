@@ -29,7 +29,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.dir = 1;
   this.time = 0;
   this.imgNum = 1;
-  this.windUpTime = 0;
+
 
 
   this.rangeType = globalAttacks;
@@ -42,7 +42,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
-    this.arg = this.windUpTime[retAtt][8];
+
   } else {//if the attack is the first original attack
     console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
     this.specType = this.rangeType[attacker.rAttack[attackIndex]][0];
@@ -51,7 +51,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[attacker.rAttack[attackIndex]][3];
     this.nextAtt = this.rangeType[attacker.rAttack[attackIndex]][4];
     this.arg = this.rangeType[attacker.rAttack[attackIndex]][5];
-    this.arg = this.windUpTime[attacker.rAttack[attackIndex]][8];
+
   }
   console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
   if (this.nextAtt !== false) {
