@@ -20,6 +20,8 @@ var heroStats = [
   ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 80, 10, 65, 25, 10, [0,9,0]], //10
   ["Ant-Man",         150, 900, 230, 8,  70, 70, 3,  99, 25, 10, 75, 25, 10, [0,9,0]] // 11
 ];
+//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos,
+
 heroStats.forEach(function(hero) {
   heroes.push(hero);
 });

@@ -15,8 +15,7 @@ var gameBackdrop;
 
 function setup() {
   backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
-  var randomBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
-  gameBackdrop = randomBackdrop;
+  // gameBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
   angleMode(DEGREES);
@@ -37,13 +36,13 @@ function startGame() {
   gameStarted = true;
 }
 
-var timeleft = 120;
-var gameTimer = setInterval(function(){
-timeleft--;
-document.getElementById("countdowntimer").innerHTML = timeleft;
-if(timeleft <= 0){
-    clearInterval(gameTimer);
-},1000);
+// var timeleft = 120;
+// var gameTimer = setInterval(function(){
+// timeleft--;
+// document.getElementById("countdowntimer").innerHTML = timeleft;
+// if(timeleft <= 0){
+//     clearInterval(gameTimer);
+// },1000);
 
 
 

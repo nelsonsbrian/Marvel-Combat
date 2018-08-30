@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive];
 var backdropOne;
 var backdropTwo;
@@ -8,8 +7,6 @@ var backdropFive;
 
 
 
-=======
->>>>>>> b2d890f88083e0e5e48b86b91628842123778cd1
 //Character Sprites array
 var heroSprites = [];
 
@@ -109,7 +106,7 @@ function preload() {
   // loadImage(''),
   // loadImage(''),
   // loadImage(''));
-
+);
 
   //Spider-Man [3]
   new Sprite(loadImage('https://i.imgur.com/xPeTmA2.png'),
@@ -127,10 +124,11 @@ function preload() {
   loadImage('https://i.imgur.com/o7Ilh6J.png'),
   'https://i.imgur.com/o7Ilh6J.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Doctor Strange [4]
@@ -149,10 +147,11 @@ function preload() {
   loadImage('https://i.imgur.com/nJkB9Sf.png'),
   'https://i.imgur.com/nJkB9Sf.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Captain Marvel [5]
@@ -171,10 +170,11 @@ function preload() {
   loadImage('https://i.imgur.com/CYIOaM2.png?2'),
   'https://i.imgur.com/CYIOaM2.png?2',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //RIGHT SIDE CHARACTERS
@@ -194,10 +194,11 @@ function preload() {
   loadImage('https://i.imgur.com/zkS7aCv.png'),
   'https://i.imgur.com/zkS7aCv.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Thor [7]
@@ -216,10 +217,11 @@ function preload() {
   loadImage('https://i.imgur.com/YAPM8qm.png'),
   'https://i.imgur.com/YAPM8qm.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Scarlet Witch [8]
@@ -238,10 +240,11 @@ function preload() {
   loadImage('https://i.imgur.com/dNzHdyi.png'),
   'https://i.imgur.com/dNzHdyi.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Black Panther [9]
@@ -260,10 +263,11 @@ function preload() {
   loadImage('https://i.imgur.com/6NPDBHk.png'),
   'https://i.imgur.com/6NPDBHk.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Vision [10]
@@ -282,10 +286,11 @@ function preload() {
   loadImage('https://i.imgur.com/uhG59VO.png'),
   'https://i.imgur.com/uhG59VO.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 
 
   //Ant-Man [11]
@@ -304,8 +309,9 @@ function preload() {
   loadImage('https://i.imgur.com/uCk3Tne.png'),
   'https://i.imgur.com/uCk3Tne.png',
   //windup & special 2
-  loadImage(''),
-  loadImage(''),
-  loadImage(''),
-  loadImage(''));
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''),
+  // loadImage(''));
+);
 }
