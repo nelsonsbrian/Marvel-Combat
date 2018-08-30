@@ -98,18 +98,18 @@ function preload() {
   loadImage('https://i.imgur.com/3RJZ2ms.png'),
   loadImage('https://i.imgur.com/xKu87V7.png'),
   //special 1
-  loadImage('https://i.imgur.com/EQ0Mrvi.png'),
-  loadImage('https://i.imgur.com/5UOHZWl.png'),
+  loadImage('https://i.imgur.com/J6IeUhI.png'),
+  loadImage('https://i.imgur.com/AiEq6gR.png'),
   //jump, hit, portrait
   loadImage('https://i.imgur.com/elJT77X.png'),
   loadImage('https://i.imgur.com/Va4iWk7.png'),
   loadImage('https://i.imgur.com/kXy83AW.png'),
   'https://i.imgur.com/kXy83AW.png',
   //windup & special 2
-  loadImage('https://i.imgur.com/GjIH7sa.png'),
   loadImage('https://i.imgur.com/xm0uNm9.png'),
-  loadImage('https://i.imgur.com/J6IeUhI.png'),
-  loadImage('https://i.imgur.com/AiEq6gR.png'));
+  loadImage('https://i.imgur.com/GjIH7sa.png'),
+  loadImage('https://i.imgur.com/EQ0Mrvi.png'),
+  loadImage('https://i.imgur.com/5UOHZWl.png'));
 
 
   //Spider-Man [3]
@@ -253,7 +253,8 @@ function preload() {
   loadImage('https://i.imgur.com/PJXOzM3.png'),
   loadImage('https://i.imgur.com/QaFniCx.png'),
   //special 1
-  loadImage('https://i.imgur.com/HoFrL7X.png'),
+  // loadImage('https://i.imgur.com/HoFrL7X.png'), only use if it can play after the range effect.
+  loadImage('https://i.imgur.com/J6IeUhI.png'),
   loadImage('https://i.imgur.com/Urkk0KX.png'),
   //jump, hit, portrait
   loadImage('https://i.imgur.com/uucBc9b.png'),
