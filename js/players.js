@@ -63,7 +63,7 @@ function Player(heroNumber, indexNum) {
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
     this.powerPassive = this.hero[this.heroNumber][11];
-    this.punchDmg = this.hero[this.heroNumber][12];
+    this.rangeAttack = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
     this.rAttack = this.hero[this.heroNumber][14];
   }
@@ -241,11 +241,11 @@ function Player(heroNumber, indexNum) {
   // Getting hit by an attack will delay your next attack.
   // Add time to the isHurt timer to display getting attacked.
   this.causeDmg = function(combatHit, defender) {
-    defender.hp -= this.combat(combatHit.damage, defender);
-    defender.power += defender.powerRegen / 3;
+    defender.hp -= this.combat(combatHit, defender);
     if (combatHit.isMelee === 1) {
       this.power += this.powerRegen;
     }
+    defender.power += defender.powerRegen / 3;
     defender.power = Math.ceil(constrain(defender.power, 0, defender.powerMax));
     defender.gcd += this.attackSpeed / 2;
     defender.isHit(defender.hurtReflex);
@@ -253,35 +253,40 @@ function Player(heroNumber, indexNum) {
 
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls.
   // /This/ is the player that attacks.
-  this.combat = function(baseDam, defender) {
+  this.combat = function(combatHit, defender) {
     let dmg;
-    var dmgAtt = this.damageRoll(baseDam);
-    var dmgDef = this.defenseRoll(baseDam, defender);
-    var block = this.blockingRoll(baseDam, defender);
+    var dmgAtt = this.damageRoll(combatHit);
+    var dmgDef = this.defenseRoll(combatHit, defender);
+    var block = this.blockingRoll(combatHit, defender);
     dmg = (dmgAtt - dmgDef) * block;
-    console.log("Damage: " + dmg + " Attack: " + dmgAtt + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit:" + defender + ' ' + this.name );
+    console.log("Damage: " + dmg + " Attack: " + dmgAtt + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + combatHit.damage + " playerhit:" + defender + ' ' + this.name );
     return dmg;
   }
 
 
   //function reduces damage taken if player is blocking
   //If the player is blocking it reduces 30-80% of the dmg depending on stats.
-  this.blockingRoll = function(baseDam, defender) {
+  this.blockingRoll = function(combatHit, defender) {
     if (defender.charBlocking) {
-      return baseDam / (defender.block * 75 );
+      return baseDam.damage / (defender.block * 75 );
     } else {
       return 1;
     }
   }
 
   //function computes the attack damage
-  this.damageRoll = function(baseDam) {
-   return baseDam * this.attack / 100;
+  this.damageRoll = function(combatHit) {
+    if (combatHit.isMelee === 1) {
+      var att = this.attack;
+    } else {
+      var att = this.rangeAttack;
+    }
+   return combatHit.damage * att / 100;
   }
 
   //function computes the defense damage to save
-  this.defenseRoll = function(baseDam, defender) {
-    return baseDam * defender.defense / 100 / 2;
+  this.defenseRoll = function(combatHit, defender) {
+    return combatHit.damage * defender.defense / 100 / 2;
   }
 
   //sets frames for how long the hitbox shape is colored when hit
