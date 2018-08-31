@@ -39,7 +39,7 @@ function keyPressed() { //player1
       players[1].punch();
     }
   else if (keyCode === 191) {
-      players[1].fancy();
+      players[1].toAttack(2);
     }
 }
 
@@ -65,26 +65,23 @@ function keyReleased() {
 
 
 function keyTyped() {// player 1
-  if (key === '1') {
-    players[0].punch();
-
-  }
   if (key === 'w') {
-    players[0].punch();
-
+    players[0].toAttack(0);
   }
-  if (key === '3') {
-    players[0].fancy();
-
+  if (key === '1') {
+    players[0].toAttack(0);
   }
   if (key === '2') {
-    players[0].shoot();
+    players[0].toAttack(1);
+  }
+  if (key === '3') {
+    players[0].toAttack(2);
   }
 // player 2
   if (key === ',') {
-    players[1].punch();
+    players[1].toAttack(0);
   }
   if (key === '.') {
-    players[1].shoot();
+    players[1].toAttack(1);
   }
 }

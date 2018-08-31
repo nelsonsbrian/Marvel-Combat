@@ -1,7 +1,7 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
   //  0           1     2      3       4         5 Arg     6     7   8Wind 9
-  //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
+  //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up Melee
   [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],   25, 50,  10,  0],//0
   [ "Throw"    ,  30, false, false,   false,   [0, 0, 0],   20, 40,  10,  0],//1
   ["Boomer"    ,  50,  true, false,       3,   [0, 0, 0],   20, 40,  10,  0],//2
@@ -12,7 +12,9 @@ var globalAttacks = [
   ["nextRange" ,  30, false, false,   false,   [0, 0, 0],    0, 40,  0,  0],//7
   ["Charge"    ,  40, false, false,   false,   [0, 0, 0],   20, 40,  5,  0],//8
   ["Push"      ,  25, false, false,   false,   [0, 0, 0],   15, 30,  10,  0],//9
-  ["Dive"      ,  25, false, false,   false,   [40, 40, 16],30, 60,  5,  0]//10
+  ["Dive"      ,  25, false, false,   false,   [40, 40, 16],30, 60,  5,  0],//10
+  ["Heal"      ,   0, false, false,   false,   [0, 0, 0]   ,30, 60,  5,  0],//11
+  ["Punch"     ,  12, false, false,   false,   [0, 0, 0]   , 0, 60,  1,  1]//12
 ];
 
 
@@ -30,8 +32,6 @@ function Special(attacker, attackIndex, retAtt) {
   this.imgNum = 1;
   this.extra = 0;
 
-
-
   this.rangeType = globalAttacks;
   // console.log(attackIndex);
   //if the attack is a return attack from the rangetype meaning another attack already preceded it.
@@ -42,7 +42,8 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
-    this.damage = this.damrangeTypeage[retAtt][7];
+    this.damage = this.rangeType[retAtt][7];
+    this.isMelee = this.rangeType[retAtt][9];
 
   } else {//if the attack is the first original attack
     console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
@@ -53,16 +54,16 @@ function Special(attacker, attackIndex, retAtt) {
     this.nextAtt = this.rangeType[attacker.rAttack[attackIndex]][4];
     this.arg = this.rangeType[attacker.rAttack[attackIndex]][5];
     this.damage = this.rangeType[attacker.rAttack[attackIndex]][7];
+    this.isMelee = this.rangeType[attacker.rAttack[attackIndex]][9];
   }
 
   console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
+
   if (this.nextAtt !== false) {
     this.attackIndex = this.nextAtt;
   } else {
     this.attackIndex = attackIndex;
   }
-
-  //
 
   //use the special attack in the correct direction
   if (attacker.indexNum === 0) {
@@ -102,8 +103,6 @@ function Special(attacker, attackIndex, retAtt) {
     }
   }
 
-
-
   this.show = function() {
     if (this.specType === "Multiple") {
       this.multiple(this.arg[0], this.arg[1])
@@ -127,9 +126,10 @@ function Special(attacker, attackIndex, retAtt) {
     this.y += this.time/5;
   }
 
+  //this.move gets called in the draw function in sketch and gets executed every frame.
   this.move = function() {
     if (this.specType === "Blast") {
-
+      //add special fucntions to blast is needed
     }
     if (this.specType === "Throw") {
       this.throw();
@@ -137,7 +137,15 @@ function Special(attacker, attackIndex, retAtt) {
     if (this.specType === "Dive") {
       this.dive();
     }
-    this.x += this.dir * this.speed;
+    if (this.isMelee === 0) {
+      this.x += this.dir * this.speed;
+    } else if (this.isMelee === 1) {
+      //for melee attacks, have the attack move with the play instead of a missile-like attacks
+      this.x = players[this.playerIndex].x;
+      if (this.speed < this.time) {
+        this.toDelete = true;
+      }
+    }
   }
 
   this.dive = function() {
@@ -150,7 +158,6 @@ function Special(attacker, attackIndex, retAtt) {
       this.y += this.arg[1];
     }
   }
-
 
   //charge attack
   this.charge = function(hitPlayer) {
@@ -176,6 +183,7 @@ function Special(attacker, attackIndex, retAtt) {
     }
   }
 
+  //the boomerang effect for a attack being shot at a person
   this.comeBack = function(hitPlayer) {
     if (this.isComeBack === true) {
       var special = new Special(hitPlayer, -1, this.attackIndex);
@@ -186,12 +194,10 @@ function Special(attacker, attackIndex, retAtt) {
     }
   }
 
+  //check to see if the attack is off the screen. The y direction is a high value to allow for attacks that go up and come down.
   this.edges = function() {
     if (this.x > width + 50 || this.x < -50 || this.y > height + 50 || this.y < -50000) {
       this.toDelete = true;
     }
   }
-
-
-
 }

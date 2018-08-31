@@ -5,21 +5,21 @@ var heroStats = [
   //left side characters [0-5]
   //                                                                Punch      Range
   //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP pn  AS   Attack
-  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10,  0, 33, 15, [9,0,0]], //0
-  ["The Hulk",        300, 90,  230, 8,  90, 80, 3,  40,   0,  5,  2, 40, 15, [1,8,0]], //1
-  ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 100, 10,  0, 20, 12, [8,0,0]], //2
-  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10,  0, 25, 10, [0,8,0]], //3
-  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 33, 15, [0,9,0]], //4
-  ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3, 100, 100, 10,  0, 33, 10, [0,8,0]], //5
+  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10,  0, 33, 15, [12,9,0]], //0
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3,  40,   0,  5,  2, 40, 15, [12,1,8]], //1
+  ["Black Widow",     200, 90,  230, 16, 70, 50, 1, 100, 100, 10,  0, 20, 12, [12,8,0]], //2
+  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10,  0, 25, 10, [12,0,8]], //3
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 33, 15, [12,0,9]], //4
+  ["Captain Marvel",  220, 90,  230, 12, 50, 50, 3, 100, 100, 10,  0, 33, 10, [12,0,8]], //5
   //right side characters [6-11]
   //                                                                Punch      Range
   //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP pn  AS    RA
-  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10,  0, 25, 15, [2,8,0]], //6
-  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10,  0, 25, 15, [4,9,0]], //7
-  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100, 100, 10,  0, 15, 10, [0,9,0]], //8
-  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 100, 20,  0, 55, 15, [2,0,0]], //9
-  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 100, 10,  0, 25, 10, [0,10,0]],//10
-  ["Ant-Man",         150, 900, 230, 20, 70, 70, 3, 100, 100, 10,  0, 25, 10, [1,10,0]] // 11
+  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10,  0, 25, 15, [12,2,8]], //6
+  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10,  0, 25, 15, [12,4,9]], //7
+  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100, 100, 10,  0, 15, 10, [12,0,9]], //8
+  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 100, 20,  0, 55, 15, [12,2,0]], //9
+  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 100, 10,  0, 25, 10, [12,0,10]],//10
+  ["Ant-Man",         200, 900, 230, 20, 70, 70, 3, 100, 100, 10,  0, 25, 10, [12,1,0]] // 11
 ];
 //Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos, Hero Speed, Hero Attack, Hero Defense, Hero Block Value, Hero Max Power, Hero Current Power, Hero Power Generation, Power Passive Generatoin, Punch Value, Attack Speed(GCD), [Attacks]
 
@@ -69,18 +69,8 @@ function Player(heroNumber, indexNum) {
   }
   this.heroSelect();
 
-  //this.show is called from the draw function and is executed every frame
+  //this.show gets called in the draw function in sketch and gets executed every frame.
   this.show = function() {
-    //change color of player hitbox shape to see if player is getting hit.
-    if (this.damagedColor > 0) {
-      fill(255,0,0);
-      this.damagedColor--;
-    } else if (this.isNPC === true) {
-      fill(51,153,255);
-    } else {
-      fill(255,128,0);
-    }
-
     //player sprite countdown each frame of the game, 0 defaults the the player nuetral position.
     if (this.winner === 1) {
       this.sprite = 8;
@@ -187,9 +177,6 @@ function Player(heroNumber, indexNum) {
     // pop();
   }
 
-
-
-
   //function sets the player's sprite index for a certain number of frames
   this.spriteChange = function(num, time) {
     this.sprite = num;
@@ -222,40 +209,46 @@ function Player(heroNumber, indexNum) {
 
   //checks the power cost of a check before it creates it
   this.powerCostCheck = function(attackNum) {
+    console.log(attackNum + ' ' + this.hero[heroNumber][14][attackNum] + ' '   );
     var index = this.hero[heroNumber][14][attackNum];
     var power = globalAttacks[index][6];
     return power;
   }
 
+  //loads the proper wind up sprite before an attack begins
   this.windUp = function(attackNum) {
     var index = this.hero[heroNumber][14][attackNum];
     console.log(index + ' ' + ' ' + attackNum + ' '  + globalAttacks[index][8]);
     this.windUpTime = globalAttacks[index][8];
     if (attackNum === 0) {
-      this.spriteChange(10, this.toStart);
+      this.spriteChange(1, 12);
     } else if (attackNum === 1) {
+      this.spriteChange(10, this.toStart);
+    } else if (attackNum === 2) {
       this.spriteChange(11, this.toStart);
     }
   }
 
   this.startSpecial = function() {
     special = new Special(this, this.toStart, 0);
-    special.imgNum = this.toStart+1;
+    special.imgNum = this.toStart;
     // special.imgNum = 2;
     specials.push(special);
     if (this.toStart === 0) {
-      this.spriteChange(2, this.gcd);
+      this.spriteChange(1, this.gcd);
     } else if (this.toStart === 1) {
+      this.spriteChange(2, this.gcd);
+    } else if (this.toStart === 2) {
       this.spriteChange(9, this.gcd);
     }
   }
 
   //player shoots and updates the sprite to it's special img sprite
-  this.shoot = function() {
-    var cost = this.powerCostCheck(0);
+  this.toAttack = function(attackNumber) {
+    var cost = this.powerCostCheck(attackNumber);
     if (cost <= this.power && this.gcd === 0) {
-      this.windUp(0);
-      this.toStart = 0;
+      this.windUp(attackNumber);
+      this.toStart = attackNumber;
       this.gcd += this.attackSpeed + this.windUpTime;
       this.power -= cost;
       // special = new Special(this, 0, 0);
@@ -294,11 +287,11 @@ function Player(heroNumber, indexNum) {
   //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls. /This/ is the player that attacks.
   this.combat = function(baseDam, defender) {
     let dmg;
-    var dmgDam = this.damageRoll(baseDam);
+    var dmgAtt = this.damageRoll(baseDam);
     var dmgDef = this.defenseRoll(baseDam, defender);
     var block = this.blockingRoll(baseDam, defender);
-    dmg = (dmgDam - dmgDef) * block;
-    console.log("Damage: " + dmg + " Attack: " + dmgDam + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit:" + defender + ' ' + this.name );
+    dmg = (dmgAtt - dmgDef) * block;
+    console.log("Damage: " + dmg + " Attack: " + dmgAtt + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + baseDam + " playerhit:" + defender + ' ' + this.name );
     return dmg;
   }
 
