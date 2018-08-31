@@ -29,10 +29,13 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       let greenHealth = this.pHealthPercent * this.healthSize[0];
       greenHealth = constrain(greenHealth, 0, this.healthSize[0]);
       rect(10,10,greenHealth,this.healthSize[1], 20, 15, 10, 5);
-      fill(0, 0, 0);
+      push();
+      fill(0);
       textSize(30);
-      textStyle(NORMAL);
-      text(name, 50, 40);
+      textStyle(BOLD);
+      textAlign(LEFT);
+      text(name, 30, 40);
+      pop();
     //player 2 power
       fill(0);
       rect(0,height-this.powerSize[1],this.powerSize[0],this.powerSize[1], 0, 15, 0, 5);
@@ -43,7 +46,7 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       fill(255);
       textSize(30);
       textStyle(BOLD);
-      text(power + " / " + this.pPowerMax, 3, height-this.powerSize[1] - 10);
+      text(power + " / " + this.pPowerMax, 10, height-this.powerSize[1] - 10);
     }
   if (1 === player.indexNum) {
     //hulkSprite,Captain America
@@ -54,10 +57,13 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       let greenHealth = this.pHealthPercent * this.healthSize[0];
       greenHealth = constrain(greenHealth, 0, this.healthSize[0]);
       rect(width - 10 - (greenHealth),10,width - 10 -(width - 10 - (greenHealth)),this.healthSize[1], 15, 20, 5, 10);
-      fill(0, 0, 0);
+      push();
+      fill(0);
       textSize(30);
-      textStyle(NORMAL);
-      text(name, width - this.healthSize[0] + 10, 40);
+      textAlign(RIGHT);
+      textStyle(BOLD);
+      text(name, width - 30, 40);
+      pop();
       //player 2 power
       fill(0);
       rect(width - this.powerSize[0],height-this.powerSize[1],this.powerSize[0],this.powerSize[1], 15, 00, 0, 0);
@@ -70,15 +76,18 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       textSize(30);
       textStyle(BOLD);
       textAlign(RIGHT);
-      text(power + " / " + this.pPowerMax, width-100, height-this.powerSize[1] - 10);
+      text(power + " / " + this.pPowerMax, width-10, height-this.powerSize[1] - 10);
       pop();
     }
 
   // timer text:
+    push();
     fill(255);
     textSize(50);
+    textAlign(CENTER);
     textStyle(BOLD);
-    text(Math.ceil(timeRem/30), width/2 - 25, 50);
+    text(Math.ceil(timeRem/30), width/2, 50);
+    pop();
   };
 
 
