@@ -272,7 +272,7 @@ function Player(heroNumber, indexNum) {
   //If the player is blocking it reduces 30-80% of the dmg depending on stats.
   this.blockingRoll = function(combatHit, defender) {
     if (defender.charBlocking) {
-      return baseDam.damage / (defender.block * 75 );
+      return combatHit.damage / (defender.block * 75 );
     } else {
       return 1;
     }

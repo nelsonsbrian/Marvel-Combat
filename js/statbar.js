@@ -65,11 +65,13 @@ function StatBar(name, health, maxHealth, power, powerMax) {
       let bluePower = this.pPowerPercent * this.powerSize[0];
       bluePower = constrain(bluePower, 0, this.powerSize[0]);
       rect(width - bluePower, height - this.powerSize[1],height-this.powerSize[1] ,this.powerSize[1], 15, 20, 10, 5);
+      push();
       fill(255);
       textSize(30);
       textStyle(BOLD);
+      textAlign(RIGHT);
       text(power + " / " + this.pPowerMax, width-100, height-this.powerSize[1] - 10);
-
+      pop();
     }
 
   // timer text:
