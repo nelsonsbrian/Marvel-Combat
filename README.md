@@ -6,11 +6,12 @@
 
 ## Description
 
-An arcade style fighting game that uses Marvel super heroes as it's characters.
+An arcade style fighting game that uses Marvel super heroes as it's characters. Play can choose their desired characters and face off against another player in an 'mortal-combat' style arcade game. Each hero has a basic punching attack and 2 other special attacks. The hero can move left and right and block incoming attacks in real-time. First player to knock the other player out, or whomever has the most hit points remaining at the end of the match is the winner.
 
 ### Specs
 
 Game and GamePlay
+
 | Spec | Input | Output |
 | :-------------     | :------------- | :------------- |
 | **Create a sprite that moves with key inputs.** |  |  |
@@ -30,17 +31,15 @@ Game and GamePlay
 | **Refactor code remove hardcoded player references** |  |  |
 | **Add additional heroes and attacks** |  |  |
 
-
 Webpage
+
 | Spec | Input | Output |
-| **Add basic html webpage that displays the gameboard** |  |  |
+| :-------------     | :------------- | :------------- |
+| **Add basic html webpage that displays the gameboard** |   |  |
 | **Add wallpaper and titles.** |  |  |
-| **Add separate pages to website. Home, play, and hero bio pages** |  |  |
-| **Add** |  |  |
-
-
-
-
+| **Add Sound to game board when game begins** |  |  |
+| **Add hero bio profiles** |  |  |
+| **Add key map diagram** |  |  |
 
 ## Setup/Installation Requirements
 
@@ -53,7 +52,7 @@ Webpage
 
 ## Technologies Used
 * JavaScript
-* P5 Library
+* P5 JavaScript Library
 * jQuery
 * Bootstrap
 * Atom
