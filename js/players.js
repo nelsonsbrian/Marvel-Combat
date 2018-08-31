@@ -6,7 +6,7 @@ var heroStats = [
   //                                                                Punch      Range
   //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP pn  AS   Attack
   ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10,  0, 33, 15, [9,0,0]], //0
-  ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 100, 15,  5, 40, 15, [1,8,0]], //1
+  ["The Hulk",        300, 90,  230, 8,  90, 80, 3,  40,   0,  5,  2, 40, 15, [1,8,0]], //1
   ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 100, 10,  0, 20, 12, [8,0,0]], //2
   ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10,  0, 25, 10, [0,8,0]], //3
   ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 33, 15, [0,9,0]], //4
@@ -110,6 +110,7 @@ function Player(heroNumber, indexNum) {
     this.powerTime++;
     if (this.powerTime % 30 === 0 && this.powerTime !== 0) {
       this.power += this.powerPassive;
+      this.power = constrain(this.power, 0, this.powerMax);
       this.powerTime = 0;
     }
 
@@ -282,6 +283,7 @@ function Player(heroNumber, indexNum) {
 
   //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
   this.special = function(specialHit, defender) {
+    console.log(specialHit.damage + ' ' + defender.name);
     defender.hp -= this.combat(specialHit.damage, defender);
     defender.power += this.powerRegen / 5;
     defender.power = Math.ceil(constrain(defender.power, 0, defender.powerMax));

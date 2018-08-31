@@ -1,6 +1,6 @@
 var globalAttacks = [
   //if cback is true, need a next attack index#
-  //                                              Arg                Wind
+  //  0           1     2      3       4         5 Arg     6     7   8Wind 9
   //type         spd  cback  spin  nextattack   0, 1, 2   Cst   dmg   Up
   [ "Blast"    ,  40, false, false,   false,   [0, 0, 0],   25, 50,  10,  0],//0
   [ "Throw"    ,  30, false, false,   false,   [0, 0, 0],   20, 40,  10,  0],//1
@@ -8,7 +8,7 @@ var globalAttacks = [
   ["Return"    ,  70, false, false,   false,   [0, 0, 0],    0,  0,  0,  0],//3
   ["Boomer"    ,  50,  true,  true,       5,   [0, 0, 0],   20, 40,  10,  0],//4
   ["Return"    ,  50, false,  true,   false,   [0, 0, 0],    0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [3,10, 0],  20, 40,  10,  0],//6
+  ["Multiple"  ,  30, false, false,   false,   [3,10, 0],  20,  40,  10,  0],//6
   ["nextRange" ,  30, false, false,   false,   [0, 0, 0],    0, 40,  0,  0],//7
   ["Charge"    ,  40, false, false,   false,   [0, 0, 0],   20, 40,  5,  0],//8
   ["Push"      ,  25, false, false,   false,   [0, 0, 0],   15, 30,  10,  0],//9
@@ -24,7 +24,6 @@ function Special(attacker, attackIndex, retAtt) {
   this.y = attacker.y+40;
   this.l = 170;
   this.w = 25;
-  this.damage = attacker.rangeAttack;
   this.toDelete = false;
   this.dir = 1;
   this.time = 0;
@@ -43,6 +42,7 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[retAtt][3];
     this.nextAtt = this.rangeType[retAtt][4];
     this.arg = this.rangeType[retAtt][5];
+    this.damage = this.damrangeTypeage[retAtt][7];
 
   } else {//if the attack is the first original attack
     console.log(attacker.name + ' ' + attackIndex + ' ' + retAtt);
@@ -52,8 +52,9 @@ function Special(attacker, attackIndex, retAtt) {
     this.toSpin = this.rangeType[attacker.rAttack[attackIndex]][3];
     this.nextAtt = this.rangeType[attacker.rAttack[attackIndex]][4];
     this.arg = this.rangeType[attacker.rAttack[attackIndex]][5];
-
+    this.damage = this.rangeType[attacker.rAttack[attackIndex]][7];
   }
+
   console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
   if (this.nextAtt !== false) {
     this.attackIndex = this.nextAtt;
@@ -166,7 +167,6 @@ function Special(attacker, attackIndex, retAtt) {
   //push attack
   this.toPush = function(hitPlayer) {
     if (this.specType === "Push") {
-      console.log("push");
       if (hitPlayer.x > players[this.playerIndex].x) {
         var side = width - 40;
       } else {
