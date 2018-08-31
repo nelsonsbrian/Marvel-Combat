@@ -1,14 +1,8 @@
-var backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive,backdropSix];
-var backdropOne;
-var backdropTwo;
-var backdropThree;
-var backdropFour;
-var backdropFive;
-var backdropSix;
+var backdrops = [];
 
-
-
-
+function Backdrop(bg0, bg1, bg2, bg3, bg4, bg5) {
+  backdrops = [bg0, bg1, bg2, bg3, bg4, bg5]
+}
 
 //Character Sprites array
 var heroSprites = [];
@@ -32,7 +26,18 @@ function Sprite(neutral, moveLeft, moveRight, attack, block, special, range, jum
   heroSprites.push(this);
 }
 
+
+
 function preload() {
+
+  new Backdrop(   loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original'),
+   loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/7/73/Combat_Background_014.jpg/revision/latest?cb=20130904170651"),
+   loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/1/18/Combat_Background_022.jpg/revision/latest?cb=20121028000729"),
+   loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/4/4c/Combat_Background_012.jpg/revision/latest?cb=20130904170628"),
+   loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/3/39/Combat_Background_002.jpg/revision/latest?cb=20130904165731"),
+   loadImage("https://vignette.wikia.nocookie.net/the-xmen-roleplay/images/1/12/Gallery1.jpeg/revision/latest?cb=20131222013123"));
+
+
   backdropOne = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
   backdropTwo = loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/7/73/Combat_Background_014.jpg/revision/latest?cb=20130904170651");
 
@@ -42,10 +47,6 @@ function preload() {
   backdropFive =loadImage("https://vignette.wikia.nocookie.net/avengersalliance/images/3/39/Combat_Background_002.jpg/revision/latest?cb=20130904165731");
   backdropSix=loadImage("https://vignette.wikia.nocookie.net/the-xmen-roleplay/images/1/12/Gallery1.jpeg/revision/latest?cb=20131222013123");
 
-
-
-
-  //backdrop = loadImage('https://vignette.wikia.nocookie.net/avengersalliance/images/8/89/Combat_Background_048.jpg/revision/latest?cb=20130904191456&format=original');
 
   //LEFT SIDE CHARACTERS
   //Iron Man [0]

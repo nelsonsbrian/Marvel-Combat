@@ -14,9 +14,6 @@ var backdropArr = [];
 var gameBackdrop;
 
 function setup() {
-  backdropArr = [backdropOne, backdropTwo, backdropThree,backdropFour,backdropFive,backdropSix];
-  var randomBackdrop = backdropArr[Math.floor(backdropArr.length * Math.random())];
-  gameBackdrop = randomBackdrop;
   var canvas = createCanvas(1024, 576);
   canvas.parent('gameBoard');
   angleMode(DEGREES);
@@ -42,7 +39,7 @@ function draw() {
     timeRem--;
   }
   //the backdrop img changed by which Character player one choose
-  background(backdropArr[player1input], 0,0);
+  background(backdrops[player1input], 0,0);
 
   if (gameStarted === true) {
     translate(0,0);
