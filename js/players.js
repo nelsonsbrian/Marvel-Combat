@@ -5,21 +5,21 @@ var heroStats = [
   //left side characters [0-5]
   //                                                                Punch      Range
   //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP RA  AS   Attack
-  ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10,  0, 33, 15, [12,9,0]], //0
-  ["The Hulk",        300, 90,  230, 8,  90, 80, 3,  40,   0,  5,  2, 40, 15, [12,1,8]], //1
-  ["Black Widow",     200, 90,  230, 16, 70, 50, 1, 100, 100, 10,  0, 20, 12, [12,8,0]], //2
-  ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10,  0, 25, 10, [12,0,8]], //3
-  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 490, 15, [12,0,9]], //4
-  ["Captain Marvel",  220, 90,  230, 12, 50, 50, 3, 100, 100, 10,  0, 33, 10, [12,0,8]], //5
+  ["Iron Man",        480, 90,  230, 12, 50, 70, 50, 100, 100, 10, 0, 100,15, [12,9,0]], //0
+  ["The Hulk",        540, 90,  230, 8,  70, 70, 10,  40,   0,  0, 1, 90, 15, [12,1,8]], //1
+  ["Black Widow",     440, 90,  230, 16, 70, 50, 70, 100, 100, 10, 0, 80, 15, [12,8,0]], //2
+  ["Spider-Man",      380, 90,  230, 20, 50, 50, 90, 100, 100, 10, 0, 110,10, [12,0,8]], //3
+  ["Doctor Strange",  420, 90,  230, 12, 40, 60, 70, 100, 100, 10, 0, 150,20, [12,0,9]], //4
+  ["Captain Marvel",  500, 90,  230, 12, 70, 60, 20, 100,  50,  5, 1, 100,10, [12,0,8]], //5
   //right side characters [6-11]
   //                                                                Punch      Range
   //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP RA  AS    RA
-  ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10,  0, 25, 15, [12,2,8]], //6
-  ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10,  0, 25, 15, [12,4,9]], //7
-  ["Scarlet Witch",   210, 900, 230, 16, 20, 60, 1, 100, 100, 10,  0, 15, 10, [12,0,9]], //8
-  ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 100, 20,  0, 55, 15, [12,2,0]], //9
-  ["Vision",          200, 900, 230, 8,  60, 70, 1, 100, 100, 10,  0, 75, 10, [12,0,10]],//10
-  ["Ant-Man",         200, 900, 230, 20, 70, 70, 3, 100, 100, 10,  0, 25, 10, [12,1,0]] // 11
+  ["Captain America", 480, 900, 230, 12, 60, 70, 50, 100, 100, 10, 0, 70, 15, [12,2,8]], //6
+  ["Thor",            500, 900, 230, 12, 70, 60, 20, 100, 50,  5,  1, 100,15, [12,4,9]], //7
+  ["Scarlet Witch",   420, 900, 230, 16, 40, 60, 70, 100, 100, 10, 0, 150,20, [12,0,9]], //8
+  ["Black Panther",   440, 900, 230, 16, 70, 50, 4,  100, 100, 20, 0, 80, 15, [12,2,8]], //9
+  ["Vision",          540, 900, 230, 8,  50, 70, 80, 100, 100, 10, 0, 90, 10, [12,0,8]],//10
+  ["Ant-Man",         380, 900, 230, 20, 50, 50, 90, 100, 100, 10, 0, 110,10, [12,1,0]] // 11
 ];
 //Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos, Hero Speed, Hero Attack, Hero Defense, Hero Block Value, Hero Max Power, Hero Current Power, Hero Power Generation, Power Passive Generatoin, Range Attack Value, Attack Speed(GCD), [Attacks]
 
@@ -131,8 +131,7 @@ function Player(heroNumber, indexNum) {
     }
 
 
-    //code to have players face opposite direction if they managed to get to the other side
-    //of their opponent.
+    //code to have players face opposite direction if they managed to get to the other side of their opponent.
     if (whichSide()) {
       translate(this.x + imgOff[0],this.y + imgOff[1]);
       scale(-1,1);
@@ -259,7 +258,12 @@ function Player(heroNumber, indexNum) {
     var dmgDef = this.defenseRoll(combatHit, defender);
     var block = this.blockingRoll(combatHit, defender);
     dmg = (dmgAtt - dmgDef) * block;
-    console.log("Damage: " + dmg + " Attack: " + dmgAtt + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + combatHit.damage + " playerhit:" + defender + ' ' + this.name );
+    console.log("Final Damage: " + dmg
+    + " Attack: " + dmgAtt
+    + " Defense: " + dmgDef
+    + " Block: " + block
+    + " | base dam :" + combatHit.damage
+    + " playerhit:" + defender + ' ' + this.name );
     return dmg;
   }
 
@@ -268,7 +272,7 @@ function Player(heroNumber, indexNum) {
   //If the player is blocking it reduces 30-80% of the dmg depending on stats.
   this.blockingRoll = function(combatHit, defender) {
     if (defender.charBlocking) {
-      return combatHit.damage / (defender.block * 75 );
+      return 1 - defender.block / 100;
     } else {
       return 1;
     }
