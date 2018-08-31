@@ -285,9 +285,9 @@ function preload() {
   'https://i.imgur.com/uhG59VO.png',
   //windup & special 2
   loadImage('https://i.imgur.com/B5pwLmp.png'),
-  loadImage('https://i.imgur.com/fB6BD3r.png'),
+  loadImage('https://i.imgur.com/y4VVJTr.png'),
   loadImage('https://i.imgur.com/J6IeUhI.png'),
-  loadImage('https://i.imgur.com/bxIPHrb.png'));
+  loadImage('https://i.imgur.com/YGjrI3q.png'));
 
 
   //Ant-Man [11]
