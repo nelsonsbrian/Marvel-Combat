@@ -1,133 +1,240 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link href="../css/styles.css" rel="stylesheet" type="text/css">
-  <script language="javascript" type="text/javascript" src="../js/images.js"></script>
-  <script language="javascript" type="text/javascript" src="../js/statbar.js"></script>
-  <script language="javascript" type="text/javascript" src="../js/players.js"></script>
-  <script
-  <script language="javascript" type="text/javascript" src="../js/laser.js"></script>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-  <script src="../js/sketch.js"></script>
-  <script src="../js/scripts.js"></script>
-  <title>Super Smash Heroes</title>
-</head>
-<body>
-
-  <!-- navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.html">SSH</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse bioFrame" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse bioFrame navbar-collapse bioFrame" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="play.html">Play<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="bio.html">Hero Bio</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        ... a website that game that allows to play your favorite super hero!
-      </span>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h1 class="title">Super Smash Heroes</h1>
-    <h2>Heroes</h2>
-    <div class="row">
-      <div class="col-md-4 bioFrame">
-        <img src='../img/Website/ironmanHead.png' alt='ironman' class='bioImage'>
-      </div>
-      <div class="col-md-8">
-        <div class="bioFrame">
-          <h3 class="bioTitle">Iron Man</h3>
-          <p class='bioText'>
-            Tony Stark is an inventive genius whose expertise in the fields of mathematics, physics, chemistry, and computer science rivals that of Reed Richards, Hank Pym, and Bruce Banner, and his expertise in electrical engineering and mechanical engineering surpasses even theirs. He is regarded as one of the most intelligent characters in the Marvel Universe. He graduated with advanced degrees in physics and engineering at the age of 17 from Massachusetts Institute of Technology (MIT) and further developed his knowledge ranging from artificial intelligence to quantum mechanics as time progressed. His expertise extends to his ingenuity in dealing with difficult situations, such as difficult foes and deathtraps, in which he is capable of using available tools, including his suit, in unorthodox but effective ways. He is well respected in the business world, able to command people's attention when he speaks on economic matters, having over the years built up several multimillion-dollar companies from virtually nothing. He is noted for the loyalty he commands from and returns to those who work for him, as well as for his business ethics. Thus he immediately fired an employee who made profitable, but illegal, sales to Doctor Doom. He strives to be environmentally responsible in his businesses.
-          </p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <script src="../p5/p5.min.js"></script>
+    <script src="../p5/addons/p5.dom.min.js"></script>
+    <script src="../p5/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="../img/Avengeance/stylesheet.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <script language="javascript" type="text/javascript" src="../js/images.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/statbar.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/players.js"></script>
+    <script
+    <script language="javascript" type="text/javascript" src="../js/keybindings.js"></script>
+    <script
+    <script language="javascript" type="text/javascript" src="../js/special.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <script src="../js/sketch.js"></script>
+    <script src="../js/scripts.js"></script>
+    <title>Super Smash Heroes</title>
+  </head>
+  <body>
+    <div class="container">
+      <a href="play.html"><h1 class="title">Super Smash Heroes</h1></a>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/HWV6qsZ.png?2' alt='ironman' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Iron Man</h3>
+            <p class='bioText'>
+              Tony Stark is an inventive genius whose expertise in the fields of mathematics, physics, chemistry, and computer science rivals that of Reed Richards, Hank Pym, and Bruce Banner, and his expertise in electrical engineering and mechanical engineering surpasses even theirs. He is regarded as one of the most intelligent characters in the Marvel Universe. He graduated with advanced degrees in physics and engineering at the age of 17 from Massachusetts Institute of Technology (MIT) and further developed his knowledge ranging from artificial intelligence to quantum mechanics as time progressed. His expertise extends to his ingenuity in dealing with difficult situations, such as difficult foes and deathtraps, in which he is capable of using available tools, including his suit, in unorthodox but effective ways. He is well respected in the business world, able to command people's attention when he speaks on economic matters, having over the years built up several multimillion-dollar companies from virtually nothing. He is noted for the loyalty he commands from and returns to those who work for him, as well as for his business ethics. Thus he immediately fired an employee who made profitable, but illegal, sales to Doctor Doom. He strives to be environmentally responsible in his businesses.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8 bioFrame">
-        <h3 class="bioTitle">Captain America</h3>
-        <p class='bioText'>
-          Captain America has used multiple shields throughout his history, the most prevalent of which is a nigh-indestructible disc-shaped shield made from an experimental alloy of steel and the fictional vibranium. The shield was cast by American metallurgist Dr. Myron MacLain, who was contracted by the U.S. government, from orders of President Franklin D. Roosevelt, to create an impenetrable substance to use for tanks during World War II. This alloy was created by accident and never duplicated, although efforts to reverse-engineer it resulted in the discovery of adamantium.
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Captain America</h3>
+            <p class='bioText'>
+              Captain America has used multiple shields throughout his history, the most prevalent of which is a nigh-indestructible disc-shaped shield made from an experimental alloy of steel and the fictional vibranium. The shield was cast by American metallurgist Dr. Myron MacLain, who was contracted by the U.S. government, from orders of President Franklin D. Roosevelt, to create an impenetrable substance to use for tanks during World War II. This alloy was created by accident and never duplicated, although efforts to reverse-engineer it resulted in the discovery of adamantium.
 
-          Captain America often uses his shield as an offensive throwing weapon. The first instance of Captain America's trademark ricocheting shield-toss occurs in Stan Lee's first comics writing, the two-page text story "Captain America Foils the Traitor's Revenge" in Captain America Comics #3 (May 1941). The legacy of the shield among other comics characters includes the time-traveling mutant superhero Cable telling Captain America that his shield still exists in one of the possible futures; Cable carries it into battle and brandishes it as a symbol.
-        </p>
-    </div>
-      <div class="col-md-4">
-        <div class="bioFrame">
-        <img src='../img/Website/captainamericaHead.png' alt='Captain America' class='bioImage'>
+              Captain America often uses his shield as an offensive throwing weapon. The first instance of Captain America's trademark ricocheting shield-toss occurs in Stan Lee's first comics writing, the two-page text story "Captain America Foils the Traitor's Revenge" in Captain America Comics #3 (May 1941). The legacy of the shield among other comics characters includes the time-traveling mutant superhero Cable telling Captain America that his shield still exists in one of the possible futures; Cable carries it into battle and brandishes it as a symbol.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/zkS7aCv.png' alt='Captain America' class='bioImage'>
+          </div>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/qWonHLw.png' alt='hulk' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Hulk</h3>
+            <p class='bioText'>
+              The Hulk possesses the potential for seemingly limitless physical strength which is influenced by his emotional state, particularly his anger. This has been reflected in the repeated comment, "The madder Hulk gets, the stronger Hulk gets." The cosmically-powerful entity known as the Beyonder once analyzed the Hulk's physiology, and claimed that the Hulk's potential strength had "no finite element inside." Hulk's strength has been depicted as sometimes limited by Banner's subconscious influence; when Jean Grey psionically "shut Banner off", Hulk became strong enough to overpower and destroy the physical form of the villain Onslaught. Writer Greg Pak described the Worldbreaker Hulk shown during World War Hulk as having a level of physical power where "Hulk was stronger than any mortal—and most immortals—who ever walked the Earth", and depicted the character as powerful enough to completely destroy entire planets. His strength allows him to leap into lower Earth orbit or across continents, and he has displayed superhuman speed. Exposure to radiation has also been shown to make the Hulk stronger.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Scarlet Witch</h3>
+            <p class='bioText'>
+              When the Scarlet Witch was first created by Lee and Kirby, her powers were not well defined. She had "hex powers", that could cause random unlikely events to take place. This gave creative freedom to the writers, as it actually meant that her powers could be used for any purpose required by the plot. Despite the character's name, she had those powers as a mutant, and not because of actual witchcraft. Later writers gave her an increased control over her power, so that she could cause specific events and not just random ones. Englehart also made the character explore witchcraft under the tutelage of Agatha Harkness, a trait that was kept by later writers. The effects of her powers are varied but almost always detrimental to opponents, such as causing the artifact the Evil Eye to work against the inter-dimensional warlord Dormammu, forcing the robot Ultron to short circuit, or a gas main underneath the Brotherhood of Mutants to explode. Scarlet Witch also has the potential to wield magic and later learned that she was destined to serve the role of Nexus Being, a living focal point for the Earth dimension's mystical energy.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/dNzHdyi.png' alt='Scarlet Witch' class='bioImage'>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/YAPM8qm.png' alt='Thor' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Thor</h3>
+            <p class='bioText'>
+              Like all Asgardians, Thor is incredibly long-lived and relies upon periodic consumption of the Golden Apples of Idunn to sustain his extended lifespan, which to date has lasted many millennia. Being the son of Odin and the elder goddess Gaea, Thor is physically the strongest of the Asgardians. Thor is capable of incredible feats of strength, such as pushing over the Leaning Tower of Pisa with his little finger, ripping apart the Golden Gate Bridge, lifting the almost Earth-sized Midgard Serpent, supporting a weight equivalent to that of 20 planets, and by combining his power with that of Beta Ray Bill, destroying Surtur's solar system-sized dimensional portal. If pressed in battle, Thor is capable of entering into a state known as the "Warrior's Madness" ("berserkergang" in Norwegian and Danish alike), which will temporarily increase his strength and stamina tenfold, although in this state he attacks friend and foe alike.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Black Widow</h3>
+            <p class='bioText'>
+              The Black Widow has been enhanced by biotechnology that makes her body resistant to aging and disease and heals at an above human rate; as well as psychological conditioning that suppresses her memory of true events as opposed to implanted ones of the past without the aid of specially designed system suppressant drugs.
+              The white blood cells in her body are efficient enough to fight off any microbe, foreign body and others from her body, keeping her healthy and immune to most, if not all infections, diseases and disorders.
+              Her agility is greater than that of an Olympic gold medalist. She can coordinate her body with balance, flexibility, and dexterity easily.
+              Romanova has a gifted intellect. She displays an uncanny affinity for psychological manipulation and can mask her real emotions perfectly. Like Steve Rogers, she possesses the ability to quickly process multiple information streams (such as threat assessment) and rapidly respond to changing tactical situations.
+              The Black Widow is a world class athlete, gymnast, acrobat, aerialist capable of numerous complex maneuvers and feats, expert martial artist (including Jiu jitsu, Aikido, Boxing, Judo, Karate, Savate, Ninjutsu, various styles of Kung Fu and Kenpo), marksman and weapons specialist as well as having extensive espionage training. She is also an accomplished ballerina.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/kXy83AW.png' alt='Black Widow' class='bioImage'>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/o7Ilh6J.png' alt='Spider Man' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Spider-Man</h3>
+            <p class='bioText'>
+              A bite from a radioactive spider triggers mutations in Peter Parker's body, granting him superpowers. In the original Lee-Ditko stories, Spider-Man has the ability to cling to walls, superhuman strength, a sixth sense ("spider-sense") that alerts him to danger, perfect balance and equilibrium, as well as superhuman speed and agility. The character was originally conceived by Stan Lee and Steve Ditko as intellectually gifted, but later writers have depicted his intellect at genius level. Academically brilliant, Parker has expertise in the fields of applied science, chemistry, physics, biology, engineering, mathematics, and mechanics. With his talents, he sews his own costume to conceal his identity, and he constructs many devices that complement his powers, most notably mechanical web-shooters to help navigate and trap his enemies along with a spider-signal as an flashlight and a warning beacon to criminals.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Doctor Strange</h3>
+            <p class='bioText'>
+              Doctor Strange is a practicing magician who draws his powers from mystical entities such as Agamotto, Cyttorak, Ikonn, Oshtur, Raggadorr, and Watoomb, who lend their energies for spells. Strange also wields mystical artifacts including the Cloak of Levitation which enables him to fly; the Eye of Agamotto, an amulet whose light is used to negate evil magic; the Book of the Vishanti, a grimoire which contains knowledge of white magic; and the Orb of Agamotto, a crystal ball which is used for clairvoyance.
+
+              In addition to his magical abilities, Strange is trained in several martial arts disciplines, including Judo, and has shown proficiency with numerous magically conjured weapons including swords and axes. Strange was a skilled neurosurgeon before nerve damage impaired his hands.
+
+              Doctor Strange is described as "the mightiest magician in the cosmos" and "more powerful by far than any of your fellow humanoids" by Eternity, the sentience of the Marvel Universe. He holds the title of Sorcerer Supreme from 1973 (with the death of the Ancient One) to the present, except during an interruption from 1992 to 1995. He relinquishes the title once again in 2009, but reclaims it in 2012 when he proves himself willing to protect the world even without the title.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/nJkB9Sf.png' alt='Doctor Strange' class='bioImage'>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/CYIOaM2.png?2' alt='Captain Marvel' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Captain Marvel</h3>
+            <p class='bioText'>
+              Carol Danvers initially possessed superhuman strength, endurance, stamina, flight, physical durability, a limited precognitive "sixth sense", and a perfectly amalgamated human/Kree physiology that rendered her resistant to most toxins and poisons. Danvers can both absorb energy and project it in photonic form. She can also survive in space.
+
+              Danvers possesses superhuman strength and durability, can fly at roughly six times the speed of sound, retains her sixth sense, and can discharge explosive blasts of radiant energy, which she fires from her fingertips. She also demonstrates the ability to absorb other forms of energy, such as electricity, to further magnify her strength and energy projection, up to the force of an exploding nuclear weapon. When sufficiently augmented, she can withstand the pressure from a 92-ton weight, and strike with a similar level of force, although Hank Pym theorized that this likely was not her limit. Danvers cannot absorb magical energy without consequence, though she aided Dr. Stephen Strange in the defeat of the mystic menace Sir Warren Traveler.
+           </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Black Panther</h3>
+            <p class='bioText'>
+              The title "Black Panther" is a rank of office, chieftain of the Wakandan Panther Clan. As chieftain, the Panther is entitled to consume a special heart-shaped herb which, in addition to his mystical, shamanistic connection with the Wakandan Panther God Bast, grants him superhumanly acute senses, enhanced strength, speed, agility, stamina, durability, healing, and reflexes.
+
+              As king of Wakanda, the Panther has access to a vast collection of magical artifacts, advanced Wakandan technological and military hardware, and the support of his nation's wide array of scientists, warriors, and mystics. The Wakandan military has been described as one of the most powerful on Earth. His attire is the sacred vibranium costume of the Wakandan Panther Cult.
+
+              He is a skilled hunter, tracker, strategist, politician, inventor, and scientist. He has a PhD in physics from Oxford University. He is proficient in physics and advanced technology, and is also an inventor. T'Challa has been granted the strength and knowledge of every past Black Panther.
+
+              The chieftain of the Wakandan Panther Clan is one of the wealthiest people in the world, although financial estimates are difficult given Wakanda's isolation from the world's economy and the uncertain value of Wakanda's vast vibranium reserves and extremely advanced technologies.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/6NPDBHk.png' alt='Black Panther' class='bioImage'>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/uhG59VO.png' alt='Vision' class='bioImage'>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Vision</h3>
+            <p class='bioText'>
+              The Vision is described as being "every inch a human being—except that all of his bodily organs are constructed of synthetic materials." The Solar Jewel on the Vision's forehead absorbs ambient solar energy to provide the power needed for him to function, and he is also capable of discharging this energy as optic beams; with this, he can fire beams of infrared and microwave radiation. By interfacing with an unknown dimension to which he can shunt and from which he can accrue mass, thus becoming either intangible or extraordinarily massive, the Vision can change his density, which at its lowest allows flight and a ghostly, phasing intangibility, and at its heaviest, a density ten times greater than that of depleted uranium, which gives him superhuman strength, immovability, and a diamond-hard near invulnerability. Being an artificial life-form/android of sorts, the Vision has superhuman senses, superhuman stamina, reflexes, speed, agility, strength (even without being at high density), superhuman analytical capabilities, and the ability to process information and make calculations with superhuman speed and accuracy. The Vision was trained in hand-to-hand combat by Captain America, is an expert in the combat use of his superhuman powers, and is a highly skilled tactician and strategist. The Vision is an expert on his own construction and repair.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bioFrame">
+            <h3 class="bioTitle">Ant Man</h3>
+            <p class='bioText'>
+              Using a gaseous form of "Pym particles" kept in a compartment in his belt, Ant-Man initially had the power to shrink himself (and other people and objects along with himself) to the size of an ant and return to normal. Over time, he has acquired the ability to change size at will.ume & issue needed] He can also shrink to sub-microscopic size, and thereby enter the countless "subatomic universes". He retains his normal strength in ant size.
+
+              The cybernetic Ant-Man helmet allows rudimentary telepathic communication with insects, and is equipped with sound amplification equipment allowing normal-sized humans to hear its wearer. The helmet also has a retractable plexiglass face shield and a limited air supply.
+
+              Lang has advanced training and expertise in electronics, having earned an electronics technician certificate, plus additional advanced electronics training he received while in prison. At times, Lang even made his own modifications to the Ant-Man equipment, such as installing the Pym gas dispenser in his helmet rather than leaving it on his belt, or mounting an electric disruptor into his helmet for offensive purposes.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bioFrame">
+            <img src='https://i.imgur.com/uCk3Tne.png' alt='Ant Man' class='bioImage'>
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <a href="play.html">
+          <button type=submit class="btn btn-success" id="return">Return</button>
+        </a>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 bioFrame">
-        <img src='../img/Website/hulkHead.png' alt='hulk' class='bioImage'>
-      </div>
-      <div class="col-md-8">
-        <div class="bioFrame">
-        <h3 class="bioTitle">Hulk</h3>
-        <p class='bioText'>
-          The Hulk possesses the potential for seemingly limitless physical strength which is influenced by his emotional state, particularly his anger. This has been reflected in the repeated comment, "The madder Hulk gets, the stronger Hulk gets." The cosmically-powerful entity known as the Beyonder once analyzed the Hulk's physiology, and claimed that the Hulk's potential strength had "no finite element inside." Hulk's strength has been depicted as sometimes limited by Banner's subconscious influence; when Jean Grey psionically "shut Banner off", Hulk became strong enough to overpower and destroy the physical form of the villain Onslaught. Writer Greg Pak described the Worldbreaker Hulk shown during World War Hulk as having a level of physical power where "Hulk was stronger than any mortal—and most immortals—who ever walked the Earth", and depicted the character as powerful enough to completely destroy entire planets. His strength allows him to leap into lower Earth orbit or across continents, and he has displayed superhuman speed. Exposure to radiation has also been shown to make the Hulk stronger.
-        </p>
-      </div>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8 bioFrame">
-        <h3 class="bioTitle">Scarlet Witch</h3>
-        <p class='bioText'>
-          When the Scarlet Witch was first created by Lee and Kirby, her powers were not well defined. She had "hex powers", that could cause random unlikely events to take place. This gave creative freedom to the writers, as it actually meant that her powers could be used for any purpose required by the plot. Despite the character's name, she had those powers as a mutant, and not because of actual witchcraft. Later writers gave her an increased control over her power, so that she could cause specific events and not just random ones. Englehart also made the character explore witchcraft under the tutelage of Agatha Harkness, a trait that was kept by later writers. The effects of her powers are varied but almost always detrimental to opponents, such as causing the artifact the Evil Eye to work against the inter-dimensional warlord Dormammu, forcing the robot Ultron to short circuit, or a gas main underneath the Brotherhood of Mutants to explode. Scarlet Witch also has the potential to wield magic and later learned that she was destined to serve the role of Nexus Being, a living focal point for the Earth dimension's mystical energy.
-        </p>
-      </div>
-      <div class="col-md-4">
-        <div class="bioFrame">
-        <img src='../img/Website/scarletwitchHead.png' alt='Scarlet Witch' class='bioImage'>
-      </div>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 bioFrame">
-        <img src='../img/Website/thorHead.png' alt='Thor' class='bioImage'>
-      </div>
-      <div class="col-md-8">
-        <div class="bioFrame">
-        <h3 class="bioTitle">Thor</h3>
-        <p class='bioText'>
-          Like all Asgardians, Thor is incredibly long-lived and relies upon periodic consumption of the Golden Apples of Idunn to sustain his extended lifespan, which to date has lasted many millennia. Being the son of Odin and the elder goddess Gaea, Thor is physically the strongest of the Asgardians. Thor is capable of incredible feats of strength, such as pushing over the Leaning Tower of Pisa with his little finger, ripping apart the Golden Gate Bridge, lifting the almost Earth-sized Midgard Serpent, supporting a weight equivalent to that of 20 planets, and by combining his power with that of Beta Ray Bill, destroying Surtur's solar system-sized dimensional portal. If pressed in battle, Thor is capable of entering into a state known as the "Warrior's Madness" ("berserkergang" in Norwegian and Danish alike), which will temporarily increase his strength and stamina tenfold, although in this state he attacks friend and foe alike.
-        </p>
-      </div>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8 bioFrame">
-        <h3 class="bioTitle">Black Widow</h3>
-        <p class='bioText'>
-          The Black Widow has been enhanced by biotechnology that makes her body resistant to aging and disease and heals at an above human rate; as well as psychological conditioning that suppresses her memory of true events as opposed to implanted ones of the past without the aid of specially designed system suppressant drugs.
-          The white blood cells in her body are efficient enough to fight off any microbe, foreign body and others from her body, keeping her healthy and immune to most, if not all infections, diseases and disorders.
-          Her agility is greater than that of an Olympic gold medalist. She can coordinate her body with balance, flexibility, and dexterity easily.
-          Romanova has a gifted intellect. She displays an uncanny affinity for psychological manipulation and can mask her real emotions perfectly. Like Steve Rogers, she possesses the ability to quickly process multiple information streams (such as threat assessment) and rapidly respond to changing tactical situations.
-          The Black Widow is a world class athlete, gymnast, acrobat, aerialist capable of numerous complex maneuvers and feats, expert martial artist (including Jiu jitsu, Aikido, Boxing, Judo, Karate, Savate, Ninjutsu, various styles of Kung Fu and Kenpo), marksman and weapons specialist as well as having extensive espionage training. She is also an accomplished ballerina.</p>
-      </div>
-      <div class="col-md-4">
-        <div class="bioFrame">
-        <img src='../img/Website/blackwidowHead.png' alt='Black Widow' class='bioImage'>
-      </div>
-    </div>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
