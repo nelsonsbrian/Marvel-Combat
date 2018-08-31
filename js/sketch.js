@@ -32,7 +32,7 @@ function startGame() {
   statBar = new StatBar(player.name, player.hp, player.hpMax, player.power, player.powerMax);
   statBars.push(statBar);
   gameStarted = true;
-  timeRem = 30 * 1160;
+  timeRem = 30 * 60;
 }
 
 //this function is called every frame, 30times a sec. Put things that need to be constantly updated in the draw() function
