@@ -31,6 +31,7 @@ function Combat(attacker, combatListIndex) {
   var imgOff = [140, 140];
   this.player = attacker;
   this.combatListIndex = combatListIndex;
+  this.heroNumber = this.player.heroNumber;
   this.x = attacker.x;
   this.y = attacker.y + 40;
   this.l = 170;
@@ -44,7 +45,7 @@ function Combat(attacker, combatListIndex) {
   this.combatList = globalAttacks;
   //Pull the proper attack out of the array.
 
-    console.log(attacker.name + ' ' + combatListIndex);
+    console.log(attacker.name + ' used attack #' + combatListIndex);
     this.specType = this.combatList[this.combatListIndex][0];
     this.speed = this.combatList[this.combatListIndex][1];
     this.isComeBack = this.combatList[this.combatListIndex][2];
@@ -53,10 +54,6 @@ function Combat(attacker, combatListIndex) {
     this.arg = this.combatList[this.combatListIndex][5];
     this.damage = this.combatList[this.combatListIndex][7];
     this.isMelee = this.combatList[this.combatListIndex][9];
-
-
-
-  console.log(this.specType + ' ' + this.speed + ' ' + this.isComeBack + ' ' + this.toSpin + ' ' + this.nextAtt);
 
   //modifies combat if the attack is a comeback attack
   // if (this.nextAtt !== false) {
@@ -84,9 +81,9 @@ function Combat(attacker, combatListIndex) {
     angle-=30;
     fill(255);
     if (this.imgNum === 1) {
-      image(heroSprites[this.player.heroNumber].range,-imgOff[0],-imgOff[1]);
+      image(heroSprites[this.heroNumber].range,-imgOff[0],-imgOff[1]);
     } else if (this.imgNum === 2) {
-      image(heroSprites[this.player.heroNumber].range2,-imgOff[0],-imgOff[1]);
+      image(heroSprites[this.heroNumber].range2,-imgOff[0],-imgOff[1]);
     }
     pop();
   }
@@ -115,9 +112,9 @@ function Combat(attacker, combatListIndex) {
       rotate(0);
     } else {
       if (this.imgNum === 1) {
-        image(heroSprites[this.player.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
+        image(heroSprites[this.heroNumber].range,this.x - imgOff[0],this.y - imgOff[1]);
       } else if (this.imgNum === 2) {
-        image(heroSprites[this.player.heroNumber].range2,this.x - imgOff[0],this.y - imgOff[1]);
+        image(heroSprites[this.heroNumber].range2,this.x - imgOff[0],this.y - imgOff[1]);
       }
     }
     this.time ++;
@@ -196,6 +193,9 @@ function Combat(attacker, combatListIndex) {
       combat.damage = 0;
       combat.speed *= 1.5;
       combat.heroNumber = this.player.heroNumber;
+      if (this.specType === "Return") {
+        combat.heroNumber = this.player.heroNumber;
+      }
       combats.push(combat);
     }
   }
