@@ -8,7 +8,7 @@ var globalAttacks = [
   ["Return"    ,  70, false, false,   false,   [0, 0, 0],    0,  0,  0,  0],//3
   ["Boomer"    ,  50,  true,  true,       5,   [0, 0, 0],   20, 40,  10,  0],//4
   ["Return"    ,  50, false,  true,   false,   [0, 0, 0],    0,  0,  0,  0],//5
-  ["Multiple"  ,  30, false, false,   false,   [7, 10, 0],  20, 40,  10,  0],//6
+  ["Multiple"  ,  30, false, false,   false,   [3,10, 0],  20, 40,  10,  0],//6
   ["nextRange" ,  30, false, false,   false,   [0, 0, 0],    0, 40,  0,  0],//7
   ["Charge"    ,  40, false, false,   false,   [0, 0, 0],   20, 40,  5,  0],//8
   ["Push"      ,  25, false, false,   false,   [0, 0, 0],   15, 30,  10,  0],//9
@@ -29,6 +29,7 @@ function Special(attacker, attackIndex, retAtt) {
   this.dir = 1;
   this.time = 0;
   this.imgNum = 1;
+  this.extra = 0;
 
 
 
@@ -91,8 +92,10 @@ function Special(attacker, attackIndex, retAtt) {
   //"multiple" attack
   this.multiple = function(ntimes, howOften) {
     if (this.time % howOften === 0 && ntimes * howOften > this.time && this.time !== 0) {
-      var special = new Special(players[this.playerIndex], 2, 0);
-      this.imgNum = 2;
+      var special = new Special(players[this.playerIndex], 1, 0);
+      // this.imgNum = 2;
+      this.extra++;
+      special.extra = ntimes;
       special.heroNumber = this.heroNumber;
       specials.push(special);
     }

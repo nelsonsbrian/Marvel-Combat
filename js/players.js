@@ -3,8 +3,8 @@ var yOff = -100;
 var heroes = [];
 var heroStats = [
   //left side characters [0-5]
-  //                                                                Punch     Range
-  //name              hp   x    y    sp  at  df  bl  pMx p   pRg  rAt pn  AS   Attack
+  //                                                                Punch      Range
+  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg PP  pn  AS   Attack
   ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10, 80, 33, 15, [9,0,0]], //0
   ["The Hulk",        300, 90,  230, 8,  90, 80, 3, 100, 100, 5,  30, 40, 15, [1,8,0]], //1
   ["Black Widow",     180, 90,  230, 16, 70, 50, 1, 100, 100, 10, 45, 20, 12, [8,0,0]], //2
@@ -12,7 +12,8 @@ var heroStats = [
   ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10, 70, 33, 15, [0,9,0]], //4
   ["Captain Marvel",  130, 90,  230, 12, 50, 50, 3, 100, 100, 10, 99, 33, 10, [0,8,0]], //5
   //right side characters [6-11]
-  //name              hp   x    y    sp  at  df  bl  pMx p    pRg rAt rCo AS    RA
+  //                                                                Punch      Range
+  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg PP  pn  AS    RA
   ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10, 50, 25, 15, [2,8,0]], //6
   ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10, 75, 25, 15, [4,9,0]], //7
   ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100, 100, 10, 20, 15, 10, [0,9,0]], //8
@@ -20,7 +21,7 @@ var heroStats = [
   ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 100, 10, 65, 25, 10, [0,10,0]], //10
   ["Ant-Man",         150, 900, 230, 20,  70, 70, 3, 100, 100, 10, 75, 25, 10, [1,10,0]] // 11
 ];
-//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos,
+//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos, Hero Speed, Hero Attack, Hero Defense, Hero Block Value, Hero Max Power, Hero Current Power, Hero Power Generation, Power Passive Generatoin, Punch Value, Attack Speed(GCD), [Attacks]
 
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -33,6 +34,20 @@ function Player(heroNumber, indexNum) {
   this.startingY = 230;
   this.indexNum = indexNum;
   this.hero = heroStats;
+  this.direction = 0;
+  this.radius = 70;
+  this.damagedColor;
+  this.charBlocking = false;
+  this.charBlockTime = 0;
+  this.sprite = 0;
+  this.spriteTime = 0;
+  this.gcd = 0;
+  this.hurtTime = 0;
+  this.hurtReflex = 8;
+  this.winner = 0;
+  this.windUpTime = 0;
+  this.toStart = -1;
+  this.powerTime = 0;
 
   this.heroSelect = function() {// pull hero stats from this.hero array into a hero object
     this.name = this.hero[this.heroNumber][0];
@@ -47,26 +62,12 @@ function Player(heroNumber, indexNum) {
     this.powerMax = this.hero[this.heroNumber][8];
     this.power = this.hero[this.heroNumber][9];
     this.powerRegen = this.hero[this.heroNumber][10];
-    this.rangeAttack = this.hero[this.heroNumber][11];
+    this.powerPassive = this.hero[this.heroNumber][11];
     this.punchDmg = this.hero[this.heroNumber][12];
     this.attackSpeed = this.hero[this.heroNumber][13];
     this.rAttack = this.hero[this.heroNumber][14];
   }
-
   this.heroSelect();
-  this.direction = 0;
-  this.radius = 70;
-  this.damagedColor;
-  this.charBlocking = false;
-  this.charBlockTime = 0;
-  this.sprite = 0;
-  this.spriteTime = 0;
-  this.gcd = 0;
-  this.hurtTime = 0;
-  this.hurtReflex = 8;
-  this.winner = 0;
-  this.windUpTime = 0;
-  this.toStart = -1;
 
   //this.show is called from the draw function and is executed every frame
   this.show = function() {
@@ -103,6 +104,13 @@ function Player(heroNumber, indexNum) {
           this.sprite = 0;
         }
       }
+    }
+
+    //timers and counters for the hero
+    this.powerTime++;
+    if (this.powerTime % 30 === 0 && this.powerTime !== 0) {
+      this.power += this.powerPassive;
+      this.powerTime = 0;
     }
 
     if (this.hurtTime > 0) {
