@@ -3,8 +3,8 @@ var players = [];
 var player;
 var statBars = [];
 var statBar;
-var specials = [];
-var special;
+var combats = [];
+var combat;
 var timer;
 var gameOver = 0;
 var gameStarted = false
@@ -49,25 +49,27 @@ function draw() {
 
     statBars[0].show(players[0]);
     statBars[1].show(players[1]);
-    //loop for specials every frame
+    //loop for combats every frame
     for (var i = players.length-1; i >= 0; i--) {
       //loop for players every frame
-      for (var j = specials.length-1; j >= 0; j--) {
-        specials[j].edges();
-        if (players[i].indexNum !== specials[j].playerIndex) {
-          var specialHit = players[i].collide(specials[j].x, specials[j].y, specials[j].l, 1);
-          if (specialHit) {
-            console.log(specials[j].x + ',' + specials[j].y + '|' + players[i].x + ',' + players[i].y)
-            players[specials[j].playerIndex].special(specials[j], players[i]);
-            specials[j].comeBack(players[i]);
-            specials[j].charge(players[i]);
-            specials[j].toPush(players[i]);
-            specials[j].toDelete = true;
+      for (var j = combats.length-1; j >= 0; j--) {
+        //check to see if every player gets hit by every combat attack if it is not their own.
+        //if they get hit, a combat check will be ran.
+        //if the attack has a certain aftereffect comeback/charge/pushing, that is triggered
+        combats[j].edges();
+        if (players[i] !== combats[j].player) {
+          var hitBy = players[i].collide(combats[j].x, combats[j].y, combats[j].l, 1);
+          if (hitBy) {
+            combats[j].player.causeDmg(combats[j], players[i]);
+            combats[j].comeBack(players[i]);
+            combats[j].charge(players[i]);
+            combats[j].toPush(players[i]);
+            combats[j].toDelete = true;
           }
         }
       }
       isGameOver(i);
-
+      //check to see if the game is over.
       if (gameOver === 0) {
         players[i].show();
         players[i].move();
@@ -83,20 +85,20 @@ function draw() {
         players[0].hp = 0;
       }
     }
-    for (var i = specials.length-1; i >= 0; i--) {
-      if (specials[i].toDelete === true) {
-        specials.splice(i,1);
+    //separate loop to delete combat attacks that need to be deleted without
+    //takeing them out of the array during multiple other checks
+    for (var i = combats.length-1; i >= 0; i--) {
+      if (combats[i].toDelete === true) {
+        combats.splice(i,1);
       } else {
-        translate(0,0);
-        specials[i].move();
-        specials[i].show();
+        combats[i].move();
+        combats[i].show();
       }
     }
   }
 
 
   function isGameOver(deadPlayer) {
-    // console.log(deadPlayer + ' ' + deadPlayer.indexNum)
     if (players[deadPlayer].hp <= 0) {
       gameOver = 1;
       if (deadPlayer === 1) {
@@ -121,6 +123,7 @@ function draw() {
 
 }
 
+//function that helps determine which side of the other player each other is on.
 var whichSide = function() {
   return players[0].x > players[1].x
 }

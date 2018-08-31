@@ -4,24 +4,24 @@ var heroes = [];
 var heroStats = [
   //left side characters [0-5]
   //                                                                Punch      Range
-  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP pn  AS   Attack
+  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP RA  AS   Attack
   ["Iron Man",        250, 90,  230, 12, 50, 70, 3, 100, 100, 10,  0, 33, 15, [12,9,0]], //0
   ["The Hulk",        300, 90,  230, 8,  90, 80, 3,  40,   0,  5,  2, 40, 15, [12,1,8]], //1
   ["Black Widow",     200, 90,  230, 16, 70, 50, 1, 100, 100, 10,  0, 20, 12, [12,8,0]], //2
   ["Spider-Man",      210, 90,  230, 16, 90, 60, 1, 100, 100, 10,  0, 25, 10, [12,0,8]], //3
-  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 33, 15, [12,0,9]], //4
+  ["Doctor Strange",  220, 90,  230, 12, 80, 60, 1, 100, 100, 10,  0, 490, 15, [12,0,9]], //4
   ["Captain Marvel",  220, 90,  230, 12, 50, 50, 3, 100, 100, 10,  0, 33, 10, [12,0,8]], //5
   //right side characters [6-11]
   //                                                                Punch      Range
-  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP pn  AS    RA
+  //name              hp   x    y    sp  at  df  bl  pMx  p   pRg  PP RA  AS    RA
   ["Captain America", 270, 900, 230, 12, 60, 70, 6, 100, 100, 10,  0, 25, 15, [12,2,8]], //6
   ["Thor",            250, 900, 230, 8,  80, 80, 4, 100, 100, 10,  0, 25, 15, [12,4,9]], //7
-  ["Scarlet Witch",   210, 900, 230, 16, 80, 60, 1, 100, 100, 10,  0, 15, 10, [12,0,9]], //8
+  ["Scarlet Witch",   210, 900, 230, 16, 20, 60, 1, 100, 100, 10,  0, 15, 10, [12,0,9]], //8
   ["Black Panther",   220, 900, 230, 12, 70, 60, 4, 100, 100, 20,  0, 55, 15, [12,2,0]], //9
-  ["Vision",          200, 900, 230, 8,  80, 70, 1, 100, 100, 10,  0, 25, 10, [12,0,10]],//10
+  ["Vision",          200, 900, 230, 8,  60, 70, 1, 100, 100, 10,  0, 75, 10, [12,0,10]],//10
   ["Ant-Man",         200, 900, 230, 20, 70, 70, 3, 100, 100, 10,  0, 25, 10, [12,1,0]] // 11
 ];
-//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos, Hero Speed, Hero Attack, Hero Defense, Hero Block Value, Hero Max Power, Hero Current Power, Hero Power Generation, Power Passive Generatoin, Punch Value, Attack Speed(GCD), [Attacks]
+//Hero Name, Hero Hitpoints, Hero X Pos, Hero Y Pos, Hero Speed, Hero Attack, Hero Defense, Hero Block Value, Hero Max Power, Hero Current Power, Hero Power Generation, Power Passive Generatoin, Range Attack Value, Attack Speed(GCD), [Attacks]
 
 heroStats.forEach(function(hero) {
   heroes.push(hero);
@@ -98,40 +98,41 @@ function Player(heroNumber, indexNum) {
 
     //timers and counters for the hero
     this.powerTime++;
-    if (this.powerTime % 30 === 0 && this.powerTime !== 0) {
+    if (this.powerTime % 30 === 0 && this.powerTime !== 0) { //passive power gaining
       this.power += this.powerPassive;
       this.power = constrain(this.power, 0, this.powerMax);
       this.powerTime = 0;
     }
 
-    if (this.hurtTime > 0) {
+    if (this.hurtTime > 0) { //timer to show the sprite of getting injured
       this.hurtTime -= 1;
     }
 
-    if (this.gcd > 0) {
+    if (this.gcd > 0) { //cooldown before next attack can happen
       this.gcd -= 1;
     } else if (this.gcd < 0) {
       this.gcd = 0;
     }
 
-    if (this.charBlockTime > 0) {
+    if (this.charBlockTime > 0) { //timer for how long you can block for
       this.charBlockTime -= 1;
     } else {
       this.charBlocking = false;
     }
 
-    if (this.windUpTime > 1) {
+    if (this.windUpTime > 1) { //timer that counts down the windup before a combat is made
       this.windUpTime -= 1;
     } else if (this.windUpTime === 1) {
       this.windUpTime -= 1;
-      this.startSpecial(this.toStart);
+      this.startCombat(this.toStart);
       this.toStart = -1;
     } else if (this.windUpTime < 0) {
       this.windUpTime = 0;
     }
 
 
-    push();
+    //code to have players face opposite direction if they managed to get to the other side
+    //of their opponent.
     if (whichSide()) {
       translate(this.x + imgOff[0],this.y + imgOff[1]);
       scale(-1,1);
@@ -170,11 +171,6 @@ function Player(heroNumber, indexNum) {
     } else if (this.sprite === 12) {
       image(heroSprites[heroNumber].range2, xOff, yOff);
     }
-    // noFill();
-    // stroke(255);
-    // strokeWeight(5);
-    // ellipse(this.x,this.y,this.radius,this.radius);
-    // pop();
   }
 
   //function sets the player's sprite index for a certain number of frames
@@ -183,42 +179,35 @@ function Player(heroNumber, indexNum) {
     this.spriteTime = time;
   }
 
-  //basic punching attack
-  this.punch = function() {
-    if (this.gcd === 0) {
-      this.gcd =+ this.attackSpeed;
-      var collided = false;
-      this.spriteChange(1, 12);
-      for(i=0;i<players.length;i++) {
-        if (this.indexNum !== players[i].indexNum) {
-          var collided = this.collide(players[i].x, players[i].y, players[i].radius, 5)
-        }
-        if (collided) {
-          players[i].hp -= this.combat(this.punchDmg, players[i]); //i = defender player
-          players[i].isHit(players[i].hurtReflex);
-          this.power += this.powerRegen;
-          players[i].power += this.powerRegen / 2;
-          this.power = Math.ceil(constrain(this.power, 0, this.powerMax));
-          players[i].power = Math.ceil(constrain(players[i].power, 0, players[i].powerMax));
-          players[i].gcd = this.attackSpeed / 2;
-          collided = false;
-        }
+  //checks the power cost of a combat move. Also checks to see if the move is an array.
+  //returns [cost of combat move, isMelee 0/1]
+  this.powerCostCheck = function(attackNum) {
+    var index = this.hero[heroNumber][14][attackNum];
+    var power = globalAttacks[index][6];
+    var isMelee = globalAttacks[index][9];
+    var powerCheck = [power, isMelee];
+    return powerCheck;
+  }
+
+  //Player hits keybinding as logic is sent here:
+  //Attack cost is computed, windup animation is started, and gcd is triggered
+  //If the attack is a melee attack, no cost is removed from power pool.
+  this.toAttack = function(attackNumber) {
+    var cost = this.powerCostCheck(attackNumber);
+    if (cost[0] <= this.power && this.gcd === 0) {
+      this.windUp(attackNumber);
+      this.toStart = attackNumber;
+      this.gcd += this.attackSpeed + this.windUpTime;
+      if (cost[1] === 0) {
+        this.power -= cost[0];
       }
     }
   }
 
-  //checks the power cost of a check before it creates it
-  this.powerCostCheck = function(attackNum) {
-    console.log(attackNum + ' ' + this.hero[heroNumber][14][attackNum] + ' '   );
-    var index = this.hero[heroNumber][14][attackNum];
-    var power = globalAttacks[index][6];
-    return power;
-  }
-
   //loads the proper wind up sprite before an attack begins
+  //attack number 0 1 2 corresponds to they keybinding hit
   this.windUp = function(attackNum) {
     var index = this.hero[heroNumber][14][attackNum];
-    console.log(index + ' ' + ' ' + attackNum + ' '  + globalAttacks[index][8]);
     this.windUpTime = globalAttacks[index][8];
     if (attackNum === 0) {
       this.spriteChange(1, 12);
@@ -229,11 +218,14 @@ function Player(heroNumber, indexNum) {
     }
   }
 
-  this.startSpecial = function() {
-    special = new Special(this, this.toStart, 0);
-    special.imgNum = this.toStart;
-    // special.imgNum = 2;
-    specials.push(special);
+  //after windup timer runs out, a combat attack instance is made and stored in the combats array.
+  //sprite is changed to show attack.
+  this.startCombat = function() {
+    var attackChoosen = this.rAttack[this.toStart];
+    console.log(attackChoosen);
+    combat = new Combat(this, attackChoosen);
+    combat.imgNum = this.toStart;
+    combats.push(combat);
     if (this.toStart === 0) {
       this.spriteChange(1, this.gcd);
     } else if (this.toStart === 1) {
@@ -243,48 +235,24 @@ function Player(heroNumber, indexNum) {
     }
   }
 
-  //player shoots and updates the sprite to it's special img sprite
-  this.toAttack = function(attackNumber) {
-    var cost = this.powerCostCheck(attackNumber);
-    if (cost <= this.power && this.gcd === 0) {
-      this.windUp(attackNumber);
-      this.toStart = attackNumber;
-      this.gcd += this.attackSpeed + this.windUpTime;
-      this.power -= cost;
-      // special = new Special(this, 0, 0);
-      // special.img = 1
-      // specials.push(special);
-      // this.spriteChange(2, this.gcd);
+  //function is called when a player gets hit by a combat ranged attack and runs combat function.
+  // /This/ is the player that shot the attack.
+  // The dender will gain power from getting hit, a melee punch will generate power.
+  // Getting hit by an attack will delay your next attack.
+  // Add time to the isHurt timer to display getting attacked.
+  this.causeDmg = function(combatHit, defender) {
+    defender.hp -= this.combat(combatHit.damage, defender);
+    defender.power += defender.powerRegen / 3;
+    if (combatHit.isMelee === 1) {
+      this.power += this.powerRegen;
     }
-  }
-
-  //Player third attack
-  this.fancy = function() {
-    var cost = this.powerCostCheck(1);
-    if (cost <= this.power && this.gcd === 0) {
-      this.windUp(1);
-      this.toStart = 1;
-      this.gcd += this.attackSpeed + this.windUpTime;
-      this.power -= cost;
-      // special = new Special(this, 1, 0);
-      // special.imgNum = 2;
-      // specials.push(special);
-      // this.spriteChange(9, this.gcd);
-    }
-  }
-
-
-  //function is called when a player gets hit by a special ranged attack and runs combat function. /This/ is the player that shot the attack.
-  this.special = function(specialHit, defender) {
-    console.log(specialHit.damage + ' ' + defender.name);
-    defender.hp -= this.combat(specialHit.damage, defender);
-    defender.power += this.powerRegen / 5;
     defender.power = Math.ceil(constrain(defender.power, 0, defender.powerMax));
-    defender.gcd = this.attackSpeed / 2;
+    defender.gcd += this.attackSpeed / 2;
     defender.isHit(defender.hurtReflex);
   };
 
-  //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls. /This/ is the player that attacks.
+  //Total combat function that runs the attackers attack, and the player who is hit defense and blocking rolls.
+  // /This/ is the player that attacks.
   this.combat = function(baseDam, defender) {
     let dmg;
     var dmgAtt = this.damageRoll(baseDam);
@@ -297,6 +265,7 @@ function Player(heroNumber, indexNum) {
 
 
   //function reduces damage taken if player is blocking
+  //If the player is blocking it reduces 30-80% of the dmg depending on stats.
   this.blockingRoll = function(baseDam, defender) {
     if (defender.charBlocking) {
       return baseDam / (defender.block * 75 );
@@ -304,17 +273,6 @@ function Player(heroNumber, indexNum) {
       return 1;
     }
   }
-
-  //updates the player value if they are blocking or not.
-  this.isBlocking = function(num) {
-    if (this.gcd <= 0) {
-      this.charBlocking = true;
-      this.charBlockTime = 30;
-      this.gcd = 30;
-      this.spriteChange(3, 30);
-    }
-  }
-
 
   //function computes the attack damage
   this.damageRoll = function(baseDam) {
@@ -332,7 +290,19 @@ function Player(heroNumber, indexNum) {
     this.hurtTime = time;
   }
 
-  //this is in the draw function. Updates the x coord of the player
+  //updates the player value if they are blocking or not.
+  this.isBlocking = function(num) {
+    if (this.gcd <= 0) {
+      this.charBlocking = true;
+      this.charBlockTime = 30;
+      this.gcd = 30;
+      this.spriteChange(3, 30);
+    }
+  }
+
+  //this is in the draw function in sketch. Updates the x coord of the player.
+  //Checks the see if player is near the edge of the screen or colliding with another
+  //player. Then properly restricts movement based on collision.
   this.move = function() {
     var borders = [];
     borders = this.edges();
@@ -353,24 +323,27 @@ function Player(heroNumber, indexNum) {
     }
   }
 
-  //checks to see if this player has something collided with it. Pass in args of the thing to check.
+  //checks to see if an x-position is off the screen
+  this.edges = function() {
+    var leftright = [];
+    leftright[0] = this.x < 20;
+    leftright[1] = this.x > width - 20;
+    return leftright;
+  }
+
+  //checks to see if this player has something collided with it. Pass in args of the
+  // thing to check. Checks the distance between 2 points and check to see if that is
+  // less than the radius of one object plus the radius of another object.
   this.collide = function(x, y, r, buffer) {
     if (dist(this.x,this.y,x,y) < this.radius + r + buffer) {
       return true;
     }
   }
 
-  //move left and right
+  //move left and right. direction updated from keybindings.*
   this.moveLeftRight = function(direction) {
     // if (this.charBlocking === false) {
       this.direction = direction;
     // }
-  }
-
-  this.edges = function() {
-    var leftright = [];
-    leftright[0] = this.x < 20;
-    leftright[1] = this.x > width - 20;
-    return leftright;
   }
 }

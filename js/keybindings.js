@@ -36,7 +36,7 @@ function keyPressed() { //player1
     players[1].isBlocking(1);
   }
   else if (keyCode === UP_ARROW) {
-      players[1].punch();
+      players[1].toAttack(0);
     }
   else if (keyCode === 191) {
       players[1].toAttack(2);
