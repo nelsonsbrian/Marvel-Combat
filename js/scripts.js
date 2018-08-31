@@ -37,7 +37,7 @@ $(document).ready(function() {
   //Starts the game with selected characters
   $('#start').click(function(event) {
     event.preventDefault();
-    // $("#myAudio").trigger('play');
+    $("#myAudio").trigger('play');
     $('#selection').hide();
     $('#gamePlay').fadeIn();
     startGame();

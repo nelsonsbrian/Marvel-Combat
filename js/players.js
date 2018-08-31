@@ -131,8 +131,7 @@ function Player(heroNumber, indexNum) {
     }
 
 
-    //code to have players face opposite direction if they managed to get to the other side
-    //of their opponent.
+    //code to have players face opposite direction if they managed to get to the other side of their opponent.
     if (whichSide()) {
       translate(this.x + imgOff[0],this.y + imgOff[1]);
       scale(-1,1);
@@ -259,7 +258,12 @@ function Player(heroNumber, indexNum) {
     var dmgDef = this.defenseRoll(combatHit, defender);
     var block = this.blockingRoll(combatHit, defender);
     dmg = (dmgAtt - dmgDef) * block;
-    console.log("Damage: " + dmg + " Attack: " + dmgAtt + " Defense: " + dmgDef + " Block: " + block + " | base dam :" + combatHit.damage + " playerhit:" + defender + ' ' + this.name );
+    console.log("Final Damage: " + dmg
+    + " Attack: " + dmgAtt
+    + " Defense: " + dmgDef
+    + " Block: " + block
+    + " | base dam :" + combatHit.damage
+    + " playerhit:" + defender + ' ' + this.name );
     return dmg;
   }
 
