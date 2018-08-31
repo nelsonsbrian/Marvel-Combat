@@ -159,8 +159,10 @@ img {
 }
 
 #gameBoard {
+  margin: 20px 0;
   background: black;
   border: 40px solid black;
+  border-radius: 10px;
   text-align: center;
   /*display: flex;
   justify-content: center;*/
@@ -184,6 +186,18 @@ img {
 
 .btn:hover {
   background-image: none;
+}
+
+#keyMap {
+  background-color: rgba(255,255,255,.6);
+  border: 3px solid black;
+  border-radius: 10px;
+  height: 310px;
+  margin-bottom: 20px;
+}
+
+#keyMapRight {
+  text-align: right;
 }
 
 footer  {
