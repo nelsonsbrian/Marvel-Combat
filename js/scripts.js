@@ -48,4 +48,8 @@ $(document).ready(function() {
     document.location.reload();
     // gameReset();
   });
+  //Send back to first page from bio page
+  // $('#return').click(function() {
+  //   window.location.href='index.html';
+  // });
 });
