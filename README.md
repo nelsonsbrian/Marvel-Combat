@@ -11,10 +11,11 @@ An arcade style fighting game that uses Marvel super heroes as it's characters. 
 ### Specs
 
 Webpage Screenshot
-![Alt text](img/webpage.png?raw=true "Title")
+![Webpage](Webpage.png)
+
 
 Gameplay Screenshot
-![Alt text](img/action.png?raw=true "Title")
+![Gameplay](Action.png)
 
 Game and GamePlay
 
