@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 
 // user logic
 $(document).ready(function() {
-  $("body").append('<audio id="myAudio" controls>    <source src="../sound/background.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio>');
+  $("body").append('<audio id="myAudio" controls>    <source src="./sound/background.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio>');
   $("#myAudio").hide();
   //What happens when "play" button is clicked
   $('#play').click(function(event) {
