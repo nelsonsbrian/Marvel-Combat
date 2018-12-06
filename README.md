@@ -6,6 +6,8 @@
 
 ## Description
 
+Hosted: https://nelsonsbrian.github.io/Marvel-Combat/
+
 An arcade style fighting game that uses Marvel super heroes as it's characters. Play can choose their desired characters and face off against another player in an 'mortal-combat' style arcade game. Each hero has a basic punching attack and 2 other special attacks. The hero can move left and right and block incoming attacks in real-time. First player to knock the other player out, or whomever has the most hit points remaining at the end of the match is the winner.
 
 The game was made after 4 weeks of our Intro to Programming week at Epicodus. The 4 of us contributed to this project solely utilizing html, javascript, and css styling. We utilized P5 library for image manuipulation and the overall project was a pure demonstration of the concepts and techniques we learned only from coding for the past 4 weeks.
